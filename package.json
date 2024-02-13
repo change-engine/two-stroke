@@ -1,0 +1,61 @@
+{
+  "bin": {
+    "dev": "./bin/dev.mjs",
+    "format": "./bin/format.mjs",
+    "lint": "./bin/lint.mjs",
+    "test": "./bin/test.mjs",
+    "type-check": "./bin/type-check.mjs"
+  },
+  "dependencies": {
+    "@anatine/zod-openapi": "^2.2.3",
+    "@asteasolutions/zod-to-openapi": "^6.3.1",
+    "@cloudflare/workers-types": "^4.20240208.0",
+    "@sentry/cli": "^2.28.6",
+    "@typescript-eslint/eslint-plugin": "^7.0.1",
+    "@typescript-eslint/parser": "^7.0.1",
+    "@vitest/coverage-v8": "^1.2.2",
+    "eslint-config-prettier": "^9.1.0",
+    "eslint-config-two-stroke": "^1.0.0",
+    "eslint-config-typescript": "^3.0.0",
+    "jwk-subtle": "^1.0.6",
+    "miniflare": "^3.20240129.1",
+    "openapi-fetch": "^0.8.2",
+    "openapi-typescript": "^6.7.4",
+    "openapi3-ts": "^4.2.1",
+    "pbkdf-subtle": "^1.0.0",
+    "toml": "^3.0.0",
+    "toucan-js": "^3.3.1",
+    "zod": "^3.22.4"
+  },
+  "peerDependencies": {
+    "@sentry/cli": ">=2",
+    "eslint": ">=8",
+    "prettier": ">=3",
+    "typescript": ">=5",
+    "vitest": ">=1",
+    "wrangler": ">=3"
+  },
+  "description": "Simple Cloudflare Worker framework.",
+  "engines": {
+    "node": "^20.10.0"
+  },
+  "eslintConfig": {
+    "extends": [
+      "two-stroke"
+    ]
+  },
+  "license": "MIT",
+  "main": "src/index.ts",
+  "name": "two-stroke",
+  "packageManager": "yarn@4.1.0",
+  "type": "module",
+  "version": "1.0.0",
+  "devDependencies": {
+    "@types/eslint": "^8.56.2",
+    "@types/node": "^20.11.17",
+    "eslint": "^8.56.0",
+    "prettier": "^3.2.5",
+    "typescript": "^5.3.3",
+    "vitest": "^1.2.2"
+  }
+}
