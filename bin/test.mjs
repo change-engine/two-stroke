@@ -16,7 +16,10 @@ if (fs.existsSync("wrangler.toml")) {
   const types = await openapiTS(await consumers.json(request.body));
   fs.writeFileSync("test/api.d.ts", types);
 }
-await cmd(
-  "vitest --globals --no-file-parallelism --run --coverage",
-  process.argv.slice(2),
-);
+await cmd("vitest --globals --no-file-parallelism --coverage", [
+  ...(!process.argv.slice(2).includes("-w") &&
+  !process.argv.slice(2).includes("--watch")
+    ? ["--run"]
+    : []),
+  ...process.argv.slice(2),
+]);
