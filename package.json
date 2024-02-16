@@ -19,7 +19,7 @@
     "eslint-config-typescript": "^3.0.0",
     "jwk-subtle": "^1.0.6",
     "miniflare": "^3.20240129.1",
-    "openapi-fetch": "^0.8.2",
+    "openapi-fetch": "^0.9.0",
     "openapi-typescript": "^6.7.4",
     "openapi3-ts": "^4.2.1",
     "pbkdf-subtle": "^1.0.0",
