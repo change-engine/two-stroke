@@ -53,25 +53,6 @@ export const setupTests = async <Paths extends {}>(bindings: Env) => {
     miniflare,
     fetchMock,
     client,
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    testFetch(path: string, config: any) {
-      const contentType = config.body
-        ? config.headers["Content-Type"] ?? "application/json"
-        : null;
-      return fetch(`${url}${path}`, {
-        ...config,
-        headers: {
-          ...(config.body ? { "Content-Type": contentType } : {}),
-          ...(config.headers ?? {}),
-        },
-        body:
-          contentType === "application/json"
-            ? JSON.stringify(config.body)
-            : contentType === "application/x-www-form-urlencoded"
-              ? new URLSearchParams(config.body)
-              : null,
-      });
-    },
     async waitForQueue(trigger: () => Promise<void>) {
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
       const log: any = [];
