@@ -2704,11 +2704,11 @@ __metadata:
   linkType: hard
 
 "openapi3-ts@npm:^4.1.2, openapi3-ts@npm:^4.2.1":
-  version: 4.2.1
-  resolution: "openapi3-ts@npm:4.2.1"
+  version: 4.2.2
+  resolution: "openapi3-ts@npm:4.2.2"
   dependencies:
     yaml: "npm:^2.3.4"
-  checksum: 10c0/d320638ac917b07c0a12bd6f96134e3d719e9325108eedbd12c24302b7daf822846f5a8efdebb9ade2e643c58735bfe8cda4b31ab2ef6068e631f72e5f9626a1
+  checksum: 10c0/8569c0cecf12353d57d7cebe28d495a2b33a06f6f9ebb1b9c808490f9ea87e7e480c62ffb9c3632f78647b09ca722bbc39b36804e73cea1f8fc7626785a23b99
   languageName: node
   linkType: hard
 
