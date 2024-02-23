@@ -1,5 +1,6 @@
 {
   "bin": {
+    "deploy": "./bin/deploy.mjs",
     "dev": "./bin/dev.mjs",
     "format": "./bin/format.mjs",
     "lint": "./bin/lint.mjs",
