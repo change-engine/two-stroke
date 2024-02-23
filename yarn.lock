@@ -3432,6 +3432,7 @@ __metadata:
     vitest: ">=1"
     wrangler: ">=3"
   bin:
+    deploy: ./bin/deploy.mjs
     dev: ./bin/dev.mjs
     format: ./bin/format.mjs
     lint: ./bin/lint.mjs
