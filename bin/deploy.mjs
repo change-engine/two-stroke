@@ -1,5 +1,6 @@
 #!/usr/bin/env node
 "use strict";
+import fs from "fs";
 import { cmd } from "../src/cmd.mjs";
 import { basename } from "path";
 
