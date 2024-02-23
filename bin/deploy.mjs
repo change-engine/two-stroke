@@ -11,11 +11,11 @@ fs.writeFileSync("src/release.ts", `export default "${release}";`);
 
 await cmd(`wrangler secret:bulk /dev/stdin --env ${env}`);
 await cmd(
-  `sentry cli releases --org change-engine --project ${basename(process.cwd())} new ${release} --finalize`,
+  `sentry-cli releases --org change-engine --project ${basename(process.cwd())} new ${release} --finalize`,
 );
 
 await cmd(
-  `sentry cli releases --org change-engine --project ${basename(process.cwd())} set-commits ${release}`,
+  `sentry-cli releases --org change-engine --project ${basename(process.cwd())} set-commits ${release}`,
 );
 
 await cmd(`wrangler deploy --env ${env} --outdir dist`);
