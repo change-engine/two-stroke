@@ -21,5 +21,5 @@ await cmd(
 await cmd(`wrangler deploy --env ${env} --outdir dist`);
 
 await cmd(
-  `sentry-cli sourcemaps --org change-engine --project odometer upload --release="${release}" dist`,
+  `sentry-cli sourcemaps --org change-engine --project ${basename(process.cwd())} upload --release="${release}" dist`,
 );
