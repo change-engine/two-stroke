@@ -89,7 +89,11 @@ export function twoStroke<T extends Env>(title: string, release: string) {
                   sentry,
                 });
               else {
-                console.error(body.error, rawBody);
+                console.error({
+                  message: "Request body schema invalid",
+                  error: body.error,
+                  body: rawBody,
+                });
                 return new Response(JSON.stringify(body.error), {
                   status: 400,
                 });
@@ -107,7 +111,11 @@ export function twoStroke<T extends Env>(title: string, release: string) {
             }
             const output = route.output.safeParse(response.body);
             if (!output.success) {
-              console.error(output.error, response.body);
+              console.error({
+                message: "Response body schema invalid",
+                error: output.error,
+                body: response.body,
+              });
             }
             response.headers = response.headers ?? {};
             response.headers["Content-Type"] =
