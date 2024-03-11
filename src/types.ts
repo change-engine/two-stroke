@@ -1,29 +1,29 @@
 import { Toucan } from "toucan-js";
 import { ZodObject, ZodSchema, z } from "zod";
 export type Env = {
-  [k: string]: string | Queue | KVNamespace | R2Bucket | D1Database;
+  [k: string]: string | Queue | KVNamespace | R2Bucket | D1Database | Fetcher;
 };
-export type Route<T extends Env> =
+export type Route<T extends Env, A> =
   | {
-      auth: (c: { req: Request; env: T }) => unknown;
+      auth: (c: { req: Request; env: T }) => Promise<A>;
       method: "GET" | "DELETE";
       path: string;
       matcher: RegExp;
       output: ZodSchema;
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
-      handler: Handler<T, undefined, any, any, string>;
+      handler: Handler<T, undefined, any, A, string>;
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
       params?: ZodObject<any>;
     }
   | {
-      auth: (c: { req: Request; env: T }) => unknown;
+      auth: (c: { req: Request; env: T }) => Promise<A>;
       method: "POST" | "PUT";
       path: string;
       matcher: RegExp;
       input: ZodSchema;
       output: ZodSchema;
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
-      handler: Handler<T, any, any, any, string>;
+      handler: Handler<T, any, any, A, string>;
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
       params?: ZodObject<any>;
     };
@@ -47,8 +47,15 @@ export type Handler<
   searchParams: URLSearchParams;
   claims: A;
   sentry: Toucan;
-}) => Promise<{
-  body: z.infer<O>;
-  status?: number;
-  headers?: Record<string, string>;
-}>;
+}) => Promise<
+  | {
+      body: z.infer<O>;
+      status?: 200;
+      headers?: Record<string, string>;
+    }
+  | {
+      body?: { error: string };
+      status: number;
+      headers?: Record<string, string>;
+    }
+>;

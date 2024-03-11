@@ -7,6 +7,7 @@ import { Env, Route } from "./types";
 import { ZodIssue, ZodType, z } from "zod";
 
 const ZodErrorSchema: ZodType<{ issues: ZodIssue[] }> = z.object({
+  error: z.string(),
   issues: z.array(
     z.object({
       code: z.literal("invalid_literal"),
@@ -31,11 +32,11 @@ type Method =
 extendZodWithOpenApi(z);
 
 export const openAPI =
-  <T extends Env>(
+  <T extends Env, A>(
     title: string,
     release: string,
-    noAuth: () => void,
-    routes: Route<T>[],
+    noAuth: () => A,
+    routes: Route<T, A>[],
   ) =>
   async () => {
     const openAPIRegistry = new OpenAPIRegistry();
@@ -85,6 +86,16 @@ export const openAPI =
             content: {
               "application/json": {
                 schema: ZodErrorSchema,
+              },
+            },
+          },
+          500: {
+            description: "Invalid Request",
+            content: {
+              "application/json": {
+                schema: z.object({
+                  error: z.string(),
+                }),
               },
             },
           },

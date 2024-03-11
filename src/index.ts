@@ -16,12 +16,13 @@ export function twoStroke<T extends Env>(title: string, release: string) {
     env: T;
     sentry: Toucan;
   }) => Promise<void>;
-  const routes: Route<T>[] = [];
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  const routes: Route<T, any>[] = [];
   routes.push({
     auth: noAuth,
     method: "GET",
-    path: "/doc/",
-    matcher: /^\/doc\/$/,
+    path: "/doc",
+    matcher: /^\/doc$/,
     output: z.object({}),
     handler: openAPI(title, release, noAuth, routes),
   });
@@ -53,6 +54,17 @@ export function twoStroke<T extends Env>(title: string, release: string) {
         release,
       });
       try {
+        if (req.method == "OPTIONS") {
+          return new Response("", {
+            status: 204,
+            headers: {
+              "Access-Control-Allow-Origin": "*",
+              "Access-Control-Max-Age": "86400",
+              "Access-Control-Allow-Methods": "GET,PUT,POST,DELETE",
+              "Access-Control-Allow-Headers": "Authorization,Content-Type",
+            },
+          });
+        }
         const { pathname } = new URL(req.url);
         let response;
         for (const route of routes) {
@@ -68,6 +80,7 @@ export function twoStroke<T extends Env>(title: string, release: string) {
                 statusText: "Invalid Authorization",
                 headers: {
                   "WWW-Authenticate": "Bearer",
+                  "Access-Control-Allow-Origin": "*",
                 },
               });
             }
@@ -94,9 +107,18 @@ export function twoStroke<T extends Env>(title: string, release: string) {
                   error: body.error,
                   body: rawBody,
                 });
-                return new Response(JSON.stringify(body.error), {
-                  status: 400,
-                });
+                return new Response(
+                  JSON.stringify({
+                    error: "Request body schema invalid",
+                    ...body.error,
+                  }),
+                  {
+                    status: 400,
+                    headers: {
+                      "Access-Control-Allow-Origin": "*",
+                    },
+                  },
+                );
               }
             } else {
               response = await route.handler({
@@ -109,17 +131,21 @@ export function twoStroke<T extends Env>(title: string, release: string) {
                 sentry,
               });
             }
-            const output = route.output.safeParse(response.body);
-            if (!output.success) {
-              console.error({
-                message: "Response body schema invalid",
-                error: output.error,
-                body: response.body,
-              });
+            if (response.status === undefined || response.status == 200) {
+              const output = route.output.safeParse(response.body);
+              if (!output.success) {
+                console.error({
+                  message: "Response body schema invalid",
+                  error: output.error,
+                  body: response.body,
+                });
+              }
             }
             response.headers = response.headers ?? {};
             response.headers["Content-Type"] =
               response.headers["Content-Type"] ?? "application/json";
+            response.headers["Access-Control-Allow-Origin"] =
+              response.headers["Access-Control-Allow-Origin"] ?? "*";
             return new Response(
               response.headers["Content-Type"] == "application/json"
                 ? JSON.stringify(response.body)
@@ -128,13 +154,17 @@ export function twoStroke<T extends Env>(title: string, release: string) {
             );
           }
         }
-        return new Response("", { status: 404 });
+        return new Response("", {
+          status: 404,
+          headers: { "Access-Control-Allow-Origin": "*" },
+        });
       } catch (err) {
         console.warn(err);
         sentry.captureException(err);
         return new Response("", {
           status: 500,
           statusText: "Internal Server Error",
+          headers: { "Access-Control-Allow-Origin": "*" },
         });
       }
     },
@@ -258,7 +288,7 @@ export function twoStroke<T extends Env>(title: string, release: string) {
       };
     },
     put<I extends ZodSchema, O extends ZodSchema, A, P extends string>(
-      auth: Route<T>["auth"],
+      auth: Route<T, A>["auth"],
       path: P,
       input: I,
       output: O,
@@ -285,7 +315,7 @@ export function twoStroke<T extends Env>(title: string, release: string) {
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
       PP extends ZodObject<any> | undefined,
     >(
-      auth: Route<T>["auth"],
+      auth: Route<T, A>["auth"],
       path: P,
       input: I,
       output: O,
@@ -313,7 +343,7 @@ export function twoStroke<T extends Env>(title: string, release: string) {
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
       PP extends ZodObject<any> | undefined,
     >(
-      auth: Route<T>["auth"],
+      auth: Route<T, A>["auth"],
       path: P,
       output: O,
       handler: Handler<T, undefined, O, A, P>,
@@ -332,7 +362,7 @@ export function twoStroke<T extends Env>(title: string, release: string) {
       });
     },
     delete<O extends ZodSchema, A, P extends string>(
-      auth: Route<T>["auth"],
+      auth: Route<T, A>["auth"],
       path: P,
       output: O,
       handler: Handler<T, undefined, O, A, P>,

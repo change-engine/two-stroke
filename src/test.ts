@@ -5,6 +5,7 @@ import { Env } from "./types";
 import consumers from "stream/consumers";
 import { URLSearchParams } from "url";
 import createClient from "openapi-fetch";
+import { generateKeyPair, SignJWT, JWTPayload, exportJWK } from "jose";
 
 // eslint-disable-next-line @typescript-eslint/ban-types
 export const setupTests = async <Paths extends {}>(bindings: Env) => {
@@ -41,6 +42,14 @@ export const setupTests = async <Paths extends {}>(bindings: Env) => {
     d1Databases: (config.d1_databases ?? []).map(
       ({ binding }: { binding: string }) => binding,
     ),
+    serviceBindings: Object.fromEntries(
+      (config.services ?? []).map(
+        ({ binding, service }: { binding: string; service: string }) => [
+          binding,
+          service,
+        ],
+      ),
+    ),
     fetchMock,
   });
 
@@ -65,6 +74,50 @@ export const setupTests = async <Paths extends {}>(bindings: Env) => {
       await waitUntil(() => expect(log).contains("Queue batch finished"));
       console.log = orig;
     },
+    async fakeJWK(issuer: string, audience: string, claims: JWTPayload) {
+      const { publicKey, privateKey } = await generateKeyPair("RS256");
+      const jwk = await exportJWK(publicKey);
+      jwk.kid = "test";
+      jwk.alg = "RS256";
+      fetchMock
+        .get(bindings[issuer] as string)
+        .intercept({ method: "GET", path: "/.well-known/openid-configuration" })
+        .reply(
+          200,
+          {
+            jwks_uri: `${bindings[issuer]}/.well-known/jwks`,
+          },
+          {
+            headers: {
+              "Content-Type": "application/json",
+            },
+          },
+        )
+        .persist();
+      fetchMock
+        .get(bindings[issuer] as string)
+        .intercept({ method: "GET", path: "/.well-known/jwks" })
+        .reply(
+          200,
+          {
+            keys: [jwk],
+          },
+          {
+            headers: {
+              "Content-Type": "application/json",
+            },
+          },
+        )
+        .persist();
+      return await new SignJWT(claims)
+        .setProtectedHeader({ typ: "JWT", alg: "RS256", kid: jwk.kid })
+        .setIssuedAt()
+        .setNotBefore("5 minutes ago")
+        .setIssuer(bindings[issuer] as string)
+        .setAudience([bindings[audience] as string])
+        .setExpirationTime("1h")
+        .sign(privateKey);
+    },
   };
 };
 
@@ -83,11 +136,14 @@ export function recordRequest(
   cb: (data: any) => void,
   statusCode: number,
   data: string | object | Buffer | undefined,
+  responseOptions?: {
+    headers: Record<string, string | string[] | undefined>;
+  },
 ) {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   return ({ body }: any) => {
     consumers.json(body).then(cb);
-    return { statusCode, data };
+    return { statusCode, data, responseOptions };
   };
 }
 
@@ -96,6 +152,9 @@ export function recordFormRequest(
   cb: (data: any) => void,
   statusCode: number,
   data: string | object | Buffer | undefined,
+  responseOptions?: {
+    headers: Record<string, string | string[] | undefined>;
+  },
 ) {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   return ({ body }: any) => {
@@ -105,7 +164,7 @@ export function recordFormRequest(
       .then((data: any) =>
         cb(Object.fromEntries(new URLSearchParams(data).entries())),
       );
-    return { statusCode, data };
+    return { statusCode, data, responseOptions };
   };
 }
 
@@ -114,6 +173,9 @@ export function recordFirehoseRequest(
   cb: (data: any) => void,
   statusCode: number,
   data: string | object | Buffer | undefined,
+  responseOptions?: {
+    headers: Record<string, string | string[] | undefined>;
+  },
 ) {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   return ({ body }: any) => {
@@ -121,6 +183,6 @@ export function recordFirehoseRequest(
       .json(body)
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
       .then((data: any) => cb(JSON.parse(atob(data["Record"]["Data"]))));
-    return { statusCode, data };
+    return { statusCode, data, responseOptions };
   };
 }

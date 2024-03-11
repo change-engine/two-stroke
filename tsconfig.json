@@ -2,9 +2,7 @@
   "compilerOptions": {
     "esModuleInterop": true,
     "isolatedModules": true,
-    "lib": [
-      "ESNext"
-    ],
+    "lib": ["ESNext"],
     "module": "ESNext",
     "moduleResolution": "bundler",
     "noUncheckedIndexedAccess": true,
@@ -12,9 +10,6 @@
     "skipLibCheck": true,
     "strict": true,
     "target": "ESNext",
-    "types": [
-      "@cloudflare/workers-types",
-      "vitest/globals"
-    ]
+    "types": ["@cloudflare/workers-types", "vitest/globals"]
   }
 }
