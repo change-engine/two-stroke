@@ -1,7 +1,14 @@
 import { Toucan } from "toucan-js";
 import { ZodObject, ZodSchema, z } from "zod";
 export type Env = {
-  [k: string]: string | Queue | KVNamespace | R2Bucket | D1Database | Fetcher | Hyperdrive;
+  [k: string]:
+    | string
+    | Queue
+    | KVNamespace
+    | R2Bucket
+    | D1Database
+    | Fetcher
+    | Hyperdrive;
 };
 export type Route<T extends Env, A> =
   | {
