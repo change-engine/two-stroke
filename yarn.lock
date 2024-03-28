@@ -2259,10 +2259,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"jwk-subtle@npm:^1.0.6":
-  version: 1.0.6
-  resolution: "jwk-subtle@npm:1.0.6"
-  checksum: 10c0/196beb78761afccac4e683d6214cba1ec8da28c0ae8452975fbc194ac08d4488ab468596cdeb785ea4ddf3c25f81e51234e9103e72d53abc04495f83f92ae4a8
+"jwk-subtle@npm:^1.0.7":
+  version: 1.0.7
+  resolution: "jwk-subtle@npm:1.0.7"
+  checksum: 10c0/0415a15f891525046471d24d41c315e2923b774907f40ce3f75d4e061829774e5819792cf186d71106523f2e463947124c43b246d981286d4f8ac977847b8b4e
   languageName: node
   linkType: hard
 
@@ -3431,7 +3431,7 @@ __metadata:
     eslint-config-two-stroke: "npm:^1.0.0"
     eslint-config-typescript: "npm:^3.0.0"
     jose: "npm:^5.2.3"
-    jwk-subtle: "npm:^1.0.6"
+    jwk-subtle: "npm:^1.0.7"
     miniflare: "npm:^3.20240223.1"
     openapi-fetch: "npm:^0.9.3"
     openapi-typescript: "npm:^6.7.4"
