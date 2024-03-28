@@ -2,4 +2,4 @@
 "use strict";
 import { cmd } from "../src/cmd.mjs";
 
-await cmd("wrangler dev");
+cmd("wrangler dev");

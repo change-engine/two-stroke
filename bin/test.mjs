@@ -7,12 +7,12 @@ import openapiTS from "openapi-typescript";
 import { Miniflare } from "miniflare";
 
 if (fs.existsSync("wrangler.toml")) {
-  await cmd("wrangler deploy --dry-run --outdir=dist");
+  cmd("wrangler deploy --dry-run --outdir=dist");
   const miniflare = new Miniflare({
     modules: true,
     scriptPath: "dist/index.js",
   });
-  const request = await fetch(
+  const request = fetch(
     `${await miniflare.ready}doc`,
     { SENTRY_DSN: null, SENTRY_ENVIRONMENT: null },
     null,
@@ -21,7 +21,7 @@ if (fs.existsSync("wrangler.toml")) {
   await miniflare.dispose();
   fs.writeFileSync("test/api.d.ts", types);
 }
-await cmd("vitest --globals --no-file-parallelism", [
+cmd("vitest --globals --no-file-parallelism", [
   ...(!process.argv.slice(2).includes("-w") &&
   !process.argv.slice(2).includes("--watch")
     ? ["--run"]

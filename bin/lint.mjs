@@ -2,5 +2,5 @@
 "use strict";
 import { cmd } from "../src/cmd.mjs";
 
-await cmd("eslint --max-warnings=0 src");
-await cmd("prettier --check . !tsconfig.json !test/api.d.ts");
+cmd("eslint --max-warnings=0 src");
+cmd("prettier --check . !tsconfig.json !test/api.d.ts");

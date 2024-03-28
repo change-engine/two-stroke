@@ -9,17 +9,17 @@ const release = process.argv[3];
 
 fs.writeFileSync("src/release.ts", `export default "${release}";`);
 
-await cmd(`wrangler secret:bulk /dev/stdin --env ${env}`);
-await cmd(
+cmd(`wrangler secret:bulk /dev/stdin --env ${env}`);
+cmd(
   `sentry-cli releases --org change-engine --project ${basename(process.cwd())} new ${release} --finalize`,
 );
 
-await cmd(
+cmd(
   `sentry-cli releases --org change-engine --project ${basename(process.cwd())} set-commits ${release}`,
 );
 
-await cmd(`wrangler deploy --env ${env} --outdir dist`);
+cmd(`wrangler deploy --env ${env} --outdir dist`);
 
-await cmd(
+cmd(
   `sentry-cli sourcemaps --org change-engine --project ${basename(process.cwd())} upload --release="${release}" dist`,
 );
