@@ -12,7 +12,7 @@ if (fs.existsSync("wrangler.toml")) {
     modules: true,
     scriptPath: "dist/index.js",
   });
-  const request = fetch(
+  const request = await fetch(
     `${await miniflare.ready}doc`,
     { SENTRY_DSN: null, SENTRY_ENVIRONMENT: null },
     null,
