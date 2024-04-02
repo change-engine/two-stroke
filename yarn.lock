@@ -2722,11 +2722,11 @@ __metadata:
   linkType: hard
 
 "openapi3-ts@npm:^4.1.2, openapi3-ts@npm:^4.2.2":
-  version: 4.2.2
-  resolution: "openapi3-ts@npm:4.2.2"
+  version: 4.3.1
+  resolution: "openapi3-ts@npm:4.3.1"
   dependencies:
-    yaml: "npm:^2.3.4"
-  checksum: 10c0/8569c0cecf12353d57d7cebe28d495a2b33a06f6f9ebb1b9c808490f9ea87e7e480c62ffb9c3632f78647b09ca722bbc39b36804e73cea1f8fc7626785a23b99
+    yaml: "npm:^2.4.1"
+  checksum: 10c0/6d6860ad357eb694db044f09cfc68204b8df46ad8a8b33d584d110ee2a7acd9c92f102a25851cf528f5636352daddf1f82cb7b2fae4ad4c6641e0df02c566b45
   languageName: node
   linkType: hard
 
@@ -3797,10 +3797,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"yaml@npm:^2.3.4":
-  version: 2.3.4
-  resolution: "yaml@npm:2.3.4"
-  checksum: 10c0/cf03b68f8fef5e8516b0f0b54edaf2459f1648317fc6210391cf606d247e678b449382f4bd01f77392538429e306c7cba8ff46ff6b37cac4de9a76aff33bd9e1
+"yaml@npm:^2.4.1":
+  version: 2.4.1
+  resolution: "yaml@npm:2.4.1"
+  bin:
+    yaml: bin.mjs
+  checksum: 10c0/816057dbaea16a7dfb0b868ace930f143dece96bbb4c4fbb6f38aa389166f897240d9fa535dbfd6b1b0d9442416f4abcc698e63f82394d0c67b329aa6c2be576
   languageName: node
   linkType: hard
 
