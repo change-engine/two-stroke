@@ -9,7 +9,7 @@
   },
   "dependencies": {
     "@anatine/zod-openapi": "^2.2.3",
-    "@asteasolutions/zod-to-openapi": "^6.4.0",
+    "@asteasolutions/zod-to-openapi": "^7.0.0",
     "@cloudflare/workers-types": "^4.20240222.0",
     "@sentry/cli": "^2.30.0",
     "@typescript-eslint/eslint-plugin": "^7.1.1",

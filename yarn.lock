@@ -34,14 +34,14 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@asteasolutions/zod-to-openapi@npm:^6.4.0":
-  version: 6.4.0
-  resolution: "@asteasolutions/zod-to-openapi@npm:6.4.0"
+"@asteasolutions/zod-to-openapi@npm:^7.0.0":
+  version: 7.0.0
+  resolution: "@asteasolutions/zod-to-openapi@npm:7.0.0"
   dependencies:
     openapi3-ts: "npm:^4.1.2"
   peerDependencies:
     zod: ^3.20.2
-  checksum: 10c0/da875b18e5b5f730a955bd58c805e44aa69f3ea377c54a35a4c97b9b70f9133b03c309338d8bdf0f464e3606c0d2d3a2110923eadd8d05041847a899bc8f6ea3
+  checksum: 10c0/120499b6d997bd3fa21b4e6600f42d6b9201e2a85a7656b722a02c712d6a9fd7c474bf62ad31f76646fbd129d75331408ad3ed5c350c1436856ef306966a33e1
   languageName: node
   linkType: hard
 
@@ -3418,7 +3418,7 @@ __metadata:
   resolution: "two-stroke@workspace:."
   dependencies:
     "@anatine/zod-openapi": "npm:^2.2.3"
-    "@asteasolutions/zod-to-openapi": "npm:^6.4.0"
+    "@asteasolutions/zod-to-openapi": "npm:^7.0.0"
     "@cloudflare/workers-types": "npm:^4.20240222.0"
     "@sentry/cli": "npm:^2.30.0"
     "@types/eslint": "npm:^8.56.5"
