@@ -2434,8 +2434,8 @@ __metadata:
   linkType: hard
 
 "miniflare@npm:^3.20240223.1":
-  version: 3.20240405.0
-  resolution: "miniflare@npm:3.20240405.0"
+  version: 3.20240405.1
+  resolution: "miniflare@npm:3.20240405.1"
   dependencies:
     "@cspotcode/source-map-support": "npm:0.8.1"
     acorn: "npm:^8.8.0"
@@ -2451,7 +2451,7 @@ __metadata:
     zod: "npm:^3.20.6"
   bin:
     miniflare: bootstrap.js
-  checksum: 10c0/970f5cccd65fef7f76272949a6d03f473dab2d5d40c28200f1fb5df3634216c5089fdfcaa1067cdbf132a17282d29a81ee64a241a60a7c3fcf9ce6c3ff8e608c
+  checksum: 10c0/ceb724a3b82a7a669330ffe58864baeffb954a7589572c3933a1afc703d24b063b8fe0cd1ce454336f143ce41ff827abb82f8ed81c919d90dc4277b24670aace
   languageName: node
   linkType: hard
 
