@@ -16,7 +16,7 @@
     "@typescript-eslint/parser": "^7.7.0",
     "@vitest/coverage-v8": "^1.5.0",
     "eslint-config-prettier": "^9.1.0",
-    "eslint-config-two-stroke": "^1.0.0",
+    "eslint-config-two-stroke": "^1.0.1",
     "eslint-config-typescript": "^3.0.0",
     "jose": "^5.2.4",
     "jwk-subtle": "^1.0.7",

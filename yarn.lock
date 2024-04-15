@@ -793,7 +793,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@typescript-eslint/eslint-plugin@npm:^7.0.1, @typescript-eslint/eslint-plugin@npm:^7.7.0":
+"@typescript-eslint/eslint-plugin@npm:^7.7.0":
   version: 7.7.0
   resolution: "@typescript-eslint/eslint-plugin@npm:7.7.0"
   dependencies:
@@ -818,7 +818,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@typescript-eslint/parser@npm:^7.0.1, @typescript-eslint/parser@npm:^7.7.0":
+"@typescript-eslint/parser@npm:^7.7.0":
   version: 7.7.0
   resolution: "@typescript-eslint/parser@npm:7.7.0"
   dependencies:
@@ -1516,15 +1516,15 @@ __metadata:
   languageName: node
   linkType: hard
 
-"eslint-config-two-stroke@npm:^1.0.0":
-  version: 1.0.0
-  resolution: "eslint-config-two-stroke@npm:1.0.0"
+"eslint-config-two-stroke@npm:^1.0.1":
+  version: 1.0.1
+  resolution: "eslint-config-two-stroke@npm:1.0.1"
   dependencies:
-    "@typescript-eslint/eslint-plugin": "npm:^7.0.1"
-    "@typescript-eslint/parser": "npm:^7.0.1"
+    "@typescript-eslint/eslint-plugin": "npm:^7.7.0"
+    "@typescript-eslint/parser": "npm:^7.7.0"
     eslint-config-prettier: "npm:^9.1.0"
     eslint-config-typescript: "npm:^3.0.0"
-  checksum: 10c0/bd953e47b290924ce9bdde28702ccd035835f9f54bc7cc68c7fe9c11e200fe52d3d73db6976aa2aef2fe3a32b4f0d3e6553b5f800287ce12095c076a4ba481c5
+  checksum: 10c0/66a64d98da4e1af1c2b601ccfcc46aa6b77f69453c09c054dd6f033844f4d2fdb832fcf1d1bc0a2a267b493eaa1c43cd010bc4863ca9d60e3454e7b00779f9c0
   languageName: node
   linkType: hard
 
@@ -3433,7 +3433,7 @@ __metadata:
     "@vitest/coverage-v8": "npm:^1.5.0"
     eslint: "npm:^8.57.0"
     eslint-config-prettier: "npm:^9.1.0"
-    eslint-config-two-stroke: "npm:^1.0.0"
+    eslint-config-two-stroke: "npm:^1.0.1"
     eslint-config-typescript: "npm:^3.0.0"
     jose: "npm:^5.2.4"
     jwk-subtle: "npm:^1.0.7"
