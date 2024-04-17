@@ -62,7 +62,10 @@ export const setupTests = async <Paths extends {}>(bindings: Env) => {
     miniflare,
     fetchMock,
     client,
-    async waitForQueue(trigger: () => Promise<void>) {
+    async waitForQueue(
+      trigger: () => Promise<void>,
+      messages = ["Queue batch finished"]
+    ) {
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
       const log: any = [];
       const orig = console.log;
@@ -71,7 +74,7 @@ export const setupTests = async <Paths extends {}>(bindings: Env) => {
         log.push(message);
       };
       await trigger();
-      await waitUntil(() => expect(log).contains("Queue batch finished"));
+      await waitUntil(() => messages.every((line) => log.includes(line)));
       console.log = orig;
     },
     async fakeJWK(issuer: string, audience: string, claims: JWTPayload) {
