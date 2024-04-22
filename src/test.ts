@@ -25,32 +25,32 @@ export const setupTests = async <Paths extends {}>(bindings: Env) => {
       ...bindings,
     },
     queueConsumers: (config.queues?.consumers ?? []).map(
-      ({ queue }: { queue: string }) => queue
+      ({ queue }: { queue: string }) => queue,
     ),
     queueProducers: Object.fromEntries(
       (config.queues?.producers ?? []).map(
         ({ binding, queue }: { queue: string; binding: string }) => [
           binding,
           queue,
-        ]
-      )
+        ],
+      ),
     ),
     r2Buckets: (config.r2_buckets ?? []).map(
-      ({ binding }: { binding: string }) => binding
+      ({ binding }: { binding: string }) => binding,
     ),
     kvNamespaces: (config.kv_namespaces ?? []).map(
-      ({ binding }: { binding: string }) => binding
+      ({ binding }: { binding: string }) => binding,
     ),
     d1Databases: (config.d1_databases ?? []).map(
-      ({ binding }: { binding: string }) => binding
+      ({ binding }: { binding: string }) => binding,
     ),
     serviceBindings: Object.fromEntries(
       (config.services ?? []).map(
         ({ binding, service }: { binding: string; service: string }) => [
           binding,
           service,
-        ]
-      )
+        ],
+      ),
     ),
     fetchMock,
   });
@@ -94,8 +94,8 @@ export const setupTests = async <Paths extends {}>(bindings: Env) => {
           migration = migration.split("\n").slice(1).join(" ");
           await d1.exec(migration);
         }
-      }
-    )
+      },
+    ),
   );
 
   const client = createClient<Paths>({ baseUrl: url.toString() });
@@ -134,7 +134,7 @@ export const setupTests = async <Paths extends {}>(bindings: Env) => {
             headers: {
               "Content-Type": "application/json",
             },
-          }
+          },
         )
         .persist();
       fetchMock
@@ -149,7 +149,7 @@ export const setupTests = async <Paths extends {}>(bindings: Env) => {
             headers: {
               "Content-Type": "application/json",
             },
-          }
+          },
         )
         .persist();
       return await new SignJWT(claims)
@@ -181,7 +181,7 @@ export function recordRequest(
   data: string | object | Buffer | undefined,
   responseOptions?: {
     headers: Record<string, string | string[] | undefined>;
-  }
+  },
 ) {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   return ({ body }: any) => {
@@ -197,7 +197,7 @@ export function recordFormRequest(
   data: string | object | Buffer | undefined,
   responseOptions?: {
     headers: Record<string, string | string[] | undefined>;
-  }
+  },
 ) {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   return ({ body }: any) => {
@@ -205,7 +205,7 @@ export function recordFormRequest(
       .text(body)
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
       .then((data: any) =>
-        cb(Object.fromEntries(new URLSearchParams(data).entries()))
+        cb(Object.fromEntries(new URLSearchParams(data).entries())),
       );
     return { statusCode, data, responseOptions };
   };
@@ -218,7 +218,7 @@ export function recordFirehoseRequest(
   data: string | object | Buffer | undefined,
   responseOptions?: {
     headers: Record<string, string | string[] | undefined>;
-  }
+  },
 ) {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   return ({ body }: any) => {
