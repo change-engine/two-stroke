@@ -65,21 +65,29 @@ export const setupTests = async <Paths extends {}>(bindings: Env) => {
         const d1 = await miniflare.getD1Database(binding);
 
         const migrationsDir = "./migrations";
-        for (const migrationName of (await nodefs.readdir(migrationsDir)).sort(
-          (a, b) => {
-            const migrationNumberA = parseInt(a.split("_")[0]!);
-            const migrationNumberB = parseInt(b.split("_")[0]!);
-            if (migrationNumberA < migrationNumberB) {
-              return -1;
-            }
-            if (migrationNumberA > migrationNumberB) {
-              return 1;
-            }
+        let fileNames: string[] = [];
+        try {
+          fileNames = await nodefs.readdir(migrationsDir);
+        } catch (error) {
+          console.log("Error loading migrations", error);
+        }
 
-            // numbers must be equal
-            return 0;
+        if (fileNames.length === 0)
+          console.log("No migrations found in ./migrations");
+
+        for (const migrationName of fileNames.sort((a, b) => {
+          const migrationNumberA = parseInt(a.split("_")[0]!);
+          const migrationNumberB = parseInt(b.split("_")[0]!);
+          if (migrationNumberA < migrationNumberB) {
+            return -1;
           }
-        )) {
+          if (migrationNumberA > migrationNumberB) {
+            return 1;
+          }
+
+          // numbers must be equal
+          return 0;
+        })) {
           const migrationPath = path.join(migrationsDir, migrationName);
           let migration = await nodefs.readFile(migrationPath, "utf8");
           // Remove migration comment
