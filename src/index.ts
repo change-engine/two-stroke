@@ -380,3 +380,29 @@ export function twoStroke<T extends Env>(title: string, release: string) {
     },
   };
 }
+
+type AddToQueueConfig = QueueSendOptions & {
+  retries?: number;
+  backoffFactor?: number;
+};
+
+export async function addToQueue<T>(
+  queue: Queue<T>,
+  message: T,
+  config: AddToQueueConfig = {}
+) {
+  const { retries, backoffFactor, ...options } = config;
+
+  for (let i = 0; i < (retries ?? 5); i++) {
+    try {
+      await queue.send(message, options);
+      return;
+    } catch (err) {
+      const backoff = (backoffFactor ?? 2) ** i;
+      console.log(`Error adding to queue: ${err}`);
+      console.log(`Retrying in ${backoff} seconds`);
+      await new Promise((resolve) => setTimeout(resolve, backoff * 1000));
+    }
+  }
+  throw new Error("Failed to add to queue");
+}
