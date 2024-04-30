@@ -3,8 +3,9 @@ import { ZodObject, ZodSchema, z } from "zod";
 import { verify as pbkdfVerify } from "pbkdf-subtle";
 import { verify as jwkVerify } from "jwk-subtle";
 import { Env, Handler, Route } from "./types";
-import { openAPI } from "./openAPI";
+import { openAPI } from "./open-api";
 
+// eslint-disable-next-line @typescript-eslint/require-await
 const noAuth = async () => null;
 
 const escapeRegex = (str: string) =>
@@ -54,7 +55,7 @@ export function twoStroke<T extends Env>(title: string, release: string) {
         release,
       });
       try {
-        if (req.method == "OPTIONS") {
+        if (req.method === "OPTIONS") {
           return new Response("", {
             status: 204,
             headers: {
@@ -72,6 +73,7 @@ export function twoStroke<T extends Env>(title: string, release: string) {
             const params = pathname.match(route.matcher)?.groups ?? {};
             let claims;
             try {
+              // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
               claims = await route.auth({ req, env });
             } catch (err) {
               console.warn(err);
@@ -95,7 +97,9 @@ export function twoStroke<T extends Env>(title: string, release: string) {
                 response = await route.handler({
                   req,
                   env,
+                  // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
                   body: body.data,
+                  // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
                   claims,
                   params,
                   searchParams: new URL(req.url).searchParams,
@@ -124,6 +128,7 @@ export function twoStroke<T extends Env>(title: string, release: string) {
               response = await route.handler({
                 req,
                 env,
+                // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
                 claims,
                 body: undefined,
                 params,
@@ -131,12 +136,13 @@ export function twoStroke<T extends Env>(title: string, release: string) {
                 sentry,
               });
             }
-            if (response.status === undefined || response.status == 200) {
+            if (response.status === undefined || response.status === 200) {
               const output = route.output.safeParse(response.body);
               if (!output.success) {
                 console.error({
                   message: "Response body schema invalid",
                   error: output.error,
+                  // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
                   body: response.body,
                 });
               }
@@ -147,7 +153,8 @@ export function twoStroke<T extends Env>(title: string, release: string) {
             response.headers["Access-Control-Allow-Origin"] =
               response.headers["Access-Control-Allow-Origin"] ?? "*";
             return new Response(
-              response.headers["Content-Type"] == "application/json"
+              // eslint-disable-next-line @typescript-eslint/no-unsafe-argument
+              response.headers["Content-Type"] === "application/json"
                 ? JSON.stringify(response.body)
                 : response.body,
               response,
@@ -160,6 +167,7 @@ export function twoStroke<T extends Env>(title: string, release: string) {
         });
       } catch (err) {
         console.warn(err);
+        // eslint-disable-next-line deprecation/deprecation
         sentry.captureException(err);
         return new Response("", {
           status: 500,
@@ -255,7 +263,7 @@ export function twoStroke<T extends Env>(title: string, release: string) {
         const [scheme, token] = (req.headers.get("Authorization") ?? " ").split(
           " ",
         );
-        if (scheme == "Bearer") {
+        if (scheme === "Bearer") {
           const claims = await jwkVerify<J>(
             token ?? "",
             env[k] as string,
@@ -389,7 +397,7 @@ type AddToQueueConfig = QueueSendOptions & {
 export async function addToQueue<T>(
   queue: Queue<T>,
   message: T,
-  config: AddToQueueConfig = {}
+  config: AddToQueueConfig = {},
 ) {
   const { retries, backoffFactor, ...options } = config;
 
@@ -399,6 +407,7 @@ export async function addToQueue<T>(
       return;
     } catch (err) {
       const backoff = (backoffFactor ?? 2) ** i;
+      // eslint-disable-next-line @typescript-eslint/restrict-template-expressions
       console.log(`Error adding to queue: ${err}`);
       console.log(`Retrying in ${backoff} seconds`);
       await new Promise((resolve) => setTimeout(resolve, backoff * 1000));

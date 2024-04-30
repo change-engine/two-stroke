@@ -38,6 +38,7 @@ export const openAPI =
     noAuth: () => A,
     routes: Route<T, A>[],
   ) =>
+  // eslint-disable-next-line @typescript-eslint/require-await
   async () => {
     const openAPIRegistry = new OpenAPIRegistry();
     openAPIRegistry.registerComponent("securitySchemes", "auth", {

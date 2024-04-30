@@ -14,6 +14,7 @@ export const setupTests = async <Paths extends {}>(bindings: Env) => {
   const fetchMock = createFetchMock();
   fetchMock.disableNetConnect();
 
+  // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
   const config = toml.parse(fs.readFileSync("wrangler.toml", "utf8"));
 
   const miniflare = new Miniflare({
@@ -24,10 +25,12 @@ export const setupTests = async <Paths extends {}>(bindings: Env) => {
         "djAxlhzT1IU9QIP3UKdipECQPAGGoPQK86/GnTBcbHLtPC3ni6JkTQ/iIeF0KG0y1CZ+J+9W",
       ...bindings,
     },
+    // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment, @typescript-eslint/no-unsafe-call, @typescript-eslint/no-unsafe-member-access
     queueConsumers: (config.queues?.consumers ?? []).map(
       ({ queue }: { queue: string }) => queue,
     ),
     queueProducers: Object.fromEntries(
+      // eslint-disable-next-line @typescript-eslint/no-unsafe-argument, @typescript-eslint/no-unsafe-call, @typescript-eslint/no-unsafe-member-access
       (config.queues?.producers ?? []).map(
         ({ binding, queue }: { queue: string; binding: string }) => [
           binding,
@@ -35,16 +38,20 @@ export const setupTests = async <Paths extends {}>(bindings: Env) => {
         ],
       ),
     ),
+    // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment, @typescript-eslint/no-unsafe-call, @typescript-eslint/no-unsafe-member-access
     r2Buckets: (config.r2_buckets ?? []).map(
       ({ binding }: { binding: string }) => binding,
     ),
+    // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment, @typescript-eslint/no-unsafe-call, @typescript-eslint/no-unsafe-member-access
     kvNamespaces: (config.kv_namespaces ?? []).map(
       ({ binding }: { binding: string }) => binding,
     ),
+    // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment, @typescript-eslint/no-unsafe-call, @typescript-eslint/no-unsafe-member-access
     d1Databases: (config.d1_databases ?? []).map(
       ({ binding }: { binding: string }) => binding,
     ),
     serviceBindings: Object.fromEntries(
+      // eslint-disable-next-line @typescript-eslint/no-unsafe-argument, @typescript-eslint/no-unsafe-call, @typescript-eslint/no-unsafe-member-access
       (config.services ?? []).map(
         ({ binding, service }: { binding: string; service: string }) => [
           binding,
@@ -60,6 +67,7 @@ export const setupTests = async <Paths extends {}>(bindings: Env) => {
   // Hack until miniflare supports auto running D1 migrations.
   // Note: Each migration file can contain only a single statement.
   await Promise.all(
+    // eslint-disable-next-line @typescript-eslint/no-unsafe-call, @typescript-eslint/no-unsafe-member-access
     (config.d1_databases ?? []).map(
       async ({ binding }: { binding: string }) => {
         const d1 = await miniflare.getD1Database(binding);
@@ -111,6 +119,7 @@ export const setupTests = async <Paths extends {}>(bindings: Env) => {
       const orig = console.log;
       console.log = function (message) {
         orig(message);
+        // eslint-disable-next-line @typescript-eslint/no-unsafe-call, @typescript-eslint/no-unsafe-member-access
         log.push(message);
       };
       await trigger();
@@ -128,6 +137,7 @@ export const setupTests = async <Paths extends {}>(bindings: Env) => {
         .reply(
           200,
           {
+            // eslint-disable-next-line @typescript-eslint/restrict-template-expressions
             jwks_uri: `${bindings[issuer]}/.well-known/jwks`,
           },
           {
@@ -185,7 +195,8 @@ export function recordRequest(
 ) {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   return ({ body }: any) => {
-    consumers.json(body).then(cb);
+    // eslint-disable-next-line @typescript-eslint/no-unsafe-argument
+    void consumers.json(body).then(cb);
     return { statusCode, data, responseOptions };
   };
 }
@@ -201,10 +212,12 @@ export function recordFormRequest(
 ) {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   return ({ body }: any) => {
-    consumers
+    void consumers
+      // eslint-disable-next-line @typescript-eslint/no-unsafe-argument
       .text(body)
-      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any, @typescript-eslint/no-shadow
       .then((data: any) =>
+        // eslint-disable-next-line @typescript-eslint/no-unsafe-argument
         cb(Object.fromEntries(new URLSearchParams(data).entries())),
       );
     return { statusCode, data, responseOptions };
@@ -222,9 +235,10 @@ export function recordFirehoseRequest(
 ) {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   return ({ body }: any) => {
-    consumers
+    void consumers
+      // eslint-disable-next-line @typescript-eslint/no-unsafe-argument
       .json(body)
-      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any, @typescript-eslint/no-shadow, @typescript-eslint/no-unsafe-argument, @typescript-eslint/no-unsafe-member-access
       .then((data: any) => cb(JSON.parse(atob(data["Record"]["Data"]))));
     return { statusCode, data, responseOptions };
   };
