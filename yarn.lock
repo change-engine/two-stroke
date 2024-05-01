@@ -932,7 +932,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@typescript-eslint/utils@npm:7.8.0, @typescript-eslint/utils@npm:^7.7.1":
+"@typescript-eslint/utils@npm:7.8.0, @typescript-eslint/utils@npm:^7.4.0":
   version: 7.8.0
   resolution: "@typescript-eslint/utils@npm:7.8.0"
   dependencies:
@@ -1586,9 +1586,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"eslint-config-two-stroke@npm:^1.0.4":
-  version: 1.0.4
-  resolution: "eslint-config-two-stroke@npm:1.0.4"
+"eslint-config-two-stroke@npm:^1.0.5":
+  version: 1.0.5
+  resolution: "eslint-config-two-stroke@npm:1.0.5"
   dependencies:
     "@typescript-eslint/eslint-plugin": "npm:^7.7.0"
     "@typescript-eslint/parser": "npm:^7.7.0"
@@ -1598,8 +1598,8 @@ __metadata:
     eslint-plugin-filenames: "npm:^1.3.2"
     eslint-plugin-node: "npm:^11.1.0"
     eslint-plugin-prettier: "npm:^5.1.3"
-    eslint-plugin-vitest: "npm:^0.5.4"
-  checksum: 10c0/7f4eb3c624569f7792f4f2d41765c3bcc373cf1624475e021ee91251da7c47471212fba3a4ab3c6be5d3ff29d1db607d88de12624b244b3e9d019f683e97683b
+    eslint-plugin-vitest: "npm:^0.4.1"
+  checksum: 10c0/0d568b53cd7bca58a46d1ac397e538bbfdd045f3fbc9db1a592d040096822574f019bcb217b5beaa30af18418c2426085d97598b0f8267eb6f98ed76b2f2c39d
   languageName: node
   linkType: hard
 
@@ -1691,20 +1691,20 @@ __metadata:
   languageName: node
   linkType: hard
 
-"eslint-plugin-vitest@npm:^0.5.4":
-  version: 0.5.4
-  resolution: "eslint-plugin-vitest@npm:0.5.4"
+"eslint-plugin-vitest@npm:^0.4.1":
+  version: 0.4.1
+  resolution: "eslint-plugin-vitest@npm:0.4.1"
   dependencies:
-    "@typescript-eslint/utils": "npm:^7.7.1"
+    "@typescript-eslint/utils": "npm:^7.4.0"
   peerDependencies:
-    eslint: ^8.57.0 || ^9.0.0
+    eslint: ">=8.0.0"
     vitest: "*"
   peerDependenciesMeta:
     "@typescript-eslint/eslint-plugin":
       optional: true
     vitest:
       optional: true
-  checksum: 10c0/b55cca2fee39e46fd9504f8fc6dbf790c4a63f2f4b77c013857954f9d6b5f5d3c4370314cba03367f34f40783d49a81763c0c16fd4e9689b28164569f2354591
+  checksum: 10c0/d06a7efec259778186526fa3bcf94af1433c145a0388bd6f6f9d9e86e918f9ade906c7c49000252a61ff0d45f44525428e9729c074cb94ce0a7d768f0c990a76
   languageName: node
   linkType: hard
 
@@ -3779,7 +3779,7 @@ __metadata:
     "@vitest/coverage-v8": "npm:^1.5.3"
     eslint: "npm:^8.57.0"
     eslint-config-prettier: "npm:^9.1.0"
-    eslint-config-two-stroke: "npm:^1.0.4"
+    eslint-config-two-stroke: "npm:^1.0.5"
     eslint-config-typescript: "npm:^3.0.0"
     jose: "npm:^5.2.4"
     jwk-subtle: "npm:^1.0.7"
