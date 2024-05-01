@@ -16,7 +16,7 @@
     "@typescript-eslint/parser": "^7.8.0",
     "@vitest/coverage-v8": "^1.5.3",
     "eslint-config-prettier": "^9.1.0",
-    "eslint-config-two-stroke": "^1.0.5",
+    "eslint-config-two-stroke": "^1.0.6",
     "eslint-config-typescript": "^3.0.0",
     "jose": "^5.2.4",
     "jwk-subtle": "^1.0.7",
@@ -51,7 +51,7 @@
   "name": "two-stroke",
   "packageManager": "yarn@4.1.0",
   "type": "module",
-  "version": "1.0.20",
+  "version": "1.0.21",
   "devDependencies": {
     "@types/eslint": "^8.56.10",
     "@types/node": "^20.12.7",

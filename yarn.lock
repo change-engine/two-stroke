@@ -1586,9 +1586,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"eslint-config-two-stroke@npm:^1.0.5":
-  version: 1.0.5
-  resolution: "eslint-config-two-stroke@npm:1.0.5"
+"eslint-config-two-stroke@npm:^1.0.6":
+  version: 1.0.6
+  resolution: "eslint-config-two-stroke@npm:1.0.6"
   dependencies:
     "@typescript-eslint/eslint-plugin": "npm:^7.7.0"
     "@typescript-eslint/parser": "npm:^7.7.0"
@@ -1599,7 +1599,7 @@ __metadata:
     eslint-plugin-node: "npm:^11.1.0"
     eslint-plugin-prettier: "npm:^5.1.3"
     eslint-plugin-vitest: "npm:^0.4.1"
-  checksum: 10c0/0d568b53cd7bca58a46d1ac397e538bbfdd045f3fbc9db1a592d040096822574f019bcb217b5beaa30af18418c2426085d97598b0f8267eb6f98ed76b2f2c39d
+  checksum: 10c0/1d31c21d994e2579cdbcf3bd6da5b46625c64bb631a71079c9027707080ce1fc893d0f746ea69e7641cd7a41a28db81e541353091e00a80653f4a8c83b36ce34
   languageName: node
   linkType: hard
 
@@ -3779,7 +3779,7 @@ __metadata:
     "@vitest/coverage-v8": "npm:^1.5.3"
     eslint: "npm:^8.57.0"
     eslint-config-prettier: "npm:^9.1.0"
-    eslint-config-two-stroke: "npm:^1.0.5"
+    eslint-config-two-stroke: "npm:^1.0.6"
     eslint-config-typescript: "npm:^3.0.0"
     jose: "npm:^5.2.4"
     jwk-subtle: "npm:^1.0.7"
