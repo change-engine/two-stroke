@@ -678,7 +678,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@sentry/cli@npm:^2.31.0":
+"@sentry/cli@npm:^2.31.1":
   version: 2.31.1
   resolution: "@sentry/cli@npm:2.31.1"
   dependencies:
@@ -932,7 +932,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@typescript-eslint/utils@npm:7.8.0":
+"@typescript-eslint/utils@npm:7.8.0, @typescript-eslint/utils@npm:^7.7.1":
   version: 7.8.0
   resolution: "@typescript-eslint/utils@npm:7.8.0"
   dependencies:
@@ -1586,9 +1586,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"eslint-config-two-stroke@npm:^1.0.2":
-  version: 1.0.2
-  resolution: "eslint-config-two-stroke@npm:1.0.2"
+"eslint-config-two-stroke@npm:^1.0.4":
+  version: 1.0.4
+  resolution: "eslint-config-two-stroke@npm:1.0.4"
   dependencies:
     "@typescript-eslint/eslint-plugin": "npm:^7.7.0"
     "@typescript-eslint/parser": "npm:^7.7.0"
@@ -1598,7 +1598,8 @@ __metadata:
     eslint-plugin-filenames: "npm:^1.3.2"
     eslint-plugin-node: "npm:^11.1.0"
     eslint-plugin-prettier: "npm:^5.1.3"
-  checksum: 10c0/bf00f32dfc4905576091f3d411b021c6ed9202df0725aa18acba9210c3b62f9cf75c893263225cd7bad436c61e19ad5a67ef71833666929249661e84ee2036c7
+    eslint-plugin-vitest: "npm:^0.5.4"
+  checksum: 10c0/7f4eb3c624569f7792f4f2d41765c3bcc373cf1624475e021ee91251da7c47471212fba3a4ab3c6be5d3ff29d1db607d88de12624b244b3e9d019f683e97683b
   languageName: node
   linkType: hard
 
@@ -1687,6 +1688,23 @@ __metadata:
     eslint-config-prettier:
       optional: true
   checksum: 10c0/f45d5fc1fcfec6b0cf038a7a65ddd10a25df4fe3f9e1f6b7f0d5100e66f046a26a2492e69ee765dddf461b93c114cf2e1eb18d4970aafa6f385448985c136e09
+  languageName: node
+  linkType: hard
+
+"eslint-plugin-vitest@npm:^0.5.4":
+  version: 0.5.4
+  resolution: "eslint-plugin-vitest@npm:0.5.4"
+  dependencies:
+    "@typescript-eslint/utils": "npm:^7.7.1"
+  peerDependencies:
+    eslint: ^8.57.0 || ^9.0.0
+    vitest: "*"
+  peerDependenciesMeta:
+    "@typescript-eslint/eslint-plugin":
+      optional: true
+    vitest:
+      optional: true
+  checksum: 10c0/b55cca2fee39e46fd9504f8fc6dbf790c4a63f2f4b77c013857954f9d6b5f5d3c4370314cba03367f34f40783d49a81763c0c16fd4e9689b28164569f2354591
   languageName: node
   linkType: hard
 
@@ -3753,7 +3771,7 @@ __metadata:
     "@anatine/zod-openapi": "npm:^2.2.5"
     "@asteasolutions/zod-to-openapi": "npm:^7.0.0"
     "@cloudflare/workers-types": "npm:^4.20240423.0"
-    "@sentry/cli": "npm:^2.31.0"
+    "@sentry/cli": "npm:^2.31.1"
     "@types/eslint": "npm:^8.56.10"
     "@types/node": "npm:^20.12.7"
     "@typescript-eslint/eslint-plugin": "npm:^7.8.0"
@@ -3761,7 +3779,7 @@ __metadata:
     "@vitest/coverage-v8": "npm:^1.5.3"
     eslint: "npm:^8.57.0"
     eslint-config-prettier: "npm:^9.1.0"
-    eslint-config-two-stroke: "npm:^1.0.2"
+    eslint-config-two-stroke: "npm:^1.0.4"
     eslint-config-typescript: "npm:^3.0.0"
     jose: "npm:^5.2.4"
     jwk-subtle: "npm:^1.0.7"
