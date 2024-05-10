@@ -37,7 +37,7 @@ export const setupTests = async <Paths extends {}>(bindings: Env) => {
           queue,
         ],
       ),
-    ),
+    ) as Record<string, string>,
     // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment, @typescript-eslint/no-unsafe-call, @typescript-eslint/no-unsafe-member-access
     r2Buckets: (config.r2_buckets ?? []).map(
       ({ binding }: { binding: string }) => binding,
