@@ -14,8 +14,16 @@ export const setupTests = async <Paths extends {}>(bindings: Env) => {
   const fetchMock = createFetchMock();
   fetchMock.disableNetConnect();
 
-  // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
-  const config = toml.parse(fs.readFileSync("wrangler.toml", "utf8"));
+  const config = toml.parse(fs.readFileSync("wrangler.toml", "utf8")) as {
+    queues?: {
+      consumers?: { queue: string }[];
+      producers?: { queue: string; binding: string }[];
+    };
+    r2_buckets?: { binding: string }[];
+    kv_namespaces?: { binding: string }[];
+    d1_databases?: { binding: string }[];
+    services?: { binding: string; service: string }[];
+  };
 
   const miniflare = new Miniflare({
     modules: true,
@@ -25,39 +33,18 @@ export const setupTests = async <Paths extends {}>(bindings: Env) => {
         "djAxlhzT1IU9QIP3UKdipECQPAGGoPQK86/GnTBcbHLtPC3ni6JkTQ/iIeF0KG0y1CZ+J+9W",
       ...bindings,
     },
-    // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment, @typescript-eslint/no-unsafe-call, @typescript-eslint/no-unsafe-member-access
-    queueConsumers: (config.queues?.consumers ?? []).map(
-      ({ queue }: { queue: string }) => queue,
-    ),
+    queueConsumers: (config.queues?.consumers ?? []).map(({ queue }) => queue),
     queueProducers: Object.fromEntries(
-      // eslint-disable-next-line @typescript-eslint/no-unsafe-argument, @typescript-eslint/no-unsafe-call, @typescript-eslint/no-unsafe-member-access
-      (config.queues?.producers ?? []).map(
-        ({ binding, queue }: { queue: string; binding: string }) => [
-          binding,
-          queue,
-        ],
-      ),
+      (config.queues?.producers ?? []).map(({ binding, queue }) => [
+        binding,
+        queue,
+      ]),
     ) as Record<string, string>,
-    // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment, @typescript-eslint/no-unsafe-call, @typescript-eslint/no-unsafe-member-access
-    r2Buckets: (config.r2_buckets ?? []).map(
-      ({ binding }: { binding: string }) => binding,
-    ),
-    // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment, @typescript-eslint/no-unsafe-call, @typescript-eslint/no-unsafe-member-access
-    kvNamespaces: (config.kv_namespaces ?? []).map(
-      ({ binding }: { binding: string }) => binding,
-    ),
-    // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment, @typescript-eslint/no-unsafe-call, @typescript-eslint/no-unsafe-member-access
-    d1Databases: (config.d1_databases ?? []).map(
-      ({ binding }: { binding: string }) => binding,
-    ),
+    r2Buckets: (config.r2_buckets ?? []).map(({ binding }) => binding),
+    kvNamespaces: (config.kv_namespaces ?? []).map(({ binding }) => binding),
+    d1Databases: (config.d1_databases ?? []).map(({ binding }) => binding),
     serviceBindings: Object.fromEntries(
-      // eslint-disable-next-line @typescript-eslint/no-unsafe-argument, @typescript-eslint/no-unsafe-call, @typescript-eslint/no-unsafe-member-access
-      (config.services ?? []).map(
-        ({ binding, service }: { binding: string; service: string }) => [
-          binding,
-          service,
-        ],
-      ),
+      (config.services ?? []).map(({ binding, service }) => [binding, service]),
     ),
     fetchMock,
   });
@@ -115,11 +102,10 @@ export const setupTests = async <Paths extends {}>(bindings: Env) => {
     client,
     async waitForQueue(trigger: () => Promise<void>) {
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
-      const log: any = [];
+      const log: any[] = [];
       const orig = console.log;
       console.log = function (message) {
         orig(message);
-        // eslint-disable-next-line @typescript-eslint/no-unsafe-call, @typescript-eslint/no-unsafe-member-access
         log.push(message);
       };
       await trigger();
