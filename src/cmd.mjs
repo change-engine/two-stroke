@@ -10,7 +10,7 @@ export function cmd(program, args = []) {
       stdio: "inherit",
     },
   );
-  // eslint-disable-next-line no-process-exit
+  // eslint-disable-next-line n/no-process-exit
   if (status) process.exit(status);
   if (error) throw error;
 }
