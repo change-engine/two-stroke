@@ -28,13 +28,13 @@ __metadata:
   linkType: hard
 
 "@asteasolutions/zod-to-openapi@npm:^7.1.0":
-  version: 7.1.0
-  resolution: "@asteasolutions/zod-to-openapi@npm:7.1.0"
+  version: 7.1.1
+  resolution: "@asteasolutions/zod-to-openapi@npm:7.1.1"
   dependencies:
     openapi3-ts: "npm:^4.1.2"
   peerDependencies:
     zod: ^3.20.2
-  checksum: 10c0/cd2931826073004c240ce8272a390107299881b9ad96fe10a31e824de0ec1b6c97c2949270c09dec9c71c25c45e00de8f03019bb47c8c41f85006a9018fc2d78
+  checksum: 10c0/4875cd97b6474cd7f10d0bb8d23139dd169e333197f7905bf30620ff8a103a5224de295629a295c055736e32369718061a3a773b067222fed7875c8c20ba37ad
   languageName: node
   linkType: hard
 
