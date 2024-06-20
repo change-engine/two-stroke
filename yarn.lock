@@ -2814,6 +2814,15 @@ __metadata:
   languageName: node
   linkType: hard
 
+"nanoid@npm:^5.0.7":
+  version: 5.0.7
+  resolution: "nanoid@npm:5.0.7"
+  bin:
+    nanoid: bin/nanoid.js
+  checksum: 10c0/a3fb1c157e3e35378f44e5a7130c70f80c9037f66c9a37285e5e3d8298e8405fcb2399baaa420980b0fe5fd9c2e4186a6a31c3526f21de03cf34c1b459871401
+  languageName: node
+  linkType: hard
+
 "natural-compare@npm:^1.4.0":
   version: 1.4.0
   resolution: "natural-compare@npm:1.4.0"
@@ -2900,19 +2909,20 @@ __metadata:
   languageName: node
   linkType: hard
 
-"openapi-fetch@npm:^0.9.7":
-  version: 0.9.7
-  resolution: "openapi-fetch@npm:0.9.7"
+"openapi-fetch@npm:^0.10.0":
+  version: 0.10.0
+  resolution: "openapi-fetch@npm:0.10.0"
   dependencies:
-    openapi-typescript-helpers: "npm:^0.0.8"
-  checksum: 10c0/ddc64085fdfa5deae6329061d2a2aab8996055f2697d46ae5ef5cfd64dfe05946beaec961cd96303db1cc17a288118ae4af391bf2d8658c8c1181c0a7e1f3c70
+    nanoid: "npm:^5.0.7"
+    openapi-typescript-helpers: "npm:^0.0.9"
+  checksum: 10c0/1edd56b7c30625aeffd85f5f2f7fd24f03f95c361c3d0e55de84cd534059959513a32bf529799eecb7afefa8ce773bae75a4926c6a63511c5a39b01d36ae8fa6
   languageName: node
   linkType: hard
 
-"openapi-typescript-helpers@npm:^0.0.8":
-  version: 0.0.8
-  resolution: "openapi-typescript-helpers@npm:0.0.8"
-  checksum: 10c0/b31a326c67d65f947732e32126f79976ecc67597f911f7ed43ea9ea23b1e2df7a012026327b6e39df5897a70781f9c57f9fcdd86f8a05c0f67ab2b23ee5d708a
+"openapi-typescript-helpers@npm:^0.0.9":
+  version: 0.0.9
+  resolution: "openapi-typescript-helpers@npm:0.0.9"
+  checksum: 10c0/7d72882102feb47374a7e05f4e5f6ef2ed39dbf182b0b9dd9c07952ceb80143661fc393ebd5e26fa08ef49f83c982d88cae42d0bdd2d76198600655b47a79785
   languageName: node
   linkType: hard
 
@@ -3691,7 +3701,7 @@ __metadata:
     jose: "npm:^5.4.1"
     jwk-subtle: "npm:^1.0.7"
     miniflare: "npm:3.20240419.0"
-    openapi-fetch: "npm:^0.9.7"
+    openapi-fetch: "npm:^0.10.0"
     openapi-typescript: "npm:^6.7.6"
     openapi3-ts: "npm:^4.3.3"
     pbkdf-subtle: "npm:^1.0.0"
