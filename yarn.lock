@@ -16,14 +16,14 @@ __metadata:
   linkType: hard
 
 "@anatine/zod-openapi@npm:^2.2.5":
-  version: 2.2.5
-  resolution: "@anatine/zod-openapi@npm:2.2.5"
+  version: 2.2.6
+  resolution: "@anatine/zod-openapi@npm:2.2.6"
   dependencies:
     ts-deepmerge: "npm:^6.0.3"
   peerDependencies:
     openapi3-ts: ^4.1.2
     zod: ^3.20.0
-  checksum: 10c0/7f86a56c3927a45a9c87b3f05c5e008267e491dde7a1243544c8b1af750df21933af49844b2087415dffc225f9c09eeba01b61a13f7a22a51b87856a80ce9ea7
+  checksum: 10c0/06f0dad3d653dfe2dfd5ac04052418014f5d4d13572b90aa023281899e126a07e5a2e2468fd642ab0b18ec214646108125025da95e428c42125424a1717bd1a4
   languageName: node
   linkType: hard
 
