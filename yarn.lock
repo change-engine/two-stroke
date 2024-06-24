@@ -2814,15 +2814,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"nanoid@npm:^5.0.7":
-  version: 5.0.7
-  resolution: "nanoid@npm:5.0.7"
-  bin:
-    nanoid: bin/nanoid.js
-  checksum: 10c0/a3fb1c157e3e35378f44e5a7130c70f80c9037f66c9a37285e5e3d8298e8405fcb2399baaa420980b0fe5fd9c2e4186a6a31c3526f21de03cf34c1b459871401
-  languageName: node
-  linkType: hard
-
 "natural-compare@npm:^1.4.0":
   version: 1.4.0
   resolution: "natural-compare@npm:1.4.0"
@@ -2910,12 +2901,11 @@ __metadata:
   linkType: hard
 
 "openapi-fetch@npm:^0.10.0":
-  version: 0.10.0
-  resolution: "openapi-fetch@npm:0.10.0"
+  version: 0.10.1
+  resolution: "openapi-fetch@npm:0.10.1"
   dependencies:
-    nanoid: "npm:^5.0.7"
     openapi-typescript-helpers: "npm:^0.0.9"
-  checksum: 10c0/1edd56b7c30625aeffd85f5f2f7fd24f03f95c361c3d0e55de84cd534059959513a32bf529799eecb7afefa8ce773bae75a4926c6a63511c5a39b01d36ae8fa6
+  checksum: 10c0/247f7ea89782dbbd22fd84eb8dc93b4d7bedd5beb6c1927fa9bfca5e1b1b2b773ff3520ce235af46fe731fceb07d260be6c97179d7ec606fa43c301f53ceb343
   languageName: node
   linkType: hard
 
