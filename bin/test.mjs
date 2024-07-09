@@ -21,7 +21,7 @@ if (fs.existsSync("wrangler.toml")) {
   await miniflare.dispose();
   fs.writeFileSync("test/api.d.ts", types);
 }
-cmd("vitest --globals --no-file-parallelism", [
+cmd("vitest --globals --no-file-parallelism --pool threads", [
   ...(!process.argv.slice(2).includes("-w") &&
   !process.argv.slice(2).includes("--watch")
     ? ["--run"]
