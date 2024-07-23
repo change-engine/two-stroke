@@ -147,17 +147,24 @@ export function twoStroke<T extends Env>(title: string, release: string) {
                 });
               }
             }
-            response.headers = response.headers ?? {};
-            response.headers["Content-Type"] =
-              response.headers["Content-Type"] ?? "application/json";
-            response.headers["Access-Control-Allow-Origin"] =
-              response.headers["Access-Control-Allow-Origin"] ?? "*";
+            // convert all headers keys to lowercase
+            response.headers = Object.fromEntries(
+              Object.entries(response.headers ?? {}).map(([key, value]) => [
+                key.toLowerCase(),
+                value,
+              ])
+            );
+
+            response.headers["content-type"] =
+              response.headers["content-type"] ?? "application/json";
+            response.headers["access-control-allow-origin"] =
+              response.headers["access-control-allow-origin"] ?? "*";
             return new Response(
               // eslint-disable-next-line @typescript-eslint/no-unsafe-argument
-              response.headers["Content-Type"] === "application/json"
+              response.headers["content-type"] === "application/json"
                 ? JSON.stringify(response.body)
                 : response.body,
-              response,
+              response
             );
           }
         }
