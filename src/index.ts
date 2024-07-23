@@ -147,14 +147,14 @@ export function twoStroke<T extends Env>(title: string, release: string) {
                 });
               }
             }
-            response.headers = response.headers ?? {};
-            response.headers["Content-Type"] =
-              response.headers["Content-Type"] ?? "application/json";
-            response.headers["Access-Control-Allow-Origin"] =
-              response.headers["Access-Control-Allow-Origin"] ?? "*";
+            const headers = new Headers(response.headers ?? {});
+            if (!headers.has("Content-Type"))
+              headers.set("Content-Type", "application/json");
+            if (!headers.has("Access-Control-Allow-Origin"))
+              headers.set("Access-Control-Allow-Origin", "*");
             return new Response(
               // eslint-disable-next-line @typescript-eslint/no-unsafe-argument
-              response.headers["Content-Type"] === "application/json"
+              headers.get("Content-Type") === "application/json"
                 ? JSON.stringify(response.body)
                 : response.body,
               response,
