@@ -92,7 +92,12 @@ export function twoStroke<T extends Env>(title: string, release: string) {
                 "application/x-www-form-urlencoded"
                   ? Object.fromEntries(new URLSearchParams(await req.text()))
                   : await req.json();
-              const body = route.input.safeParse(rawBody);
+              const input =
+                route.input instanceof Function
+                  ? await route.input({ req, env })
+                  : route.input;
+
+              const body = input.safeParse(rawBody);
               if (body.success)
                 response = await route.handler({
                   req,
@@ -338,7 +343,7 @@ export function twoStroke<T extends Env>(title: string, release: string) {
     >(
       auth: Route<T, A>["auth"],
       path: P,
-      input: I,
+      input: I | ((c: { req: Request; env: T }) => Promise<I>),
       output: O,
       handler: Handler<T, I, O, A, P>,
       params?: PP,
