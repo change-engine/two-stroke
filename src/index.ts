@@ -1,9 +1,9 @@
+import { verify as jwkVerify } from "jwk-subtle";
+import { verify as pbkdfVerify } from "pbkdf-subtle";
 import { Toucan } from "toucan-js";
 import { ZodObject, ZodSchema, z } from "zod";
-import { verify as pbkdfVerify } from "pbkdf-subtle";
-import { verify as jwkVerify } from "jwk-subtle";
-import { Env, Handler, Route } from "./types";
 import { openAPI } from "./open-api";
+import { Env, ExtractParameterNames, Handler, Route } from "./types";
 
 // eslint-disable-next-line @typescript-eslint/require-await
 const noAuth = async () => null;
@@ -94,7 +94,7 @@ export function twoStroke<T extends Env>(title: string, release: string) {
                   : await req.json();
               const input =
                 route.input instanceof Function
-                  ? await route.input({ req, env })
+                  ? await route.input({ req, env, params })
                   : route.input;
 
               const body = input.safeParse(rawBody);
@@ -341,9 +341,15 @@ export function twoStroke<T extends Env>(title: string, release: string) {
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
       PP extends ZodObject<any> | undefined,
     >(
-      auth: Route<T, A>["auth"],
+      auth: Route<T, A, P>["auth"],
       path: P,
-      input: I | ((c: { req: Request; env: T }) => Promise<I>),
+      input:
+        | I
+        | ((c: {
+            req: Request;
+            env: T;
+            params: ExtractParameterNames<P>;
+          }) => Promise<I>),
       output: O,
       handler: Handler<T, I, O, A, P>,
       params?: PP,
@@ -369,7 +375,7 @@ export function twoStroke<T extends Env>(title: string, release: string) {
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
       PP extends ZodObject<any> | undefined,
     >(
-      auth: Route<T, A>["auth"],
+      auth: Route<T, A, P>["auth"],
       path: P,
       output: O,
       handler: Handler<T, undefined, O, A, P>,
@@ -388,7 +394,7 @@ export function twoStroke<T extends Env>(title: string, release: string) {
       });
     },
     delete<O extends ZodSchema, A, P extends string>(
-      auth: Route<T, A>["auth"],
+      auth: Route<T, A, P>["auth"],
       path: P,
       output: O,
       handler: Handler<T, undefined, O, A, P>,

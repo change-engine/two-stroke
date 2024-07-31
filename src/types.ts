@@ -10,7 +10,7 @@ export type Env = {
     | Fetcher
     | Hyperdrive;
 };
-export type Route<T extends Env, A> =
+export type Route<T extends Env, A, P extends string> =
   | {
       auth: (c: { req: Request; env: T }) => Promise<A>;
       method: "GET" | "DELETE";
@@ -18,7 +18,7 @@ export type Route<T extends Env, A> =
       matcher: RegExp;
       output: ZodSchema;
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
-      handler: Handler<T, undefined, any, A, string>;
+      handler: Handler<T, undefined, any, A, P>;
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
       params?: ZodObject<any>;
     }
@@ -27,7 +27,13 @@ export type Route<T extends Env, A> =
       method: "POST" | "PUT";
       path: string;
       matcher: RegExp;
-      input: ZodSchema | ((c: { req: Request; env: T }) => Promise<ZodSchema>);
+      input:
+        | ZodSchema
+        | ((c: {
+            req: Request;
+            env: T;
+            params: ExtractParameterNames<P>;
+          }) => Promise<ZodSchema>);
       output: ZodSchema;
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
       handler: Handler<T, any, any, A, string>;
