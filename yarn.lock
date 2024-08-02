@@ -2801,11 +2801,11 @@ __metadata:
   linkType: hard
 
 "openapi-fetch@npm:^0.10.0":
-  version: 0.10.4
-  resolution: "openapi-fetch@npm:0.10.4"
+  version: 0.10.5
+  resolution: "openapi-fetch@npm:0.10.5"
   dependencies:
     openapi-typescript-helpers: "npm:^0.0.11"
-  checksum: 10c0/1e4be668e93f70fdcc612f914fd39d67f2f7fd23c750980ec8a7afaa4d7e7b18186560b78ceba9ca08d505fa8d00a64fd7ae4803520e25af602c87699c4b9d80
+  checksum: 10c0/6cc6a84b792ef8b50baaddac4330bbe2559ae1a71ab6cb32ad4341953fff5cecc43839dfd660c0eb55a9d82c270425024e401853c92d1289dc44ed44838ddb92
   languageName: node
   linkType: hard
 
