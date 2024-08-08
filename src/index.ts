@@ -180,7 +180,6 @@ export function twoStroke<T extends Env>(title: string, release: string) {
         });
       } catch (err) {
         console.warn(err);
-        // eslint-disable-next-line deprecation/deprecation
         sentry.captureException(err);
         return new Response("", {
           status: 500,
@@ -327,7 +326,7 @@ export function twoStroke<T extends Env>(title: string, release: string) {
         handler,
       });
     },
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+
     post<
       I extends ZodSchema,
       O extends ZodSchema,
@@ -356,7 +355,7 @@ export function twoStroke<T extends Env>(title: string, release: string) {
         params,
       });
     },
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+
     get<
       O extends ZodSchema,
       A,

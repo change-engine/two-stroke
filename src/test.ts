@@ -9,7 +9,7 @@ import toml from "toml";
 import { URLSearchParams } from "url";
 import { Env } from "./types";
 
-// eslint-disable-next-line @typescript-eslint/ban-types
+// eslint-disable-next-line @typescript-eslint/no-empty-object-type
 export const setupTests = async <Paths extends {}>(bindings: Env) => {
   const fetchMock = createFetchMock();
   fetchMock.disableNetConnect();
@@ -54,7 +54,6 @@ export const setupTests = async <Paths extends {}>(bindings: Env) => {
   // Hack until miniflare supports auto running D1 migrations.
   // Note: Each migration file can contain only a single statement.
   await Promise.all(
-    // eslint-disable-next-line @typescript-eslint/no-unsafe-call, @typescript-eslint/no-unsafe-member-access
     (config.d1_databases ?? []).map(
       async ({ binding }: { binding: string }) => {
         const d1 = await miniflare.getD1Database(binding);

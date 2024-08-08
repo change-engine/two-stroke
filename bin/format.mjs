@@ -2,4 +2,5 @@
 "use strict";
 import { cmd } from "../src/cmd.mjs";
 
-cmd("prettier --write . !tsconfig.json !test/api.d.ts");
+cmd("eslint --fix");
+cmd("prettier --write .");
