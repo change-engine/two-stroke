@@ -3025,11 +3025,11 @@ __metadata:
   linkType: hard
 
 "openapi3-ts@npm:^4.1.2, openapi3-ts@npm:^4.3.3":
-  version: 4.3.3
-  resolution: "openapi3-ts@npm:4.3.3"
+  version: 4.4.0
+  resolution: "openapi3-ts@npm:4.4.0"
   dependencies:
-    yaml: "npm:^2.4.5"
-  checksum: 10c0/44090b7fe8d252740c55e6485e287bd1b1c6a32b3b0b9dfa7924c716a125e3c42daafbf4e6b3b8fdb4e2f9188c60e4b9211e4d474c861750919ca291b4bb855f
+    yaml: "npm:^2.5.0"
+  checksum: 10c0/900b834279fc8a43c545728ad75ec7c26934ec5344225b60d1e1c0df44d742d7e7379aea18d9034e03031f079d3308ba5a68600682eece3ed41cdbdd10346a9e
   languageName: node
   linkType: hard
 
@@ -4120,7 +4120,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"yaml@npm:^2.4.5":
+"yaml@npm:^2.5.0":
   version: 2.5.0
   resolution: "yaml@npm:2.5.0"
   bin:
