@@ -2991,19 +2991,19 @@ __metadata:
   languageName: node
   linkType: hard
 
-"openapi-fetch@npm:^0.11.0":
-  version: 0.11.2
-  resolution: "openapi-fetch@npm:0.11.2"
+"openapi-fetch@npm:^0.12.0":
+  version: 0.12.0
+  resolution: "openapi-fetch@npm:0.12.0"
   dependencies:
-    openapi-typescript-helpers: "npm:^0.0.12"
-  checksum: 10c0/d987067b84487adc8c8c0cd86881f5a78fd8c9eb272ac111c60ef82316fa9d7262f8d4fbc1d84c2ba4a4f2e4efa31f755649ea873fa398eb266affda4ad02820
+    openapi-typescript-helpers: "npm:^0.0.13"
+  checksum: 10c0/e56c613a94067680b3d4d9f6328af2f3b311c487e8cd56a9f0a9302e4c2b352cad18058e23f8c209bf53e0f7fdfce42bafa3ff34076af49df82ba14026245951
   languageName: node
   linkType: hard
 
-"openapi-typescript-helpers@npm:^0.0.12":
-  version: 0.0.12
-  resolution: "openapi-typescript-helpers@npm:0.0.12"
-  checksum: 10c0/4fe8851ad49a3aa52be0edf086c989559a8a8023c36a4a3c939d07f18faa0903ea47ecad4eefa1475e863332e7873821d6c0ed6a90f7dca0004a7340b3868afc
+"openapi-typescript-helpers@npm:^0.0.13":
+  version: 0.0.13
+  resolution: "openapi-typescript-helpers@npm:0.0.13"
+  checksum: 10c0/2315b7f7e3a7e991a11259daadd65b8d4d33c800d385c99e4a6a648b47deffd08a9eef7a39ded8c741172720621681d645de5078507271830dc28c4e69ae8a44
   languageName: node
   linkType: hard
 
@@ -3758,7 +3758,7 @@ __metadata:
     jose: "npm:^5.6.3"
     jwk-subtle: "npm:^1.0.7"
     miniflare: "npm:3.20240419.0"
-    openapi-fetch: "npm:^0.11.0"
+    openapi-fetch: "npm:^0.12.0"
     openapi-typescript: "npm:^7.3.0"
     openapi3-ts: "npm:^4.3.3"
     pbkdf-subtle: "npm:^1.0.0"
