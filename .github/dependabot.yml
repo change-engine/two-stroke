@@ -12,5 +12,3 @@ updates:
     schedule:
       interval: "daily"
       time: "05:57"
-    ignore:
-      - dependency-name: miniflare

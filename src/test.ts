@@ -35,11 +35,11 @@ export const setupTests = async <Paths extends {}>(bindings: Env) => {
     },
     queueConsumers: (config.queues?.consumers ?? []).map(({ queue }) => queue),
     queueProducers: Object.fromEntries(
-      (config.queues?.producers ?? []).map(({ binding, queue }) => [
+      (config.queues?.producers ?? []).map(({ binding, queue: queueName }) => [
         binding,
-        queue,
+        { queueName },
       ]),
-    ) as Record<string, string>,
+    ),
     r2Buckets: (config.r2_buckets ?? []).map(({ binding }) => binding),
     kvNamespaces: (config.kv_namespaces ?? []).map(({ binding }) => binding),
     d1Databases: (config.d1_databases ?? []).map(({ binding }) => binding),
