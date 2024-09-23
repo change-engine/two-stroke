@@ -2975,11 +2975,11 @@ __metadata:
   linkType: hard
 
 "openapi-fetch@npm:^0.12.0":
-  version: 0.12.0
-  resolution: "openapi-fetch@npm:0.12.0"
+  version: 0.12.2
+  resolution: "openapi-fetch@npm:0.12.2"
   dependencies:
     openapi-typescript-helpers: "npm:^0.0.13"
-  checksum: 10c0/e56c613a94067680b3d4d9f6328af2f3b311c487e8cd56a9f0a9302e4c2b352cad18058e23f8c209bf53e0f7fdfce42bafa3ff34076af49df82ba14026245951
+  checksum: 10c0/1fede5bd7e224fbc9d125ca35a4149b512c67532d445c738d1606ad043fca9338eafaf4f768bc7a023603193760b4afa5fd585c9b0f7b78b07618617d111aaf1
   languageName: node
   linkType: hard
 
