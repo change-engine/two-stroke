@@ -381,11 +381,18 @@ export function twoStroke<T extends Env>(title: string, release: string) {
         params,
       });
     },
-    delete<O extends ZodSchema, A, P extends string>(
+    delete<
+      O extends ZodSchema,
+      A,
+      P extends string,
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      PP extends ZodObject<any> | undefined,
+    >(
       auth: Route<T, A>["auth"],
       path: P,
       output: O,
       handler: Handler<T, undefined, O, A, P>,
+      params?: PP,
     ) {
       routes.push({
         auth,
@@ -396,6 +403,7 @@ export function twoStroke<T extends Env>(title: string, release: string) {
         ),
         output,
         handler,
+        params,
       });
     },
   };
