@@ -15,6 +15,8 @@ export const setupTests = async <Paths extends {}>(bindings: Env) => {
   fetchMock.disableNetConnect();
 
   const config = toml.parse(fs.readFileSync("wrangler.toml", "utf8")) as {
+    compatibility_date: string;
+    compatibility_flags: string[];
     queues?: {
       consumers?: { queue: string }[];
       producers?: { queue: string; binding: string }[];
@@ -23,11 +25,14 @@ export const setupTests = async <Paths extends {}>(bindings: Env) => {
     kv_namespaces?: { binding: string }[];
     d1_databases?: { binding: string }[];
     services?: { binding: string; service: string }[];
+    durable_objects?: { bindings?: { name: string; class_name: string }[] };
   };
 
   const miniflare = new Miniflare({
     modules: true,
     scriptPath: "dist/index.js",
+    compatibilityDate: config.compatibility_date,
+    compatibilityFlags: config.compatibility_flags,
     bindings: {
       TOKEN_HASH:
         "djAxlhzT1IU9QIP3UKdipECQPAGGoPQK86/GnTBcbHLtPC3ni6JkTQ/iIeF0KG0y1CZ+J+9W",
@@ -47,6 +52,12 @@ export const setupTests = async <Paths extends {}>(bindings: Env) => {
       (config.services ?? []).map(({ binding, service }) => [binding, service]),
     ),
     fetchMock,
+    durableObjects: Object.fromEntries(
+      (config.durable_objects?.bindings ?? []).map(({ name, class_name }) => [
+        name,
+        class_name,
+      ]),
+    ),
   });
 
   const url = await miniflare.ready;

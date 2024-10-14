@@ -8,7 +8,8 @@ export type Env = {
     | R2Bucket
     | D1Database
     | Fetcher
-    | Hyperdrive;
+    | Hyperdrive
+    | DurableObjectNamespace;
 };
 export type Route<T extends Env, A> =
   | {
