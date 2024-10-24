@@ -1,9 +1,9 @@
-import { Toucan } from "toucan-js";
-import { ZodObject, ZodSchema, z } from "zod";
-import { verify as pbkdfVerify } from "pbkdf-subtle";
 import { verify as jwkVerify } from "jwk-subtle";
-import { Env, Handler, Route } from "./types";
+import { verify as pbkdfVerify } from "pbkdf-subtle";
+import { Toucan } from "toucan-js";
+import { SafeParseError, ZodObject, ZodSchema, z } from "zod";
 import { openAPI } from "./open-api";
+import { Env, Handler, Route } from "./types";
 
 // eslint-disable-next-line @typescript-eslint/require-await
 const noAuth = async () => null;
@@ -288,22 +288,56 @@ export function twoStroke<T extends Env>(title: string, release: string) {
         }
         throw Error("Invalid");
       },
-    queueHandler<I extends ZodSchema>(
+    queueHandler<I extends ZodSchema, Parsed = z.infer<I>>(
       input: I,
       handler: (c: {
         env: T;
-        batch: MessageBatch<z.infer<I>>;
+        batch: MessageBatch<Parsed>;
+        sentry: Toucan;
+      }) => Promise<void>,
+      parseFailedHandler?: (c: {
+        env: T;
+        batch: MessageBatch & {
+          messages: (Message<unknown> & {
+            error: SafeParseError<z.input<I>>;
+          })[];
+        };
         sentry: Toucan;
       }) => Promise<void>,
     ) {
       _queue = async ({ batch, env, sentry }) => {
-        batch.messages.map((message): void => {
-          const body = input.safeParse(message.body);
-          if (!body.success) {
-            console.error(body.error, message);
-          }
-        });
-        await handler({ batch, env, sentry });
+        const { messages, failed } = batch.messages.reduce<{
+          messages: Message<Parsed>[];
+          failed: (Message<unknown> & { error: SafeParseError<z.input<I>> })[];
+        }>(
+          (acc, message) => {
+            const body: z.SafeParseReturnType<
+              z.input<I>,
+              Parsed
+            > = input.safeParse(message.body);
+            if (!body.success) {
+              console.error(body.error, message);
+              return {
+                messages: acc.messages,
+                failed: [...acc.failed, { ...message, error: body }],
+              };
+            }
+
+            return {
+              messages: [...acc.messages, { ...message, body: body.data }],
+              failed: acc.failed,
+            };
+          },
+          { messages: [], failed: [] },
+        );
+
+        await handler({ batch: { ...batch, messages }, env, sentry });
+        if (failed.length > 0)
+          await parseFailedHandler?.({
+            batch: { ...batch, messages: failed },
+            env,
+            sentry,
+          });
         console.log("Queue batch finished");
       };
     },
