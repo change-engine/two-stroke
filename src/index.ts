@@ -1,7 +1,7 @@
 import { verify as jwkVerify } from "jwk-subtle";
 import { verify as pbkdfVerify } from "pbkdf-subtle";
 import { Toucan } from "toucan-js";
-import { SafeParseError, ZodObject, ZodSchema, z } from "zod";
+import { SafeParseReturnType, ZodObject, ZodSchema, z } from "zod";
 import { openAPI } from "./open-api";
 import { Env, Handler, Route } from "./types";
 
@@ -288,56 +288,24 @@ export function twoStroke<T extends Env>(title: string, release: string) {
         }
         throw Error("Invalid");
       },
-    queueHandler<I extends ZodSchema, Parsed = z.infer<I>>(
+    queueHandler<I extends ZodSchema>(
       input: I,
       handler: (c: {
         env: T;
-        batch: MessageBatch<Parsed>;
+        batch: MessageBatch<z.input<I>>;
         sentry: Toucan;
-      }) => Promise<void>,
-      parseFailedHandler?: (c: {
-        env: T;
-        batch: MessageBatch & {
-          messages: (Message<unknown> & {
-            error: SafeParseError<z.input<I>>;
-          })[];
-        };
-        sentry: Toucan;
+        parsedBatch: SafeParseReturnType<z.input<I>, z.infer<I>>[];
       }) => Promise<void>,
     ) {
       _queue = async ({ batch, env, sentry }) => {
-        const { messages, failed } = batch.messages.reduce<{
-          messages: Message<Parsed>[];
-          failed: (Message<unknown> & { error: SafeParseError<z.input<I>> })[];
-        }>(
-          (acc, message) => {
-            const body: z.SafeParseReturnType<
-              z.input<I>,
-              Parsed
-            > = input.safeParse(message.body);
-            if (!body.success) {
-              console.error(body.error, message);
-              return {
-                messages: acc.messages,
-                failed: [...acc.failed, { ...message, error: body }],
-              };
-            }
-
-            return {
-              messages: [...acc.messages, { ...message, body: body.data }],
-              failed: acc.failed,
-            };
-          },
-          { messages: [], failed: [] },
-        );
-
-        await handler({ batch: { ...batch, messages }, env, sentry });
-        if (failed.length > 0)
-          await parseFailedHandler?.({
-            batch: { ...batch, messages: failed },
-            env,
-            sentry,
-          });
+        const parsedBatch = batch.messages.map((message) => {
+          const passed = input.safeParse(message.body);
+          if (!passed.success) {
+            console.error(passed.error, message);
+          }
+          return passed;
+        });
+        await handler({ batch, env, sentry, parsedBatch });
         console.log("Queue batch finished");
       };
     },
