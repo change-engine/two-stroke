@@ -9,7 +9,8 @@ export type Env = {
     | D1Database
     | Fetcher
     | Hyperdrive
-    | DurableObjectNamespace;
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    | DurableObjectNamespace<any>;
 };
 export type Route<T extends Env, A> =
   | {
