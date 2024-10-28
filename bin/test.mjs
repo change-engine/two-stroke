@@ -13,6 +13,8 @@ if (fs.existsSync("wrangler.toml")) {
   const miniflare = new Miniflare({
     modules: true,
     scriptPath: "dist/index.js",
+    compatibilityDate: "2024-09-23",
+    compatibilityFlags: ["nodejs_compat"],
   });
   const request = await fetch(
     // eslint-disable-next-line @typescript-eslint/restrict-template-expressions
@@ -20,25 +22,27 @@ if (fs.existsSync("wrangler.toml")) {
     { SENTRY_DSN: null, SENTRY_ENVIRONMENT: null },
     null,
   );
-  const types = await openapiTS(await consumers.json(request.body));
   await miniflare.dispose();
-  const printer = ts.createPrinter({});
-  const resultFile = ts.createSourceFile(
-    "test/api.d.ts",
-    "",
-    ts.ScriptTarget.Latest,
-  );
-  const result = printer.printNode(
-    ts.EmitHint.Unspecified,
-    types[0],
-    resultFile,
-  );
-  fs.writeFileSync(
-    "test/api.d.ts",
-    await prettier.format(result, { parser: "typescript" }),
-  );
+  if (request.status === 200) {
+    const types = await openapiTS(await consumers.json(request.body));
+    const printer = ts.createPrinter({});
+    const resultFile = ts.createSourceFile(
+      "test/api.d.ts",
+      "",
+      ts.ScriptTarget.Latest,
+    );
+    const result = printer.printNode(
+      ts.EmitHint.Unspecified,
+      types[0],
+      resultFile,
+    );
+    fs.writeFileSync(
+      "test/api.d.ts",
+      await prettier.format(result, { parser: "typescript" }),
+    );
+  }
 }
-cmd("vitest --globals --no-file-parallelism --pool threads", [
+cmd("vitest", [
   ...(!process.argv.slice(2).includes("-w") &&
   !process.argv.slice(2).includes("--watch")
     ? ["--run"]
