@@ -202,7 +202,12 @@ export function twoStroke<T extends Env>(title: string, release: string) {
         environment: env.SENTRY_ENVIRONMENT,
         release,
       });
-      return await _queue({ batch, env, sentry });
+      try {
+        return await _queue({ batch, env, sentry });
+      } catch (err) {
+        console.warn(err);
+        sentry.captureException(err);
+      }
     },
     async scheduled(
       event: ScheduledEvent,
@@ -218,11 +223,16 @@ export function twoStroke<T extends Env>(title: string, release: string) {
         environment: env.SENTRY_ENVIRONMENT,
         release,
       });
-      const handler = crons[event.cron];
-      if (!handler) {
-        throw new Error("CRON Handler not found");
+      try {
+        const handler = crons[event.cron];
+        if (!handler) {
+          throw new Error("CRON Handler not found");
+        }
+        await handler({ env, sentry });
+      } catch (err) {
+        console.warn(err);
+        sentry.captureException(err);
       }
-      await handler({ env, sentry });
     },
     async email(
       message: ForwardableEmailMessage,
@@ -238,7 +248,12 @@ export function twoStroke<T extends Env>(title: string, release: string) {
         environment: env.SENTRY_ENVIRONMENT,
         release,
       });
-      await _email({ message, env, sentry });
+      try {
+        await _email({ message, env, sentry });
+      } catch (err) {
+        console.warn(err);
+        sentry.captureException(err);
+      }
     },
     emailHandler(
       handler: (c: {
