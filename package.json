@@ -22,7 +22,7 @@
     "jose": "^5.9.6",
     "jwk-subtle": "^1.0.7",
     "miniflare": "^3.20241106.1",
-    "openapi-fetch": "0.13.1",
+    "openapi-fetch": "0.13.3",
     "openapi-typescript": "^7.4.4",
     "openapi3-ts": "^4.4.0",
     "pbkdf-subtle": "^1.0.0",
