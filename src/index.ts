@@ -274,9 +274,9 @@ export function twoStroke<T extends Env>(title: string, release: string) {
     pbkdf:
       (k: keyof T, customHeaderName: string = "Authorization") =>
       async ({ req, env }: { req: Request; env: T }) => {
-        const [scheme, token] = (req.headers.get(customHeaderName) ?? " ").split(
-          " ",
-        );
+        const [scheme, token] = (
+          req.headers.get(customHeaderName) ?? " "
+        ).split(" ");
         if (
           (scheme === "token" || scheme === "Bearer") &&
           (await pbkdfVerify(env[k] as string, token ?? ""))
