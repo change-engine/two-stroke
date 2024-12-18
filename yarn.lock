@@ -216,8 +216,8 @@ __metadata:
   linkType: hard
 
 "@cloudflare/vitest-pool-workers@npm:^0.5.37":
-  version: 0.5.37
-  resolution: "@cloudflare/vitest-pool-workers@npm:0.5.37"
+  version: 0.5.38
+  resolution: "@cloudflare/vitest-pool-workers@npm:0.5.38"
   dependencies:
     birpc: "npm:0.2.14"
     cjs-module-lexer: "npm:^1.2.3"
@@ -225,13 +225,13 @@ __metadata:
     esbuild: "npm:0.17.19"
     miniflare: "npm:3.20241205.0"
     semver: "npm:^7.5.1"
-    wrangler: "npm:3.96.0"
+    wrangler: "npm:3.97.0"
     zod: "npm:^3.22.3"
   peerDependencies:
     "@vitest/runner": 2.0.x - 2.1.x
     "@vitest/snapshot": 2.0.x - 2.1.x
     vitest: 2.0.x - 2.1.x
-  checksum: 10c0/33b3540b622366b391702d8629df71098b8398a8382d32ae30101a728b9fb2e2762f445d3f5374b813ba9d44a5716bcd85cfec5bf0a01e41701d58cf3d4a3d7c
+  checksum: 10c0/b937995ec504765af038b9f372ee834bb839eedca1d03a2a034470cccb9f1175679680b9127b91419489ef1bc7b0ac58bd69c3dd4b81647e5b23969cf082339c
   languageName: node
   linkType: hard
 
@@ -1833,6 +1833,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"confbox@npm:^0.1.8":
+  version: 0.1.8
+  resolution: "confbox@npm:0.1.8"
+  checksum: 10c0/fc2c68d97cb54d885b10b63e45bd8da83a8a71459d3ecf1825143dd4c7f9f1b696b3283e07d9d12a144c1301c2ebc7842380bdf0014e55acc4ae1c9550102418
+  languageName: node
+  linkType: hard
+
 "convert-source-map@npm:^2.0.0":
   version: 2.0.0
   resolution: "convert-source-map@npm:2.0.0"
@@ -3317,6 +3324,18 @@ __metadata:
   languageName: node
   linkType: hard
 
+"mlly@npm:^1.7.2, mlly@npm:^1.7.3":
+  version: 1.7.3
+  resolution: "mlly@npm:1.7.3"
+  dependencies:
+    acorn: "npm:^8.14.0"
+    pathe: "npm:^1.1.2"
+    pkg-types: "npm:^1.2.1"
+    ufo: "npm:^1.5.4"
+  checksum: 10c0/b530887fe95a6e3458c1b24e9775dc61c167d402126f2f5f13a13845a3fb77c3db8d79cb32077c98679a392d8ecfdc4e5df3d6925bf650d807dc2dfe8cc35b53
+  languageName: node
+  linkType: hard
+
 "ms@npm:^2.1.3":
   version: 2.1.3
   resolution: "ms@npm:2.1.3"
@@ -3608,6 +3627,17 @@ __metadata:
   version: 2.3.1
   resolution: "picomatch@npm:2.3.1"
   checksum: 10c0/26c02b8d06f03206fc2ab8d16f19960f2ff9e81a658f831ecb656d8f17d9edc799e8364b1f4a7873e89d9702dff96204be0fa26fe4181f6843f040f819dac4be
+  languageName: node
+  linkType: hard
+
+"pkg-types@npm:^1.2.1":
+  version: 1.2.1
+  resolution: "pkg-types@npm:1.2.1"
+  dependencies:
+    confbox: "npm:^0.1.8"
+    mlly: "npm:^1.7.2"
+    pathe: "npm:^1.1.2"
+  checksum: 10c0/4aef765c039e3ec3ca55171bb8ad776cf060d894c45ddf92b9d680b3fdb1817c8d1c428f74ea6aae144493fa1d6a97df6b8caec6dc31e418f1ce1f728d38014e
   languageName: node
   linkType: hard
 
@@ -4380,15 +4410,16 @@ __metadata:
   languageName: node
   linkType: hard
 
-"unenv@npm:unenv-nightly@2.0.0-20241204-140205-a5d5190":
-  version: 2.0.0-20241204-140205-a5d5190
-  resolution: "unenv-nightly@npm:2.0.0-20241204-140205-a5d5190"
+"unenv@npm:unenv-nightly@2.0.0-20241212-153011-af71c96":
+  version: 2.0.0-20241212-153011-af71c96
+  resolution: "unenv-nightly@npm:2.0.0-20241212-153011-af71c96"
   dependencies:
     defu: "npm:^6.1.4"
+    mlly: "npm:^1.7.3"
     ohash: "npm:^1.1.4"
     pathe: "npm:^1.1.2"
     ufo: "npm:^1.5.4"
-  checksum: 10c0/36050d067424d801d55df6796733a9efdd6f01012f7ac16ebe2cc6d708e1909aec447d5c750e547c9db1877c500543c9ecdd4eb8ff4b972408e7481b0eb19723
+  checksum: 10c0/e5a65f78237f1c211e246a35a516bc13e0651ef4f123426edfc8c4533a1e04e9954d3cea65a8d8902f1cb8b87b581add2f6fe78436aabab1ce87d424fa2ee73a
   languageName: node
   linkType: hard
 
@@ -4632,9 +4663,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"wrangler@npm:3.96.0":
-  version: 3.96.0
-  resolution: "wrangler@npm:3.96.0"
+"wrangler@npm:3.97.0":
+  version: 3.97.0
+  resolution: "wrangler@npm:3.97.0"
   dependencies:
     "@cloudflare/kv-asset-handler": "npm:0.3.4"
     "@esbuild-plugins/node-globals-polyfill": "npm:^0.2.3"
@@ -4651,7 +4682,7 @@ __metadata:
     resolve: "npm:^1.22.8"
     selfsigned: "npm:^2.0.1"
     source-map: "npm:^0.6.1"
-    unenv: "npm:unenv-nightly@2.0.0-20241204-140205-a5d5190"
+    unenv: "npm:unenv-nightly@2.0.0-20241212-153011-af71c96"
     workerd: "npm:1.20241205.0"
     xxhash-wasm: "npm:^1.0.1"
   peerDependencies:
@@ -4665,7 +4696,7 @@ __metadata:
   bin:
     wrangler: bin/wrangler.js
     wrangler2: bin/wrangler.js
-  checksum: 10c0/96b4d97fb707d3ed496263deedafa5bb6d94fd530d008c96f73647754b4ee2460c56f7be4a9e0a6285f538ba41308ee49e20322925978c040462ef424c9d95a4
+  checksum: 10c0/2cd9e34b67853f60385880d6b0c2c9d6a505affda91294b393dc4a95154ba80c1396187d58bc8afa2aded530c726af6e3726d76708de5c4c1a206bf527b718e3
   languageName: node
   linkType: hard
 
