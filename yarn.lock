@@ -3535,11 +3535,11 @@ __metadata:
   linkType: hard
 
 "openapi-fetch@npm:^0.13.3":
-  version: 0.13.3
-  resolution: "openapi-fetch@npm:0.13.3"
+  version: 0.13.4
+  resolution: "openapi-fetch@npm:0.13.4"
   dependencies:
     openapi-typescript-helpers: "npm:^0.0.15"
-  checksum: 10c0/4d66bcc9e3f74fac7b1df1139436f7c53623f1df3e39991eb39ee5dece34b960d3b090998e86d20dd5c14dff84f2f776d776826fc41f12be1121881905a89ef2
+  checksum: 10c0/f291cb148e712466ba6cc90fda19f3ceab447560bd5ac87f77fde39a05b0d8330ccd1172c84f0b8fedcb90a0ca7956f0756d048038772b3df2542a9f1072d17b
   languageName: node
   linkType: hard
 
