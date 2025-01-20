@@ -1390,12 +1390,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@vitest/coverage-istanbul@npm:^2.1.8":
-  version: 2.1.8
-  resolution: "@vitest/coverage-istanbul@npm:2.1.8"
+"@vitest/coverage-istanbul@npm:^3.0.2":
+  version: 3.0.2
+  resolution: "@vitest/coverage-istanbul@npm:3.0.2"
   dependencies:
     "@istanbuljs/schema": "npm:^0.1.3"
-    debug: "npm:^4.3.7"
+    debug: "npm:^4.4.0"
     istanbul-lib-coverage: "npm:^3.2.2"
     istanbul-lib-instrument: "npm:^6.0.3"
     istanbul-lib-report: "npm:^3.0.1"
@@ -1403,10 +1403,10 @@ __metadata:
     istanbul-reports: "npm:^3.1.7"
     magicast: "npm:^0.3.5"
     test-exclude: "npm:^7.0.1"
-    tinyrainbow: "npm:^1.2.0"
+    tinyrainbow: "npm:^2.0.0"
   peerDependencies:
-    vitest: 2.1.8
-  checksum: 10c0/809eeccebaa7fd0e349d89a8d374e449c65a1d626f46b03b080aa507ac93dfb340c90dd491fe9a08dca896d6832e0f3dcffd6fd7ba3d05c1dc95c7a32aabc50c
+    vitest: 3.0.2
+  checksum: 10c0/3456741031d4b083b0a667469874c5ab11cd59667add4f06a98994e2896fe458d1a6aec226deca464c9efde1a013816a0f11b4d0e4e32d191835bbd471247cb5
   languageName: node
   linkType: hard
 
@@ -1854,7 +1854,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"debug@npm:4, debug@npm:^4.1.0, debug@npm:^4.1.1, debug@npm:^4.3.1, debug@npm:^4.3.2, debug@npm:^4.3.4, debug@npm:^4.3.7":
+"debug@npm:4, debug@npm:^4.1.0, debug@npm:^4.1.1, debug@npm:^4.3.1, debug@npm:^4.3.2, debug@npm:^4.3.4, debug@npm:^4.3.7, debug@npm:^4.4.0":
   version: 4.4.0
   resolution: "debug@npm:4.4.0"
   dependencies:
@@ -4112,6 +4112,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"tinyrainbow@npm:^2.0.0":
+  version: 2.0.0
+  resolution: "tinyrainbow@npm:2.0.0"
+  checksum: 10c0/c83c52bef4e0ae7fb8ec6a722f70b5b6fa8d8be1c85792e829f56c0e1be94ab70b293c032dc5048d4d37cfe678f1f5babb04bdc65fd123098800148ca989184f
+  languageName: node
+  linkType: hard
+
 "tinyspy@npm:^3.0.2":
   version: 3.0.2
   resolution: "tinyspy@npm:3.0.2"
@@ -4191,7 +4198,7 @@ __metadata:
     "@types/node": "npm:^22.10.7"
     "@typescript-eslint/eslint-plugin": "npm:^8.20.0"
     "@typescript-eslint/parser": "npm:^8.20.0"
-    "@vitest/coverage-istanbul": "npm:^2.1.8"
+    "@vitest/coverage-istanbul": "npm:^3.0.2"
     eslint: "npm:^9.18.0"
     eslint-config-prettier: "npm:^10.0.1"
     eslint-config-two-stroke: "npm:^1.1.8"
