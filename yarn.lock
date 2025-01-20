@@ -4122,13 +4122,13 @@ __metadata:
   linkType: hard
 
 "toucan-js@npm:^4.0.0":
-  version: 4.0.0
-  resolution: "toucan-js@npm:4.0.0"
+  version: 4.1.0
+  resolution: "toucan-js@npm:4.1.0"
   dependencies:
     "@sentry/core": "npm:8.9.2"
     "@sentry/types": "npm:8.9.2"
     "@sentry/utils": "npm:8.9.2"
-  checksum: 10c0/a5b03f47ee8be153a1f1b46b778646c1893933555702ed68a01dba5ec9148930f791e71c8618c9616ace2b08489724e4019b64a987f1a3edee06b18a78f9d37e
+  checksum: 10c0/c70a1ee66c89bff972f2e01913e3c1112be7697017517b678a52357f46fe4a2630cb2eb1ed331102d387c1f0f0e4ca923cb1ff5968bbce415ce681d54aa87b84
   languageName: node
   linkType: hard
 
