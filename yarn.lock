@@ -216,8 +216,8 @@ __metadata:
   linkType: hard
 
 "@cloudflare/vitest-pool-workers@npm:^0.6.4":
-  version: 0.6.11
-  resolution: "@cloudflare/vitest-pool-workers@npm:0.6.11"
+  version: 0.6.12
+  resolution: "@cloudflare/vitest-pool-workers@npm:0.6.12"
   dependencies:
     birpc: "npm:0.2.14"
     cjs-module-lexer: "npm:^1.2.3"
@@ -225,13 +225,13 @@ __metadata:
     esbuild: "npm:0.17.19"
     miniflare: "npm:3.20250129.0"
     semver: "npm:^7.5.1"
-    wrangler: "npm:3.107.2"
+    wrangler: "npm:3.107.3"
     zod: "npm:^3.22.3"
   peerDependencies:
     "@vitest/runner": 2.0.x - 2.1.x
     "@vitest/snapshot": 2.0.x - 2.1.x
     vitest: 2.0.x - 2.1.x
-  checksum: 10c0/a1f38b08e7d170a48baf69060ac43098ed28e1d247de52f76369184ec009651690f9a7d41b18b9fd12c5e62ece1936d1d116aed91f7f6453c2bb6afb66809033
+  checksum: 10c0/2ec9b104165c2a84c24404bdffd39959cd7a8f4fb819df79f71e53c289599a60e018ff5424753ca694bcbc4d137a61f25a4c839c6e64480f82390ca18a5a2ea8
   languageName: node
   linkType: hard
 
@@ -1312,16 +1312,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@typescript-eslint/scope-manager@npm:8.22.0":
-  version: 8.22.0
-  resolution: "@typescript-eslint/scope-manager@npm:8.22.0"
-  dependencies:
-    "@typescript-eslint/types": "npm:8.22.0"
-    "@typescript-eslint/visitor-keys": "npm:8.22.0"
-  checksum: 10c0/f393ab32086f4b095fcd77169abb5200ad94f282860944d164cec8c9b70090c36235f49b066ba24dfd953201b7730e48200a254e5950a9a3565acdacbbc0fd64
-  languageName: node
-  linkType: hard
-
 "@typescript-eslint/scope-manager@npm:8.23.0":
   version: 8.23.0
   resolution: "@typescript-eslint/scope-manager@npm:8.23.0"
@@ -1376,13 +1366,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@typescript-eslint/types@npm:8.22.0":
-  version: 8.22.0
-  resolution: "@typescript-eslint/types@npm:8.22.0"
-  checksum: 10c0/6357d0937e2b84ddb00763d05053fe50f2270fa428aa11f1ad6a1293827cf54da7e6d4d20b00b9d4f633b6982a2eb0e494f05285daa1279d8a3493f0d8abae18
-  languageName: node
-  linkType: hard
-
 "@typescript-eslint/types@npm:8.23.0":
   version: 8.23.0
   resolution: "@typescript-eslint/types@npm:8.23.0"
@@ -1424,24 +1407,6 @@ __metadata:
   peerDependencies:
     typescript: ">=4.8.4 <5.8.0"
   checksum: 10c0/54a2c1da7d1c5f7e865b941e8a3c98eb4b5f56ed8741664a84065173bde9602cdb8866b0984b26816d6af885c1528311c11e7286e869ed424483b74366514cbd
-  languageName: node
-  linkType: hard
-
-"@typescript-eslint/typescript-estree@npm:8.22.0":
-  version: 8.22.0
-  resolution: "@typescript-eslint/typescript-estree@npm:8.22.0"
-  dependencies:
-    "@typescript-eslint/types": "npm:8.22.0"
-    "@typescript-eslint/visitor-keys": "npm:8.22.0"
-    debug: "npm:^4.3.4"
-    fast-glob: "npm:^3.3.2"
-    is-glob: "npm:^4.0.3"
-    minimatch: "npm:^9.0.4"
-    semver: "npm:^7.6.0"
-    ts-api-utils: "npm:^2.0.0"
-  peerDependencies:
-    typescript: ">=4.8.4 <5.8.0"
-  checksum: 10c0/0a9d77fbadfb1e54c06abde424e461103576595c70e50ae8a15a3d7c07f125f253f505208e1ea5cc483b9073d95fc10ce0c4ddfe0fe08ec2aceda6314c341e0d
   languageName: node
   linkType: hard
 
@@ -1524,16 +1489,6 @@ __metadata:
     "@typescript-eslint/types": "npm:8.20.0"
     eslint-visitor-keys: "npm:^4.2.0"
   checksum: 10c0/e95d8b2685e8beb6637bf2e9d06e4177a400d3a2b142ba749944690f969ee3186b750082fd9bf34ada82acf1c5dd5970201dfd97619029c8ecca85fb4b50dbd8
-  languageName: node
-  linkType: hard
-
-"@typescript-eslint/visitor-keys@npm:8.22.0":
-  version: 8.22.0
-  resolution: "@typescript-eslint/visitor-keys@npm:8.22.0"
-  dependencies:
-    "@typescript-eslint/types": "npm:8.22.0"
-    eslint-visitor-keys: "npm:^4.2.0"
-  checksum: 10c0/fd83d2feadaf79950427fbbc3d23ca01cf4646ce7e0dd515a9c881d31ec1cc768e7b8898d3af065e31df39452501a3345092581cbfccac89e89d293519540557
   languageName: node
   linkType: hard
 
@@ -4706,9 +4661,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"wrangler@npm:3.107.2":
-  version: 3.107.2
-  resolution: "wrangler@npm:3.107.2"
+"wrangler@npm:3.107.3":
+  version: 3.107.3
+  resolution: "wrangler@npm:3.107.3"
   dependencies:
     "@cloudflare/kv-asset-handler": "npm:0.3.4"
     "@esbuild-plugins/node-globals-polyfill": "npm:0.2.3"
@@ -4731,7 +4686,7 @@ __metadata:
   bin:
     wrangler: bin/wrangler.js
     wrangler2: bin/wrangler.js
-  checksum: 10c0/90af1b16d285cdf44d918b2ee70fe6cd39950208f57ec366640ed5845a7b5d04c65df8a21054db60954f0d883568206cc09cf455098f095d57905119e3fc721b
+  checksum: 10c0/2905badc57609c02038c7a1b5e6b891795748f72df57430c8bc3b7cf1adf9a857da188a407cb65fc42a5f3dd1cea5860a17d02d417b5393d5ca82161c9d80bb8
   languageName: node
   linkType: hard
 
