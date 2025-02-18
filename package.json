@@ -35,7 +35,7 @@
     "eslint": ">=9",
     "prettier": ">=3",
     "typescript": ">=5",
-    "vitest": "^2.1.8",
+    "vitest": "^3.0.5",
     "wrangler": ">=3"
   },
   "description": "Simple Cloudflare Worker framework.",
@@ -58,6 +58,6 @@
     "eslint": "^9.18.0",
     "prettier": "^3.4.2",
     "typescript": "^5.7.3",
-    "vitest": "^2.1.8"
+    "vitest": "^3.0.5"
   }
 }
