@@ -3117,10 +3117,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"jose@npm:^5.10.0":
-  version: 5.10.0
-  resolution: "jose@npm:5.10.0"
-  checksum: 10c0/e20d9fc58d7e402f2e5f04e824b8897d5579aae60e64cb88ebdea1395311c24537bf4892f7de413fab1acf11e922797fb1b42269bc8fc65089a3749265ccb7b0
+"jose@npm:^6.0.6":
+  version: 6.0.6
+  resolution: "jose@npm:6.0.6"
+  checksum: 10c0/f05c42e295dffeaa9e8c842da70567846a352f9971979ff725a6c2271e7741ab8e31c193fd4574985f7ce01567a6141f5e6ea9a5d766b189a27d2ad9a0d8e67d
   languageName: node
   linkType: hard
 
@@ -4498,7 +4498,7 @@ __metadata:
     eslint-config-prettier: "npm:^10.0.1"
     eslint-config-two-stroke: "npm:^1.1.9"
     eslint-config-typescript: "npm:^3.0.0"
-    jose: "npm:^5.10.0"
+    jose: "npm:^6.0.6"
     jwk-subtle: "npm:^1.0.7"
     miniflare: "npm:^3.20250214.0"
     openapi-fetch: "npm:^0.13.4"
