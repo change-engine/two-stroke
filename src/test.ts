@@ -39,6 +39,9 @@ export const setupTests = async <Paths extends {}>() => {
       claims: JWTPayload,
     ) {
       const { publicKey, privateKey } = await generateKeyPair("RS256");
+      // Hack around Cloudflare not setting
+      publicKey[Symbol.toStringTag] = 'CryptoKey';
+      privateKey[Symbol.toStringTag] = 'CryptoKey';
       const jwk = await exportJWK(publicKey);
       jwk.kid = "test";
       jwk.alg = "RS256";
