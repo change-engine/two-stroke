@@ -3470,7 +3470,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"miniflare@npm:4.20250310.0":
+"miniflare@npm:4.20250310.0, miniflare@npm:^4.20250310.0":
   version: 4.20250310.0
   resolution: "miniflare@npm:4.20250310.0"
   dependencies:
@@ -3488,27 +3488,6 @@ __metadata:
   bin:
     miniflare: bootstrap.js
   checksum: 10c0/84febdd561021e33aee85df3706bcac5727b7163c2f71c1f6941917cf31fe8a49488fa1655feb8132b92df9ae4cbe22ec4cbe6eb05cf57cc6374d5b581d7792a
-  languageName: node
-  linkType: hard
-
-"miniflare@npm:^3.20250214.1":
-  version: 3.20250310.0
-  resolution: "miniflare@npm:3.20250310.0"
-  dependencies:
-    "@cspotcode/source-map-support": "npm:0.8.1"
-    acorn: "npm:8.14.0"
-    acorn-walk: "npm:8.3.2"
-    exit-hook: "npm:2.2.1"
-    glob-to-regexp: "npm:0.4.1"
-    stoppable: "npm:1.1.0"
-    undici: "npm:^5.28.5"
-    workerd: "npm:1.20250310.0"
-    ws: "npm:8.18.0"
-    youch: "npm:3.2.3"
-    zod: "npm:3.22.3"
-  bin:
-    miniflare: bootstrap.js
-  checksum: 10c0/a195f323d344fbec4d966d9a01ee32cdbdf9db3527d28474030646394f61ba151fe7076b957f8567d3d83e4defe69a8b61ea044aac25af72d6772dc6f510533e
   languageName: node
   linkType: hard
 
@@ -4595,7 +4574,7 @@ __metadata:
     eslint-config-typescript: "npm:^3.0.0"
     jose: "npm:^6.0.8"
     jwk-subtle: "npm:^1.0.7"
-    miniflare: "npm:^3.20250214.1"
+    miniflare: "npm:^4.20250310.0"
     openapi-fetch: "npm:^0.13.4"
     openapi-typescript: "npm:^7.6.1"
     openapi3-ts: "npm:^4.4.0"
