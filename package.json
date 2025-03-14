@@ -10,7 +10,7 @@
   "dependencies": {
     "@anatine/zod-openapi": "^2.2.7",
     "@asteasolutions/zod-to-openapi": "^7.3.0",
-    "@cloudflare/vitest-pool-workers": "^0.7.4",
+    "@cloudflare/vitest-pool-workers": "^0.8.0",
     "@cloudflare/workers-types": "^4.20250224.0",
     "@sentry/cli": "^2.42.2",
     "@types/node": "^22.13.8",
