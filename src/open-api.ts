@@ -61,14 +61,16 @@ export const openAPI =
         request:
           route.method === "POST" || route.method === "PUT"
             ? {
-                body: {
-                  content: {
-                    "application/json": {
-                      schema: route.input,
-                    },
-                  },
-                  required: true,
-                },
+                body: route.input
+                  ? {
+                      content: {
+                        "application/json": {
+                          schema: route.input,
+                        },
+                      },
+                      required: true,
+                    }
+                  : undefined,
                 query: route.params,
                 params,
               }

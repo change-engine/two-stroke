@@ -24,7 +24,7 @@ export function twoStroke<T extends Env>(title: string, release: string) {
     method: "GET",
     path: "/doc",
     matcher: /^\/doc$/,
-    output: z.object({}),
+    output: z.any(),
     handler: openAPI(title, release, noAuth, routes),
   });
   const crons: {
@@ -87,12 +87,19 @@ export function twoStroke<T extends Env>(title: string, release: string) {
               });
             }
             if (route.method === "POST" || route.method === "PUT") {
-              const rawBody =
-                req.headers.get("Content-Type") ===
-                "application/x-www-form-urlencoded"
+              const rawBody = route.input
+                ? req.headers.get("Content-Type") ===
+                  "application/x-www-form-urlencoded"
                   ? Object.fromEntries(new URLSearchParams(await req.text()))
-                  : await req.json();
-              const body = route.input.safeParse(rawBody);
+                  : await req.json()
+                : undefined;
+              const body = route.input
+                ? route.input.safeParse(rawBody)
+                : {
+                    success: true,
+                    data: undefined,
+                    error: undefined,
+                  };
               if (body.success)
                 response = await route.handler({
                   req,
@@ -345,7 +352,7 @@ export function twoStroke<T extends Env>(title: string, release: string) {
     },
 
     post<
-      I extends ZodSchema,
+      I extends ZodSchema | undefined,
       O extends ZodSchema,
       A,
       P extends string,

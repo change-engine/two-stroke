@@ -42,10 +42,10 @@ export const setupTests = async <Paths extends {}>() => {
       // Hack around Cloudflare not setting
       // eslint-disable-next-line @typescript-eslint/ban-ts-comment
       // @ts-expect-error
-      publicKey[Symbol.toStringTag] = 'CryptoKey';
+      publicKey[Symbol.toStringTag] = "CryptoKey";
       // eslint-disable-next-line @typescript-eslint/ban-ts-comment
       // @ts-expect-error
-      privateKey[Symbol.toStringTag] = 'CryptoKey';
+      privateKey[Symbol.toStringTag] = "CryptoKey";
       const jwk = await exportJWK(publicKey);
       jwk.kid = "test";
       jwk.alg = "RS256";
