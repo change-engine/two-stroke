@@ -29,7 +29,7 @@ export type Route<T extends Env, A> =
       method: "POST" | "PUT";
       path: string;
       matcher: RegExp;
-      input: ZodSchema;
+      input: ZodSchema | undefined;
       output: ZodSchema;
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
       handler: Handler<T, any, any, A, string>;
