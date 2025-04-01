@@ -31,11 +31,9 @@ if (fs.existsSync("wrangler.toml")) {
       "",
       ts.ScriptTarget.Latest,
     );
-    const result = types.map((t) => printer.printNode(
-      ts.EmitHint.Unspecified,
-      t,
-      resultFile,
-    )).join("\n\n");
+    const result = types
+      .map((t) => printer.printNode(ts.EmitHint.Unspecified, t, resultFile))
+      .join("\n\n");
     fs.writeFileSync(
       "test/api.d.ts",
       await prettier.format(result, { parser: "typescript" }),
