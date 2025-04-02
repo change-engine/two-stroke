@@ -3,8 +3,8 @@ import {
   OpenApiGeneratorV31,
   extendZodWithOpenApi,
 } from "@asteasolutions/zod-to-openapi";
-import { Env, Route } from "./types";
 import { ZodIssue, ZodType, z } from "zod";
+import { Env, Route } from "./types";
 
 const ZodErrorSchema: ZodType<{ issues: ZodIssue[] }> = z.object({
   error: z.string(),
@@ -15,7 +15,7 @@ const ZodErrorSchema: ZodType<{ issues: ZodIssue[] }> = z.object({
       received: z.string(),
       path: z.array(z.string()),
       message: z.string(),
-    }),
+    })
   ),
 });
 
@@ -36,7 +36,7 @@ export const openAPI =
     title: string,
     release: string,
     noAuth: () => A,
-    routes: Route<T, A>[],
+    routes: Route<T, A>[]
   ) =>
   // eslint-disable-next-line @typescript-eslint/require-await
   async () => {
@@ -51,8 +51,8 @@ export const openAPI =
           Array.from(route.path.matchAll(/\/{(?<name>[^}]*)}/g), (match) => [
             match.groups!.name,
             z.string(),
-          ]),
-        ),
+          ])
+        )
       );
       openAPIRegistry.registerPath({
         method: route.method.toLowerCase() as Method,
@@ -108,7 +108,7 @@ export const openAPI =
     const generator = new OpenApiGeneratorV31(openAPIRegistry.definitions);
     return {
       body: generator.generateDocument({
-        openapi: "3.1",
+        openapi: "3.1.0",
         info: {
           title,
           version: release,
