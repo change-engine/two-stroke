@@ -108,7 +108,7 @@ export const openAPI =
     const generator = new OpenApiGeneratorV31(openAPIRegistry.definitions);
     return {
       body: generator.generateDocument({
-        openapi: "3.1",
+        openapi: "3.1.0",
         info: {
           title,
           version: release,
