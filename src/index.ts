@@ -56,7 +56,7 @@ export function twoStroke<T extends Env>(title: string, release: string) {
       });
       try {
         if (req.method === "OPTIONS") {
-          return new Response("", {
+          return new Response(null, {
             status: 204,
             headers: {
               "Access-Control-Allow-Origin": "*",
