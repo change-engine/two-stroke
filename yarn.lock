@@ -3755,12 +3755,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"openapi-fetch@npm:^0.13.5":
-  version: 0.13.7
-  resolution: "openapi-fetch@npm:0.13.7"
+"openapi-fetch@npm:^0.14.0":
+  version: 0.14.0
+  resolution: "openapi-fetch@npm:0.14.0"
   dependencies:
     openapi-typescript-helpers: "npm:^0.0.15"
-  checksum: 10c0/3d6c9c818d6ccc6510a419a0db6c349ab18a730ee3691c016978b6763d351e66e6348f88b2c3f3f40577d644bc11d10ecdc663922e257a5efdfa9089b3f7e130
+  checksum: 10c0/d23155edde61837a25896a2b201c890649ec8d16b37c3920dee940290ef6a66bd1b6f1df5ac68ec203f32d485ce16f7cf3557c13c183299e2e321d0a2eb62691
   languageName: node
   linkType: hard
 
@@ -4617,7 +4617,7 @@ __metadata:
     jose: "npm:^6.0.10"
     jwk-subtle: "npm:^1.0.7"
     miniflare: "npm:^4.20250428.0"
-    openapi-fetch: "npm:^0.13.5"
+    openapi-fetch: "npm:^0.14.0"
     openapi-typescript: "npm:^7.6.1"
     openapi3-ts: "npm:^4.4.0"
     pbkdf-subtle: "npm:^1.0.0"
