@@ -2168,9 +2168,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"eslint-config-two-stroke@npm:^1.1.16":
-  version: 1.1.16
-  resolution: "eslint-config-two-stroke@npm:1.1.16"
+"eslint-config-two-stroke@npm:^1.1.17":
+  version: 1.1.17
+  resolution: "eslint-config-two-stroke@npm:1.1.17"
   dependencies:
     "@eslint/compat": "npm:^1.2.9"
     "@eslint/js": "npm:^9.27.0"
@@ -2186,7 +2186,7 @@ __metadata:
   peerDependencies:
     eslint: ">=9"
     prettier: ">=3"
-  checksum: 10c0/2a122e5a3d656e130c0994b0cc181060c4e02e2565eb852abe127c14a88883d36df06269a4fa98e2c06ac3d0a61c529561deb1f9fb1f34952b6531abc61a45f7
+  checksum: 10c0/1f2d467a897f2e819e85c7057088048c48e25a5e5efde24fe98f04519e9717a1f1850294de273de9ce155e6f87d70d3fce0560bbf757c9b3a70aa59b8e21b495
   languageName: node
   linkType: hard
 
@@ -4235,7 +4235,7 @@ __metadata:
     "@vitest/coverage-istanbul": "npm:^3.1.4"
     eslint: "npm:^9.27.0"
     eslint-config-prettier: "npm:^10.1.5"
-    eslint-config-two-stroke: "npm:^1.1.16"
+    eslint-config-two-stroke: "npm:^1.1.17"
     eslint-config-typescript: "npm:^3.0.0"
     jose: "npm:^6.0.11"
     jwk-subtle: "npm:^1.0.7"
