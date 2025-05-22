@@ -15,29 +15,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@anatine/zod-openapi@npm:^2.2.8":
-  version: 2.2.8
-  resolution: "@anatine/zod-openapi@npm:2.2.8"
-  dependencies:
-    ts-deepmerge: "npm:^6.0.3"
-  peerDependencies:
-    openapi3-ts: ^4.1.2
-    zod: ^3.20.0
-  checksum: 10c0/30d38bcd24c366bf09ed60516eb4f8aaf91bbfed091b6dca61a06d63854dfd6df140bc35ce2ae65f3132d03254802d56f16ae41e16b0a972be40030e652d554f
-  languageName: node
-  linkType: hard
-
-"@asteasolutions/zod-to-openapi@npm:^7.3.0":
-  version: 7.3.0
-  resolution: "@asteasolutions/zod-to-openapi@npm:7.3.0"
-  dependencies:
-    openapi3-ts: "npm:^4.1.2"
-  peerDependencies:
-    zod: ^3.20.2
-  checksum: 10c0/f0a68a89929cdeaa3e21d2027489689f982824d676a9332c680e119f60881dd39b571324b24ad4837fda49bf6fe7c3e2af2199268b281bf1aec923d7a7cbfc40
-  languageName: node
-  linkType: hard
-
 "@babel/code-frame@npm:^7.26.2, @babel/code-frame@npm:^7.27.1":
   version: 7.27.1
   resolution: "@babel/code-frame@npm:7.27.1"
@@ -228,7 +205,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@cloudflare/vitest-pool-workers@npm:^0.8.31":
+"@cloudflare/vitest-pool-workers@npm:^0.8.32":
   version: 0.8.32
   resolution: "@cloudflare/vitest-pool-workers@npm:0.8.32"
   dependencies:
@@ -282,7 +259,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@cloudflare/workers-types@npm:^4.20250521.0":
+"@cloudflare/workers-types@npm:^4.20250522.0":
   version: 4.20250523.0
   resolution: "@cloudflare/workers-types@npm:4.20250523.0"
   checksum: 10c0/e49eade2d064ec74d70ba781c5139388946efda758185c71b8aad0921d0ad9a41bfc8590a3c0695137e9944fe5c976c83da41ff498e2b619a49df6187dd6850b
@@ -2168,7 +2145,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"eslint-config-two-stroke@npm:^1.1.17":
+"eslint-config-two-stroke@npm:^1.1.19":
   version: 1.1.19
   resolution: "eslint-config-two-stroke@npm:1.1.19"
   dependencies:
@@ -3413,15 +3390,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"openapi3-ts@npm:^4.1.2, openapi3-ts@npm:^4.4.0":
-  version: 4.4.0
-  resolution: "openapi3-ts@npm:4.4.0"
-  dependencies:
-    yaml: "npm:^2.5.0"
-  checksum: 10c0/900b834279fc8a43c545728ad75ec7c26934ec5344225b60d1e1c0df44d742d7e7379aea18d9034e03031f079d3308ba5a68600682eece3ed41cdbdd10346a9e
-  languageName: node
-  linkType: hard
-
 "optionator@npm:^0.9.3":
   version: 0.9.4
   resolution: "optionator@npm:0.9.4"
@@ -4205,13 +4173,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"ts-deepmerge@npm:^6.0.3":
-  version: 6.2.1
-  resolution: "ts-deepmerge@npm:6.2.1"
-  checksum: 10c0/b73bc0a0530b26b3969f994483abbb33a8514a9b345e7095cf2add5242cd1fe388c1007c4989e2d8b193fe608f9d7a443025a635fd4331bd0ceb76c73f748adf
-  languageName: node
-  linkType: hard
-
 "tslib@npm:^2.3.1, tslib@npm:^2.4.0":
   version: 2.8.1
   resolution: "tslib@npm:2.8.1"
@@ -4223,10 +4184,8 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "two-stroke@workspace:."
   dependencies:
-    "@anatine/zod-openapi": "npm:^2.2.8"
-    "@asteasolutions/zod-to-openapi": "npm:^7.3.0"
-    "@cloudflare/vitest-pool-workers": "npm:^0.8.31"
-    "@cloudflare/workers-types": "npm:^4.20250521.0"
+    "@cloudflare/vitest-pool-workers": "npm:^0.8.32"
+    "@cloudflare/workers-types": "npm:^4.20250522.0"
     "@sentry/cli": "npm:^2.45.0"
     "@types/eslint": "npm:^9.6.1"
     "@types/node": "npm:^22.15.21"
@@ -4235,20 +4194,19 @@ __metadata:
     "@vitest/coverage-istanbul": "npm:^3.1.4"
     eslint: "npm:^9.27.0"
     eslint-config-prettier: "npm:^10.1.5"
-    eslint-config-two-stroke: "npm:^1.1.17"
+    eslint-config-two-stroke: "npm:^1.1.19"
     eslint-config-typescript: "npm:^3.0.0"
     jose: "npm:^6.0.11"
     jwk-subtle: "npm:^1.0.7"
     miniflare: "npm:^4.20250508.3"
     openapi-fetch: "npm:^0.14.0"
     openapi-typescript: "npm:^7.8.0"
-    openapi3-ts: "npm:^4.4.0"
     pbkdf-subtle: "npm:^1.0.0"
     prettier: "npm:^3.5.3"
     toucan-js: "npm:^4.1.1"
     typescript: "npm:^5.8.3"
     vitest: "npm:^3.1.4"
-    zod: "npm:^3.25.17"
+    zod: "npm:^3.25.20"
   peerDependencies:
     "@sentry/cli": ">=2"
     eslint: ">=9"
@@ -4704,15 +4662,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"yaml@npm:^2.5.0":
-  version: 2.8.0
-  resolution: "yaml@npm:2.8.0"
-  bin:
-    yaml: bin.mjs
-  checksum: 10c0/f6f7310cf7264a8107e72c1376f4de37389945d2fb4656f8060eca83f01d2d703f9d1b925dd8f39852a57034fafefde6225409ddd9f22aebfda16c6141b71858
-  languageName: node
-  linkType: hard
-
 "yargs-parser@npm:^21.1.1":
   version: 21.1.1
   resolution: "yargs-parser@npm:21.1.1"
@@ -4745,7 +4694,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"zod@npm:^3.22.3, zod@npm:^3.25.17":
+"zod@npm:^3.22.3, zod@npm:^3.25.20":
   version: 3.25.23
   resolution: "zod@npm:3.25.23"
   checksum: 10c0/c0a9d1b215ead64fdd1f3be47bc7376be6016472ae5bd1ef56d0a579d544b785b5e266dbd30947172e5b92873b7a8bed123625eeb00aea4e5d7526d86a5a31f6

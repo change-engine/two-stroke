@@ -1,7 +1,7 @@
 import { verify as jwkVerify } from "jwk-subtle";
 import { verify as pbkdfVerify } from "pbkdf-subtle";
 import { Toucan } from "toucan-js";
-import { SafeParseReturnType, ZodObject, ZodSchema, z } from "zod";
+import { ZodSafeParseResult, ZodObject, z, ZodType } from "zod/v4";
 import { openAPI } from "./open-api";
 import { Env, Handler, Route } from "./types";
 
@@ -104,7 +104,6 @@ export function twoStroke<T extends Env>(title: string, release: string) {
                 response = await route.handler({
                   req,
                   env,
-                  // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
                   body: body.data,
                   // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
                   claims,
@@ -310,13 +309,13 @@ export function twoStroke<T extends Env>(title: string, release: string) {
         }
         throw Error("Invalid");
       },
-    queueHandler<I extends ZodSchema>(
+    queueHandler<I extends ZodType>(
       input: I,
       handler: (c: {
         env: T;
         batch: MessageBatch<z.input<I>>;
         sentry: Toucan;
-        parsedBatch: SafeParseReturnType<z.input<I>, z.infer<I>>[];
+        parsedBatch: ZodSafeParseResult<z.output<I>>[];
       }) => Promise<void>,
     ) {
       _queue = async ({ batch, env, sentry }) => {
@@ -331,7 +330,7 @@ export function twoStroke<T extends Env>(title: string, release: string) {
         console.log("Queue batch finished");
       };
     },
-    put<I extends ZodSchema, O extends ZodSchema, A, P extends string>(
+    put<I extends ZodType, O extends ZodType, A, P extends string>(
       auth: Route<T, A>["auth"],
       path: P,
       input: I,
@@ -352,8 +351,8 @@ export function twoStroke<T extends Env>(title: string, release: string) {
     },
 
     post<
-      I extends ZodSchema | undefined,
-      O extends ZodSchema,
+      I extends ZodType | undefined,
+      O extends ZodType,
       A,
       P extends string,
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -381,7 +380,7 @@ export function twoStroke<T extends Env>(title: string, release: string) {
     },
 
     get<
-      O extends ZodSchema,
+      O extends ZodType,
       A,
       P extends string,
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -406,7 +405,7 @@ export function twoStroke<T extends Env>(title: string, release: string) {
       });
     },
     delete<
-      O extends ZodSchema,
+      O extends ZodType,
       A,
       P extends string,
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
