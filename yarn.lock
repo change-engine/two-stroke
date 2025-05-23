@@ -2169,8 +2169,8 @@ __metadata:
   linkType: hard
 
 "eslint-config-two-stroke@npm:^1.1.17":
-  version: 1.1.17
-  resolution: "eslint-config-two-stroke@npm:1.1.17"
+  version: 1.1.19
+  resolution: "eslint-config-two-stroke@npm:1.1.19"
   dependencies:
     "@eslint/compat": "npm:^1.2.9"
     "@eslint/js": "npm:^9.27.0"
@@ -2186,7 +2186,7 @@ __metadata:
   peerDependencies:
     eslint: ">=9"
     prettier: ">=3"
-  checksum: 10c0/1f2d467a897f2e819e85c7057088048c48e25a5e5efde24fe98f04519e9717a1f1850294de273de9ce155e6f87d70d3fce0560bbf757c9b3a70aa59b8e21b495
+  checksum: 10c0/6a2d201aa7f691083e078ec48ee492bd1aa902fb637926814d39b11547ccb8741d34cb01b7c9ff81a0389be60bd08221d668fffdf69f9ebb0983e5762f240f1f
   languageName: node
   linkType: hard
 
