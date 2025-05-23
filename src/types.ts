@@ -1,5 +1,5 @@
 import { Toucan } from "toucan-js";
-import { ZodObject, ZodSchema, z } from "zod";
+import { ZodType, ZodObject, z } from "zod/v4";
 export type Env = {
   [k: string]:
     | string
@@ -18,7 +18,7 @@ export type Route<T extends Env, A> =
       method: "GET" | "DELETE";
       path: string;
       matcher: RegExp;
-      output: ZodSchema;
+      output: ZodType;
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
       handler: Handler<T, undefined, any, A, string>;
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -29,8 +29,8 @@ export type Route<T extends Env, A> =
       method: "POST" | "PUT";
       path: string;
       matcher: RegExp;
-      input: ZodSchema | undefined;
-      output: ZodSchema;
+      input: ZodType | undefined;
+      output: ZodType;
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
       handler: Handler<T, any, any, A, string>;
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -44,14 +44,14 @@ export type ExtractParameterNames<S extends string> =
 
 export type Handler<
   T extends Env,
-  I extends ZodSchema | undefined,
-  O extends ZodSchema,
+  I extends ZodType | undefined,
+  O extends ZodType,
   A,
   P extends string,
 > = (c: {
   req: Request;
   env: T;
-  body: I extends ZodSchema ? z.infer<I> : undefined;
+  body: I extends ZodType ? z.infer<I> : undefined;
   params: ExtractParameterNames<P>;
   searchParams: URLSearchParams;
   claims: A;

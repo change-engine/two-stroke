@@ -1,35 +1,5 @@
-import {
-  OpenAPIRegistry,
-  OpenApiGeneratorV31,
-  extendZodWithOpenApi,
-} from "@asteasolutions/zod-to-openapi";
+import { z, ZodType } from "zod/v4";
 import { Env, Route } from "./types";
-import { ZodIssue, ZodType, z } from "zod";
-
-const ZodErrorSchema: ZodType<{ issues: ZodIssue[] }> = z.object({
-  error: z.string(),
-  issues: z.array(
-    z.object({
-      code: z.literal("invalid_literal"),
-      expected: z.string(),
-      received: z.string(),
-      path: z.array(z.string()),
-      message: z.string(),
-    }),
-  ),
-});
-
-type Method =
-  | "get"
-  | "post"
-  | "put"
-  | "delete"
-  | "patch"
-  | "head"
-  | "options"
-  | "trace";
-
-extendZodWithOpenApi(z);
 
 export const openAPI =
   <T extends Env, A>(
@@ -39,80 +9,136 @@ export const openAPI =
     routes: Route<T, A>[],
   ) =>
   // eslint-disable-next-line @typescript-eslint/require-await
-  async () => {
-    const openAPIRegistry = new OpenAPIRegistry();
-    openAPIRegistry.registerComponent("securitySchemes", "auth", {
-      type: "http",
-      scheme: "bearer",
-    });
-    routes.map((route): void => {
-      const params = z.object(
-        Object.fromEntries(
-          Array.from(route.path.matchAll(/\/{(?<name>[^}]*)}/g), (match) => [
-            match.groups!.name,
-            z.string(),
-          ]),
-        ),
-      );
-      openAPIRegistry.registerPath({
-        method: route.method.toLowerCase() as Method,
-        path: route.path.toString(),
-        ...(route.auth === noAuth ? {} : { security: [{ auth: [] }] }),
-        request:
-          route.method === "POST" || route.method === "PUT"
-            ? {
-                body: route.input
-                  ? {
+  async () => ({
+    body: {
+      openapi: "3.1.0",
+      info: {
+        title,
+        version: release,
+      },
+      components: {
+        securitySchemes: {
+          auth: {
+            type: "http",
+            scheme: "bearer",
+          },
+        },
+      },
+      paths: Object.fromEntries(
+        routes.map((r) => [
+          r.path,
+          {
+            [r.method.toLocaleLowerCase()]: {
+              parameters: [
+                ...Object.entries(
+                  (r.params?.shape ?? {}) as Record<string, ZodType>,
+                ).map(([k, v]) => ({
+                  name: k,
+                  in: "query",
+                  requireed: !v.safeParse(undefined).success,
+                  schema: z.toJSONSchema(v, { io: "input" }),
+                })),
+                ...Array.from(
+                  r.path.matchAll(/\/{(?<name>[^}]*)}/g),
+                  (match) => ({
+                    name: match.groups!.name,
+                    in: "path",
+                    required: true,
+                    schema: {
+                      type: "string",
+                    },
+                  }),
+                ),
+              ],
+              ...(r.auth === noAuth ? {} : { security: [{ auth: [] }] }),
+              ...(r.method === "POST" || r.method === "PUT"
+                ? {
+                    requestBody: {
+                      required: true,
                       content: {
                         "application/json": {
-                          schema: route.input,
+                          schema: z.toJSONSchema(r.input!, { io: "input" }),
                         },
                       },
-                      required: true,
-                    }
-                  : undefined,
-                query: route.params,
-                params,
-              }
-            : { query: route.params, params },
-        responses: {
-          200: {
-            description: "OK",
-            content: {
-              "application/json": {
-                schema: route.output,
+                    },
+                  }
+                : {}),
+              responses: {
+                "200": {
+                  description: "OK",
+                  content: {
+                    "application/json": {
+                      schema: z.toJSONSchema(r.output),
+                    },
+                  },
+                },
+                "400": status400,
+                "500": status500,
               },
             },
           },
-          400: {
-            description: "Invalid Request",
-            content: {
-              "application/json": {
-                schema: ZodErrorSchema,
-              },
-            },
+        ]),
+      ),
+    },
+  });
+
+const status500 = {
+  description: "Invalid Request",
+  content: {
+    "application/json": {
+      schema: {
+        type: "object",
+        properties: {
+          error: {
+            type: "string",
           },
-          500: {
-            description: "Invalid Request",
-            content: {
-              "application/json": {
-                schema: z.object({
-                  error: z.string(),
-                }),
+        },
+        required: ["error"],
+      },
+    },
+  },
+};
+const status400 = {
+  description: "Invalid Request",
+  content: {
+    "application/json": {
+      schema: {
+        type: "object",
+        properties: {
+          error: {
+            type: "string",
+          },
+          issues: {
+            type: "array",
+            items: {
+              type: "object",
+              properties: {
+                code: {
+                  type: "string",
+                  enum: ["invalid_literal"],
+                },
+                expected: {
+                  type: "string",
+                },
+                received: {
+                  type: "string",
+                },
+                path: {
+                  type: "array",
+                  items: {
+                    type: "string",
+                  },
+                },
+                message: {
+                  type: "string",
+                },
               },
+              required: ["code", "expected", "received", "path", "message"],
             },
           },
         },
-      });
-    });
-    const generator = new OpenApiGeneratorV31(openAPIRegistry.definitions);
-    return {
-      body: generator.generateDocument({
-        openapi: "3.1.0",
-        info: {
-          title,
-          version: release,
-        },
-      }),
-    };
-  };
+        required: ["error", "issues"],
+      },
+    },
+  },
+};

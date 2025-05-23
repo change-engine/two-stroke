@@ -8,27 +8,24 @@
     "type-check": "./bin/type-check.mjs"
   },
   "dependencies": {
-    "@anatine/zod-openapi": "^2.2.8",
-    "@asteasolutions/zod-to-openapi": "^7.3.0",
-    "@cloudflare/vitest-pool-workers": "^0.8.31",
-    "@cloudflare/workers-types": "^4.20250521.0",
+    "@cloudflare/vitest-pool-workers": "^0.8.32",
+    "@cloudflare/workers-types": "^4.20250522.0",
     "@sentry/cli": "^2.45.0",
     "@types/node": "^22.15.21",
     "@typescript-eslint/eslint-plugin": "^8.32.1",
     "@typescript-eslint/parser": "^8.32.1",
     "@vitest/coverage-istanbul": "^3.1.4",
     "eslint-config-prettier": "^10.1.5",
-    "eslint-config-two-stroke": "^1.1.17",
+    "eslint-config-two-stroke": "^1.1.19",
     "eslint-config-typescript": "^3.0.0",
     "jose": "^6.0.11",
     "jwk-subtle": "^1.0.7",
     "miniflare": "^4.20250508.3",
     "openapi-fetch": "^0.14.0",
     "openapi-typescript": "^7.8.0",
-    "openapi3-ts": "^4.4.0",
     "pbkdf-subtle": "^1.0.0",
     "toucan-js": "^4.1.1",
-    "zod": "^3.25.17"
+    "zod": "^3.25.20"
   },
   "peerDependencies": {
     "@sentry/cli": ">=2",
@@ -40,7 +37,7 @@
   },
   "description": "Simple Cloudflare Worker framework.",
   "engines": {
-    "node": "^20.10.0"
+    "node": "^22.16.0"
   },
   "eslintConfig": {
     "extends": [
@@ -52,7 +49,7 @@
   "name": "two-stroke",
   "packageManager": "yarn@4.6.0",
   "type": "module",
-  "version": "4.4.2",
+  "version": "5.0.0",
   "devDependencies": {
     "@types/eslint": "^9.6.1",
     "eslint": "^9.27.0",
