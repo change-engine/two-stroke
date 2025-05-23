@@ -35,7 +35,7 @@ export const openAPI =
                 ).map(([k, v]) => ({
                   name: k,
                   in: "query",
-                  requireed: !v.safeParse(undefined).success,
+                  required: !v.safeParse(undefined).success,
                   schema: z.toJSONSchema(v, { io: "input" }),
                 })),
                 ...Array.from(
@@ -56,9 +56,11 @@ export const openAPI =
                     requestBody: {
                       required: true,
                       content: {
-                        "application/json": {
-                          schema: z.toJSONSchema(r.input!, { io: "input" }),
-                        },
+                        "application/json": r.input
+                          ? {
+                              schema: z.toJSONSchema(r.input, { io: "input" }),
+                            }
+                          : undefined,
                       },
                     },
                   }
