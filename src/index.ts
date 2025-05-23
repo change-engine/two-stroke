@@ -120,7 +120,8 @@ export function twoStroke<T extends Env>(title: string, release: string) {
                 return new Response(
                   JSON.stringify({
                     error: "Request body schema invalid",
-                    ...body.error,
+                    issues: JSON.parse(body.error?.message ?? "{}") as unknown,
+                    name: body.error?.name
                   }),
                   {
                     status: 400,
