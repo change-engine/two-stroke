@@ -13,7 +13,8 @@ const escapeRegex = (str: string) =>
 
 export function twoStroke<T extends Env>(title: string, release: string) {
   let _queue: (c: {
-    batch: MessageBatch;
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    batch: MessageBatch<any>;
     env: T;
     sentry: Toucan;
   }) => Promise<void>;
