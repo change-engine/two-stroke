@@ -121,7 +121,7 @@ export function twoStroke<T extends Env>(title: string, release: string) {
                   JSON.stringify({
                     error: "Request body schema invalid",
                     issues: JSON.parse(body.error?.message ?? "{}") as unknown,
-                    name: body.error?.name
+                    name: body.error?.name,
                   }),
                   {
                     status: 400,
@@ -319,7 +319,15 @@ export function twoStroke<T extends Env>(title: string, release: string) {
         parsedBatch: ZodSafeParseResult<z.output<I>>[];
       }) => Promise<void>,
     ) {
-      _queue = async ({ batch, env, sentry }) => {
+      _queue = async ({
+        batch,
+        env,
+        sentry,
+      }: {
+        batch: MessageBatch<z.input<I>>;
+        env: T;
+        sentry: Toucan;
+      }) => {
         const parsedBatch = batch.messages.map((message) => {
           const passed = input.safeParse(message.body);
           if (!passed.success) {

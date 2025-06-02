@@ -8,24 +8,24 @@
     "type-check": "./bin/type-check.mjs"
   },
   "dependencies": {
-    "@cloudflare/vitest-pool-workers": "^0.8.32",
-    "@cloudflare/workers-types": "^4.20250522.0",
-    "@sentry/cli": "^2.45.0",
-    "@types/node": "^22.15.21",
-    "@typescript-eslint/eslint-plugin": "^8.32.1",
-    "@typescript-eslint/parser": "^8.32.1",
+    "@cloudflare/vitest-pool-workers": "^0.8.34",
+    "@cloudflare/workers-types": "^4.20250601.0",
+    "@sentry/cli": "^2.46.0",
+    "@types/node": "^22.15.29",
+    "@typescript-eslint/eslint-plugin": "^8.33.0",
+    "@typescript-eslint/parser": "^8.33.0",
     "@vitest/coverage-istanbul": "^3.1.4",
     "eslint-config-prettier": "^10.1.5",
-    "eslint-config-two-stroke": "^1.1.19",
+    "eslint-config-two-stroke": "^1.1.20",
     "eslint-config-typescript": "^3.0.0",
     "jose": "^6.0.11",
     "jwk-subtle": "^1.0.7",
-    "miniflare": "^4.20250508.3",
+    "miniflare": "^4.20250525.0",
     "openapi-fetch": "^0.14.0",
     "openapi-typescript": "^7.8.0",
     "pbkdf-subtle": "^1.0.0",
     "toucan-js": "^4.1.1",
-    "zod": "^3.25.20"
+    "zod": "^3.25.47"
   },
   "peerDependencies": {
     "@sentry/cli": ">=2",
@@ -49,10 +49,10 @@
   "name": "two-stroke",
   "packageManager": "yarn@4.6.0",
   "type": "module",
-  "version": "5.0.2",
+  "version": "5.0.3",
   "devDependencies": {
     "@types/eslint": "^9.6.1",
-    "eslint": "^9.27.0",
+    "eslint": "^9.28.0",
     "prettier": "^3.5.3",
     "typescript": "^5.8.3",
     "vitest": "^3.1.4"
