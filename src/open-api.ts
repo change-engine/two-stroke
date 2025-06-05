@@ -25,61 +25,68 @@ export const openAPI =
         },
       },
       paths: Object.fromEntries(
-        routes.map((r) => [
-          r.path,
-          {
-            [r.method.toLocaleLowerCase()]: {
-              parameters: [
-                ...Object.entries(
-                  (r.params?.shape ?? {}) as Record<string, ZodType>,
-                ).map(([k, v]) => ({
-                  name: k,
-                  in: "query",
-                  required: !v.safeParse(undefined).success,
-                  schema: z.toJSONSchema(v, { io: "input" }),
-                })),
-                ...Array.from(
-                  r.path.matchAll(/\/{(?<name>[^}]*)}/g),
-                  (match) => ({
-                    name: match.groups!.name,
-                    in: "path",
-                    required: true,
-                    schema: {
-                      type: "string",
-                    },
-                  }),
-                ),
-              ],
-              ...(r.auth === noAuth ? {} : { security: [{ auth: [] }] }),
-              ...(r.method === "POST" || r.method === "PUT"
-                ? {
-                    requestBody: {
-                      required: true,
+        Object.entries(Object.groupBy(routes, ({ path }) => path)).map(
+          ([path, rs]) => [
+            path,
+            Object.fromEntries(
+              (rs ?? []).map((r) => [
+                r.method.toLocaleLowerCase(),
+                {
+                  parameters: [
+                    ...Object.entries(
+                      (r.params?.shape ?? {}) as Record<string, ZodType>,
+                    ).map(([k, v]) => ({
+                      name: k,
+                      in: "query",
+                      required: !v.safeParse(undefined).success,
+                      schema: z.toJSONSchema(v, { io: "input" }),
+                    })),
+                    ...Array.from(
+                      r.path.matchAll(/\/{(?<name>[^}]*)}/g),
+                      (match) => ({
+                        name: match.groups!.name,
+                        in: "path",
+                        required: true,
+                        schema: {
+                          type: "string",
+                        },
+                      }),
+                    ),
+                  ],
+                  ...(r.auth === noAuth ? {} : { security: [{ auth: [] }] }),
+                  ...(r.method === "POST" || r.method === "PUT"
+                    ? {
+                        requestBody: {
+                          required: true,
+                          content: {
+                            "application/json": r.input
+                              ? {
+                                  schema: z.toJSONSchema(r.input, {
+                                    io: "input",
+                                  }),
+                                }
+                              : undefined,
+                          },
+                        },
+                      }
+                    : {}),
+                  responses: {
+                    "200": {
+                      description: "OK",
                       content: {
-                        "application/json": r.input
-                          ? {
-                              schema: z.toJSONSchema(r.input, { io: "input" }),
-                            }
-                          : undefined,
+                        "application/json": {
+                          schema: z.toJSONSchema(r.output),
+                        },
                       },
                     },
-                  }
-                : {}),
-              responses: {
-                "200": {
-                  description: "OK",
-                  content: {
-                    "application/json": {
-                      schema: z.toJSONSchema(r.output),
-                    },
+                    "400": status400,
+                    "500": status500,
                   },
                 },
-                "400": status400,
-                "500": status500,
-              },
-            },
-          },
-        ]),
+              ]),
+            ),
+          ],
+        ),
       ),
     },
   });
