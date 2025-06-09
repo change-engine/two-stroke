@@ -71,7 +71,11 @@ export function twoStroke<T extends Env>(title: string, release: string) {
         let response;
         for (const route of routes) {
           if (req.method === route.method && route.matcher.test(pathname)) {
-            const params = pathname.match(route.matcher)?.groups ?? {};
+            const params = Object.fromEntries(
+              Object.entries(pathname.match(route.matcher)?.groups ?? {}).map(
+                ([k, v]) => [k, decodeURIComponent(v)],
+              ),
+            );
             let claims;
             try {
               // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
