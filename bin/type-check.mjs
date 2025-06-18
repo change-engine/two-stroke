@@ -2,5 +2,5 @@
 "use strict";
 import { cmd } from "../src/cmd.mjs";
 
-cmd("wrangler deploy --env='' --dry-run --outdir=dist");
+cmd("wrangler deploy --env=  --dry-run --outdir=dist");
 cmd("tsc --noEmit");

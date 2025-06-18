@@ -9,7 +9,7 @@ import ts from "typescript";
 import { Miniflare } from "miniflare";
 
 if (fs.existsSync("wrangler.toml")) {
-  cmd("wrangler deploy --env='' --dry-run --outdir=dist");
+  cmd("wrangler deploy --env=  --dry-run --outdir=dist");
   const miniflare = new Miniflare({
     modules: true,
     scriptPath: "dist/index.js",
