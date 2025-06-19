@@ -10,7 +10,8 @@ export type Env = {
     | Fetcher
     | Hyperdrive
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    | DurableObjectNamespace<any>;
+    | DurableObjectNamespace<any>
+    | Vectorize;
 };
 export type Route<T extends Env, A> =
   | {
