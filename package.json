@@ -8,19 +8,19 @@
     "type-check": "./bin/type-check.mjs"
   },
   "dependencies": {
-    "@cloudflare/vitest-pool-workers": "^0.8.39",
-    "@cloudflare/workers-types": "^4.20250618.0",
+    "@cloudflare/vitest-pool-workers": "^0.8.43",
+    "@cloudflare/workers-types": "^4.20250620.0",
     "@sentry/cli": "^2.46.0",
     "@types/node": "^24.0.3",
     "@typescript-eslint/eslint-plugin": "^8.34.1",
     "@typescript-eslint/parser": "^8.34.1",
     "@vitest/coverage-istanbul": "^3.2.4",
     "eslint-config-prettier": "^10.1.5",
-    "eslint-config-two-stroke": "^1.1.23",
+    "eslint-config-two-stroke": "^1.1.24",
     "eslint-config-typescript": "^3.0.0",
     "jose": "^6.0.11",
     "jwk-subtle": "^1.0.7",
-    "miniflare": "^4.20250612.0",
+    "miniflare": "^4.20250617.3",
     "openapi-fetch": "^0.14.0",
     "openapi-typescript": "^7.8.0",
     "pbkdf-subtle": "^1.0.0",
@@ -49,11 +49,11 @@
   "name": "two-stroke",
   "packageManager": "yarn@4.6.0",
   "type": "module",
-  "version": "5.1.6",
+  "version": "5.1.7",
   "devDependencies": {
     "@types/eslint": "^9.6.1",
     "eslint": "^9.29.0",
-    "prettier": "^3.5.3",
+    "prettier": "^3.6.0",
     "typescript": "^5.8.3",
     "vitest": "^3.2.4"
   }
