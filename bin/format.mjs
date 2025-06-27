@@ -2,5 +2,5 @@
 "use strict";
 import { cmd } from "../src/cmd.mjs";
 
-cmd("eslint --fix");
-cmd("prettier --write .");
+cmd("eslint --cache --fix");
+cmd("prettier --cache --write .");
