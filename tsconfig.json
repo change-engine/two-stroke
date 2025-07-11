@@ -1,6 +1,5 @@
 {
   "compilerOptions": {
-    "allowJs": true,
     "esModuleInterop": true,
     "isolatedModules": true,
     "lib": ["ESNext"],
