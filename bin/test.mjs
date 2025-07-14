@@ -17,7 +17,6 @@ if (fs.existsSync("wrangler.toml")) {
     compatibilityFlags: ["nodejs_compat"],
   });
   const request = await fetch(
-    // eslint-disable-next-line @typescript-eslint/restrict-template-expressions
     `${await miniflare.ready}doc`,
     { SENTRY_DSN: null, SENTRY_ENVIRONMENT: null },
     null,
