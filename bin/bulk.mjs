@@ -1,14 +1,14 @@
 #!/usr/bin/env node
 "use strict";
 
-import { promises as fs } from "fs";
+import fs from "fs";
 import { cmd } from "../src/cmd.mjs";
 import mime from "mime";
 
 const entryOrRest = process.argv[2];
 const entry = process.argv[3];
 
-const ents = await fs.readdir("dist", { withFileTypes: true, recursive: true });
+const ents = await fs.promises.readdir("dist", { withFileTypes: true, recursive: true });
 const files = await Promise.all(
   ents
     .filter((ent) => ent.isFile())
@@ -20,7 +20,7 @@ const files = await Promise.all(
       const key = `${ent.parentPath.substring(4)}/${ent.name}`;
       return (async () => ({
         key: ent.name === entry ? `${process.env.DOMAIN}${key}` : key,
-        value: (await fs.readFile(`${ent.parentPath}/${ent.name}`)).toString(
+        value: (await fs.promises.readFile(`${ent.parentPath}/${ent.name}`)).toString(
           "base64",
         ),
         base64: true,
