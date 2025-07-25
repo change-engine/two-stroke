@@ -38,7 +38,7 @@ const files = await Promise.all(
     }),
 );
 
-fs.writeFileSync(`dist/bulk_${process.argv[2]}.json`, files);
+fs.writeFileSync(`dist/bulk_${process.argv[2]}.json`, JSON.stringify(files));
 
 cmd(
   `wrangler kv bulk put dist/bulk_${process.argv[2]}.json --remote --namespace-id ${process.env.NAMESPACE}`,
