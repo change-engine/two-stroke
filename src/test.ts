@@ -1,7 +1,6 @@
 import { JWTPayload, SignJWT, exportJWK, generateKeyPair } from "jose";
 import { fetchMock, SELF, env } from "cloudflare:test";
 import createClient from "openapi-fetch";
-import consumers from "stream/consumers";
 
 // eslint-disable-next-line @typescript-eslint/no-empty-object-type, @typescript-eslint/require-await
 export const setupTests = async <Paths extends {}>() => {
@@ -116,11 +115,9 @@ export function recordRequest(
     headers: Record<string, string | string[] | undefined>;
   },
 ) {
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  return ({ body }: any) => {
-    // eslint-disable-next-line @typescript-eslint/no-unsafe-argument
-    void consumers.json(body).then(cb);
-    return { statusCode, data, responseOptions };
+  return ({ body }: { body?: BodyInit }) => {
+    cb(JSON.parse((body?.valueOf() as string) ?? ""));
+    return { statusCode, data, responseOptions: responseOptions ?? {} };
   };
 }
 
@@ -133,17 +130,13 @@ export function recordFormRequest(
     headers: Record<string, string | string[] | undefined>;
   },
 ) {
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  return ({ body }: any) => {
-    void consumers
-      // eslint-disable-next-line @typescript-eslint/no-unsafe-argument
-      .text(body)
-      // eslint-disable-next-line @typescript-eslint/no-explicit-any, @typescript-eslint/no-shadow
-      .then((data: any) =>
-        // eslint-disable-next-line @typescript-eslint/no-unsafe-argument
-        cb(Object.fromEntries(new URLSearchParams(data).entries())),
-      );
-    return { statusCode, data, responseOptions };
+  return ({ body }: { body?: BodyInit }) => {
+    cb(
+      Object.fromEntries(
+        new URLSearchParams((body?.valueOf() as string) ?? "").entries(),
+      ),
+    );
+    return { statusCode, data, responseOptions: responseOptions ?? {} };
   };
 }
 
@@ -156,13 +149,14 @@ export function recordFirehoseRequest(
     headers: Record<string, string | string[] | undefined>;
   },
 ) {
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  return ({ body }: any) => {
-    void consumers
-      // eslint-disable-next-line @typescript-eslint/no-unsafe-argument
-      .json(body)
-      // eslint-disable-next-line @typescript-eslint/no-explicit-any, @typescript-eslint/no-shadow, @typescript-eslint/no-unsafe-argument, @typescript-eslint/no-unsafe-member-access
-      .then((data: any) => cb(JSON.parse(atob(data["Record"]["Data"]))));
-    return { statusCode, data, responseOptions };
+  return ({ body }: { body?: BodyInit }) => {
+    cb(JSON.parse((body?.valueOf() as string) ?? ""));
+    cb(
+      JSON.parse(
+        // eslint-disable-next-line @typescript-eslint/no-unsafe-argument, @typescript-eslint/no-unsafe-member-access
+        atob(JSON.parse((body?.valueOf() as string) ?? "")["Record"]["Data"]),
+      ),
+    );
+    return { statusCode, data, responseOptions: responseOptions ?? {} };
   };
 }

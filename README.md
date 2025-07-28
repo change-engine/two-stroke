@@ -48,7 +48,7 @@ app.get(
     return {
       body: { message: "Hello, World!" },
     };
-  }
+  },
 );
 
 // Define a route with path parameters
@@ -60,7 +60,7 @@ app.get(
     return {
       body: { user: { id: params.userId, name: "John Doe" } },
     };
-  }
+  },
 );
 
 // Define a POST route with request validation
@@ -73,7 +73,7 @@ app.post(
     return {
       body: { id: "msg_123" },
     };
-  }
+  },
 );
 
 // Export the worker handlers
@@ -95,7 +95,7 @@ app.get(
   app.pbkdf("API_KEY"),
   "/protected",
   z.object({ message: z.string() }),
-  async () => ({ body: { message: "Protected endpoint" } })
+  async () => ({ body: { message: "Protected endpoint" } }),
 );
 
 // JWT authentication
@@ -103,7 +103,7 @@ app.get(
   app.jwt<{ userId: string }>("JWT_SECRET", "JWT_AUDIENCE"),
   "/user-data",
   z.object({ userId: z.string() }),
-  async ({ claims }) => ({ body: { userId: claims.userId } })
+  async ({ claims }) => ({ body: { userId: claims.userId } }),
 );
 ```
 
@@ -121,7 +121,7 @@ app.queueHandler(
         console.log(`Processing message: ${data.id}`);
       }
     }
-  }
+  },
 );
 
 // Add to queue with retry logic
@@ -133,7 +133,7 @@ await addToQueue(
   {
     retries: 3,
     backoffFactor: 2,
-  }
+  },
 );
 ```
 
