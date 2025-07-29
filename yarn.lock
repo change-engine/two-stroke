@@ -4540,6 +4540,7 @@ __metadata:
     vitest: ^2.1.8
     wrangler: ">=3"
   bin:
+    api-types: ./bin/api-types.mjs
     bulk: ./bin/bulk.mjs
     deploy: ./bin/deploy.mjs
     dev: ./bin/dev.mjs

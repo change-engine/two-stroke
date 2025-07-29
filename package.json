@@ -1,5 +1,6 @@
 {
   "bin": {
+    "api-types": "./bin/api-types.mjs",
     "bulk": "./bin/bulk.mjs",
     "deploy": "./bin/deploy.mjs",
     "dev": "./bin/dev.mjs",
@@ -51,7 +52,7 @@
   "name": "two-stroke",
   "packageManager": "yarn@4.6.0",
   "type": "module",
-  "version": "5.4.0",
+  "version": "5.5.0",
   "devDependencies": {
     "@types/eslint": "^9.6.1",
     "eslint": "^9.32.0",
