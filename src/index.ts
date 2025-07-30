@@ -92,12 +92,32 @@ export function twoStroke<T extends Env>(title: string, release: string) {
               });
             }
             if (route.method === "POST" || route.method === "PUT") {
-              const rawBody = route.input
-                ? req.headers.get("Content-Type") ===
-                  "application/x-www-form-urlencoded"
-                  ? Object.fromEntries(new URLSearchParams(await req.text()))
-                  : await req.json()
-                : undefined;
+              let rawBody;
+              try {
+                rawBody = route.input
+                  ? req.headers.get("Content-Type") ===
+                    "application/x-www-form-urlencoded"
+                    ? Object.fromEntries(new URLSearchParams(await req.text()))
+                    : await req.json()
+                  : undefined;
+              } catch (e) {
+                console.error({
+                  message: "Request body is required'",
+                  error: e instanceof Error ? e.message : "Error",
+                });
+                return new Response(
+                  JSON.stringify({
+                    error: "Request body is required",
+                    issues: [],
+                  }),
+                  {
+                    status: 400,
+                    headers: {
+                      "Access-Control-Allow-Origin": "*",
+                    },
+                  },
+                );
+              }
               const body = route.input
                 ? route.input.safeParse(rawBody)
                 : {
