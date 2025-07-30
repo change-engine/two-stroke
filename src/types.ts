@@ -11,7 +11,8 @@ export type Env = {
     | Hyperdrive
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     | DurableObjectNamespace<any>
-    | Vectorize;
+    | Vectorize
+    | ImagesBinding;
 };
 export type Route<T extends Env, A> =
   | {
