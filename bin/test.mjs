@@ -35,7 +35,7 @@ if (fs.existsSync("wrangler.toml")) {
       .join("\n\n");
     fs.writeFileSync(
       "test/api.d.ts",
-      await prettier.format(result, { parser: "typescript" }),
+      await prettier.format(result, { parser: "typescript", printWidth: 100 }),
     );
   }
 }
