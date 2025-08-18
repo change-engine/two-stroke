@@ -65,6 +65,16 @@ export type Handler<
       headers?: Record<string, string>;
     }
   | {
+      body: z.infer<O>;
+      status: 301;
+      headers?: Record<string, string>;
+    }
+  | {
+      body: z.infer<O>;
+      status: 302;
+      headers?: Record<string, string>;
+    }
+  | {
       body?: { error: string };
       status: number;
       headers?: Record<string, string>;

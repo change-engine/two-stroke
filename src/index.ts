@@ -11,7 +11,11 @@ const noAuth = async () => null;
 const escapeRegex = (str: string) =>
   str.replace(/([.*+?^=!:$()|[\]\\])/g, "\\$&");
 
-export function twoStroke<T extends Env>(title: string, release: string) {
+export function twoStroke<T extends Env>(
+  title: string,
+  release: string,
+  origin?: (o: string | null) => string,
+) {
   let _queue: (c: {
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     batch: MessageBatch<any>;
@@ -45,6 +49,11 @@ export function twoStroke<T extends Env>(title: string, release: string) {
       },
       context: ExecutionContext,
     ): Promise<Response> {
+      const defaultHeaders = {
+        "Access-Control-Allow-Origin": origin
+          ? origin(req.headers.get("Origin"))
+          : "*",
+      };
       const sentry = new Toucan({
         dsn: env.SENTRY_DSN,
         context,
@@ -60,9 +69,9 @@ export function twoStroke<T extends Env>(title: string, release: string) {
           return new Response(null, {
             status: 204,
             headers: {
-              "Access-Control-Allow-Origin": "*",
+              ...defaultHeaders,
               "Access-Control-Max-Age": "86400",
-              "Access-Control-Allow-Methods": "GET,PUT,POST,DELETE",
+              "Access-Control-Allow-Methods": "GET,HEAD,PUT,POST,DELETE",
               "Access-Control-Allow-Headers": "Authorization,Content-Type",
             },
           });
@@ -86,8 +95,8 @@ export function twoStroke<T extends Env>(title: string, release: string) {
                 status: 401,
                 statusText: "Invalid Authorization",
                 headers: {
+                  ...defaultHeaders,
                   "WWW-Authenticate": "Bearer",
-                  "Access-Control-Allow-Origin": "*",
                 },
               });
             }
@@ -112,9 +121,7 @@ export function twoStroke<T extends Env>(title: string, release: string) {
                   }),
                   {
                     status: 400,
-                    headers: {
-                      "Access-Control-Allow-Origin": "*",
-                    },
+                    headers: defaultHeaders,
                   },
                 );
               }
@@ -150,9 +157,7 @@ export function twoStroke<T extends Env>(title: string, release: string) {
                   }),
                   {
                     status: 400,
-                    headers: {
-                      "Access-Control-Allow-Origin": "*",
-                    },
+                    headers: defaultHeaders,
                   },
                 );
               }
@@ -185,16 +190,13 @@ export function twoStroke<T extends Env>(title: string, release: string) {
               ...response,
               headers: new Headers(response.headers ?? {}),
             };
-            if (!responseWithHeaders.headers.has("Content-Type"))
-              responseWithHeaders.headers.set(
-                "Content-Type",
-                "application/json",
-              );
-            if (!responseWithHeaders.headers.has("Access-Control-Allow-Origin"))
-              responseWithHeaders.headers.set(
-                "Access-Control-Allow-Origin",
-                "*",
-              );
+            Object.entries({
+              ...defaultHeaders,
+              "Content-Type": "application/json",
+            }).forEach(([k, v]) => {
+              if (!responseWithHeaders.headers.has(k))
+                responseWithHeaders.headers.set(k, v);
+            });
 
             return new Response(
               // eslint-disable-next-line @typescript-eslint/no-unsafe-argument
@@ -208,7 +210,7 @@ export function twoStroke<T extends Env>(title: string, release: string) {
         }
         return new Response("", {
           status: 404,
-          headers: { "Access-Control-Allow-Origin": "*" },
+          headers: defaultHeaders,
         });
       } catch (err) {
         console.warn(err);
@@ -216,7 +218,7 @@ export function twoStroke<T extends Env>(title: string, release: string) {
         return new Response("", {
           status: 500,
           statusText: "Internal Server Error",
-          headers: { "Access-Control-Allow-Origin": "*" },
+          headers: defaultHeaders,
         });
       }
     },
