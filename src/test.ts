@@ -1,4 +1,4 @@
-import { JWTPayload, SignJWT, exportJWK, generateKeyPair } from "jose";
+import { type JWTPayload, SignJWT, exportJWK, generateKeyPair } from "jose";
 import { fetchMock, SELF, env } from "cloudflare:test";
 import createClient from "openapi-fetch";
 

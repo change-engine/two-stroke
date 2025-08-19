@@ -1,9 +1,9 @@
 import { verify as jwkVerify } from "jwk-subtle";
 import { verify as pbkdfVerify } from "pbkdf-subtle";
 import { Toucan } from "toucan-js";
-import { ZodSafeParseResult, ZodObject, z, ZodType } from "zod/v4";
+import { type ZodSafeParseResult, ZodObject, z, ZodType } from "zod/v4";
 import { openAPI } from "./open-api";
-import { Env, Handler, Route } from "./types";
+import { type Env, type Handler, type Route } from "./types";
 
 // eslint-disable-next-line @typescript-eslint/require-await
 const noAuth = async () => null;

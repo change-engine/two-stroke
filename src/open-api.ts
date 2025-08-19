@@ -1,5 +1,5 @@
 import { z, ZodType } from "zod/v4";
-import { Env, Route } from "./types";
+import { type Env, type Route } from "./types";
 
 export const openAPI =
   <T extends Env, A>(
