@@ -51,7 +51,10 @@ export function twoStroke<T extends Env>(
     ): Promise<Response> {
       const defaultHeaders = {
         "Access-Control-Allow-Origin": origin
-          ? origin(req.headers.get("Origin"))
+          ? env.SENTRY_ENVIRONMENT === "staging" &&
+            req.headers.get("Origin")?.split(":")[1]?.endsWith("localhost")
+            ? (req.headers.get("Origin") ?? "")
+            : origin(req.headers.get("Origin"))
           : "*",
       };
       const sentry = new Toucan({
