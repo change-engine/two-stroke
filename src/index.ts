@@ -196,6 +196,10 @@ export function twoStroke<T extends Env>(
             Object.entries({
               ...defaultHeaders,
               "Content-Type": "application/json",
+              "Strict-Transport-Security":
+                "max-age=15552000; includeSubDomains",
+              "X-Content-Type-Options": "nosniff",
+              "Content-Security-Policy": "default-src 'self'",
             }).forEach(([k, v]) => {
               if (!responseWithHeaders.headers.has(k))
                 responseWithHeaders.headers.set(k, v);
