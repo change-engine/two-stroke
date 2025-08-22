@@ -3451,7 +3451,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"miniflare@npm:4.20250816.1":
+"miniflare@npm:4.20250816.1, miniflare@npm:^4.20250816.0":
   version: 4.20250816.1
   resolution: "miniflare@npm:4.20250816.1"
   dependencies:
@@ -3470,28 +3470,6 @@ __metadata:
   bin:
     miniflare: bootstrap.js
   checksum: 10c0/342a02c6fb8cded476b197fd1dd51579ad5ff7d77108df09f38ebd80903d9e2d7faf8e81c991c25165bdae94464ed40af21b91da86cebdb76d13136aa1e3ee63
-  languageName: node
-  linkType: hard
-
-"miniflare@npm:^4.20250816.0":
-  version: 4.20250816.0
-  resolution: "miniflare@npm:4.20250816.0"
-  dependencies:
-    "@cspotcode/source-map-support": "npm:0.8.1"
-    acorn: "npm:8.14.0"
-    acorn-walk: "npm:8.3.2"
-    exit-hook: "npm:2.2.1"
-    glob-to-regexp: "npm:0.4.1"
-    sharp: "npm:^0.33.5"
-    stoppable: "npm:1.1.0"
-    undici: "npm:^7.10.0"
-    workerd: "npm:1.20250816.0"
-    ws: "npm:8.18.0"
-    youch: "npm:4.1.0-beta.10"
-    zod: "npm:3.22.3"
-  bin:
-    miniflare: bootstrap.js
-  checksum: 10c0/29659893025baf84aab03eb5aae76d9011eed61afdadceb5368dde3197def7254f83e45543d43f831b393bcaf838cff39f2cc019181c032088cd4250b5f28c28
   languageName: node
   linkType: hard
 
