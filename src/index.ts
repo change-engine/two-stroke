@@ -14,7 +14,7 @@ const escapeRegex = (str: string) =>
 export function twoStroke<T extends Env>(
   title: string,
   release: string,
-  origin?: (o: string | null) => string,
+  origin?: (o: string | null) => string
 ) {
   let _queue: (c: {
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -47,7 +47,7 @@ export function twoStroke<T extends Env>(
         readonly SENTRY_DSN: string;
         readonly SENTRY_ENVIRONMENT: string;
       },
-      context: ExecutionContext,
+      context: ExecutionContext
     ): Promise<Response> {
       const defaultHeaders = {
         "Access-Control-Allow-Origin": origin
@@ -85,8 +85,8 @@ export function twoStroke<T extends Env>(
           if (req.method === route.method && route.matcher.test(pathname)) {
             const params = Object.fromEntries(
               Object.entries(pathname.match(route.matcher)?.groups ?? {}).map(
-                ([k, v]) => [k, decodeURIComponent(v)],
-              ),
+                ([k, v]) => [k, decodeURIComponent(v)]
+              )
             );
             let claims;
             try {
@@ -125,7 +125,7 @@ export function twoStroke<T extends Env>(
                   {
                     status: 400,
                     headers: defaultHeaders,
-                  },
+                  }
                 );
               }
               const body = route.input
@@ -145,6 +145,7 @@ export function twoStroke<T extends Env>(
                   params,
                   searchParams: new URL(req.url).searchParams,
                   sentry,
+                  waitUntil: (p: Promise<void>) => context.waitUntil(p),
                 });
               else {
                 console.error({
@@ -161,7 +162,7 @@ export function twoStroke<T extends Env>(
                   {
                     status: 400,
                     headers: defaultHeaders,
-                  },
+                  }
                 );
               }
             } else {
@@ -174,6 +175,7 @@ export function twoStroke<T extends Env>(
                 params,
                 searchParams: new URL(req.url).searchParams,
                 sentry,
+                waitUntil: (p: Promise<void>) => context.waitUntil(p),
               });
             }
             if (response.status === undefined || response.status === 200) {
@@ -211,7 +213,7 @@ export function twoStroke<T extends Env>(
               "application/json"
                 ? JSON.stringify(response.body)
                 : response.body,
-              responseWithHeaders,
+              responseWithHeaders
             );
           }
         }
@@ -235,7 +237,7 @@ export function twoStroke<T extends Env>(
         readonly SENTRY_DSN: string;
         readonly SENTRY_ENVIRONMENT: string;
       },
-      context: ExecutionContext,
+      context: ExecutionContext
     ) {
       const sentry = new Toucan({
         dsn: env.SENTRY_DSN,
@@ -256,7 +258,7 @@ export function twoStroke<T extends Env>(
         readonly SENTRY_DSN: string;
         readonly SENTRY_ENVIRONMENT: string;
       },
-      context: ExecutionContext,
+      context: ExecutionContext
     ) {
       const sentry = new Toucan({
         dsn: env.SENTRY_DSN,
@@ -281,7 +283,7 @@ export function twoStroke<T extends Env>(
         readonly SENTRY_DSN: string;
         readonly SENTRY_ENVIRONMENT: string;
       },
-      context: ExecutionContext,
+      context: ExecutionContext
     ) {
       const sentry = new Toucan({
         dsn: env.SENTRY_DSN,
@@ -301,13 +303,13 @@ export function twoStroke<T extends Env>(
         env: T;
         message: ForwardableEmailMessage;
         sentry: Toucan;
-      }) => Promise<void>,
+      }) => Promise<void>
     ) {
       _email = handler;
     },
     schedule(
       cron: string,
-      handler: (c: { env: T; sentry: Toucan }) => Promise<void>,
+      handler: (c: { env: T; sentry: Toucan }) => Promise<void>
     ) {
       crons[cron] = handler;
     },
@@ -329,13 +331,13 @@ export function twoStroke<T extends Env>(
       <J>(k: keyof T, ak: keyof T) =>
       async ({ req, env }: { req: Request; env: T }) => {
         const [scheme, token] = (req.headers.get("Authorization") ?? " ").split(
-          " ",
+          " "
         );
         if (scheme === "Bearer") {
           const claims = await jwkVerify<J>(
             token ?? "",
             env[k] as string,
-            env[ak] as string,
+            env[ak] as string
           );
           if (!claims) {
             throw Error("Invalid");
@@ -351,7 +353,7 @@ export function twoStroke<T extends Env>(
         batch: MessageBatch<z.input<I>>;
         sentry: Toucan;
         parsedBatch: ZodSafeParseResult<z.output<I>>[];
-      }) => Promise<void>,
+      }) => Promise<void>
     ) {
       _queue = async ({
         batch,
@@ -378,14 +380,14 @@ export function twoStroke<T extends Env>(
       path: P,
       input: I,
       output: O,
-      handler: Handler<T, I, O, A, P>,
+      handler: Handler<T, I, O, A, P>
     ) {
       routes.push({
         auth,
         method: "PUT",
         path,
         matcher: new RegExp(
-          `^${escapeRegex(path).replaceAll(/\/{([^}]*)}/g, "/(?<$1>[^\\/]*)")}$`,
+          `^${escapeRegex(path).replaceAll(/\/{([^}]*)}/g, "/(?<$1>[^\\/]*)")}$`
         ),
         input,
         output,
@@ -406,14 +408,14 @@ export function twoStroke<T extends Env>(
       input: I,
       output: O,
       handler: Handler<T, I, O, A, P>,
-      params?: PP,
+      params?: PP
     ) {
       routes.push({
         auth,
         method: "POST",
         path,
         matcher: new RegExp(
-          `^${escapeRegex(path).replaceAll(/\/{([^}]*)}/g, "/(?<$1>[^\\/]*)")}$`,
+          `^${escapeRegex(path).replaceAll(/\/{([^}]*)}/g, "/(?<$1>[^\\/]*)")}$`
         ),
         input,
         output,
@@ -433,14 +435,14 @@ export function twoStroke<T extends Env>(
       path: P,
       output: O,
       handler: Handler<T, undefined, O, A, P>,
-      params?: PP,
+      params?: PP
     ) {
       routes.push({
         auth,
         method: "GET",
         path,
         matcher: new RegExp(
-          `^${escapeRegex(path).replaceAll(/\/{([^}]*)}/g, "/(?<$1>[^\\/]*)")}$`,
+          `^${escapeRegex(path).replaceAll(/\/{([^}]*)}/g, "/(?<$1>[^\\/]*)")}$`
         ),
         output,
         handler,
@@ -458,14 +460,14 @@ export function twoStroke<T extends Env>(
       path: P,
       output: O,
       handler: Handler<T, undefined, O, A, P>,
-      params?: PP,
+      params?: PP
     ) {
       routes.push({
         auth,
         method: "DELETE",
         path,
         matcher: new RegExp(
-          `^${escapeRegex(path).replaceAll(/\/{([^}]*)}/g, "/(?<$1>[^\\/]*)")}$`,
+          `^${escapeRegex(path).replaceAll(/\/{([^}]*)}/g, "/(?<$1>[^\\/]*)")}$`
         ),
         output,
         handler,
@@ -483,7 +485,7 @@ type AddToQueueConfig = QueueSendOptions & {
 export async function addToQueue<T>(
   queue: Queue<T>,
   message: T,
-  config: AddToQueueConfig = {},
+  config: AddToQueueConfig = {}
 ) {
   const { retries, backoffFactor, ...options } = config;
 

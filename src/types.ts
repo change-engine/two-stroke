@@ -58,6 +58,7 @@ export type Handler<
   searchParams: URLSearchParams;
   claims: A;
   sentry: Toucan;
+  waitUntil: (p: Promise<void>) => void;
 }) => Promise<
   | {
       body: z.infer<O>;
