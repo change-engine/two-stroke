@@ -1,7 +1,7 @@
 import { verify as jwkVerify } from "jwk-subtle";
 import { verify as pbkdfVerify } from "pbkdf-subtle";
 import { Toucan } from "toucan-js";
-import { type ZodSafeParseResult, ZodObject, z, ZodType } from "zod/v4";
+import { type ZodSafeParseResult, z, ZodObject, ZodType } from "zod/v4";
 import { openAPI } from "./open-api";
 import { type Env, type Handler, type Route } from "./types";
 
@@ -76,6 +76,7 @@ export function twoStroke<T extends Env>(
               "Access-Control-Max-Age": "86400",
               "Access-Control-Allow-Methods": "GET,HEAD,PUT,POST,DELETE",
               "Access-Control-Allow-Headers": "Authorization,Content-Type",
+              "Access-Control-Allow-Credentials": "true",
             },
           });
         }
