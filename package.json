@@ -16,7 +16,7 @@
     "@types/node": "^24.7.0",
     "@typescript-eslint/eslint-plugin": "^8.46.0",
     "@typescript-eslint/parser": "^8.46.0",
-    "@vitest/coverage-istanbul": "^3.2.4",
+    "@vitest/coverage-istanbul": "^4.0.1",
     "eslint-config-prettier": "^10.1.8",
     "eslint-config-two-stroke": "^1.2.12",
     "eslint-config-typescript": "^3.0.0",
