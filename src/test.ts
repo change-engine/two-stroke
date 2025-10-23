@@ -1,5 +1,5 @@
 import { type JWTPayload, SignJWT, exportJWK, generateKeyPair } from "jose";
-import { fetchMock, SELF, env } from "cloudflare:test";
+import { fetchMock, SELF, env, type Buffer } from "cloudflare:test";
 import createClient from "openapi-fetch";
 
 // eslint-disable-next-line @typescript-eslint/no-empty-object-type, @typescript-eslint/require-await
