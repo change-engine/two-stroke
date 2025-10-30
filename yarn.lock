@@ -1694,8 +1694,8 @@ __metadata:
   linkType: hard
 
 "@vitest/coverage-istanbul@npm:^4.0.1":
-  version: 4.0.4
-  resolution: "@vitest/coverage-istanbul@npm:4.0.4"
+  version: 4.0.5
+  resolution: "@vitest/coverage-istanbul@npm:4.0.5"
   dependencies:
     "@istanbuljs/schema": "npm:^0.1.3"
     debug: "npm:^4.4.3"
@@ -1707,8 +1707,8 @@ __metadata:
     magicast: "npm:^0.3.5"
     tinyrainbow: "npm:^3.0.3"
   peerDependencies:
-    vitest: 4.0.4
-  checksum: 10c0/3b2e7cc1fe9daa4690d2da427dc8c1f467dd0455e0f66707b438bb0b6e724f318ae75870962005135c4cab4737790ee979d167cf882e6b337fd607cda7bb2f99
+    vitest: 4.0.5
+  checksum: 10c0/bd7362afc4ca4d170b08e8cfdef3628053aec2b1431a7b720d2e184dc72eb3cac25300b9c71e404fd5fff8276a0f5b4b7df8550e318eff1d6e923f4765966c02
   languageName: node
   linkType: hard
 
