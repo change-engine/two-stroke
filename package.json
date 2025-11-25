@@ -52,7 +52,7 @@
   "name": "two-stroke",
   "packageManager": "yarn@4.6.0",
   "type": "module",
-  "version": "6.2.4",
+  "version": "6.2.5",
   "devDependencies": {
     "@types/eslint": "^9.6.1",
     "eslint": "^9.39.1",
