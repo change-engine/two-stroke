@@ -41,7 +41,7 @@ export type Route<T extends Env, A> =
 
 export type ExtractParameterNames<S extends string> =
   S extends `${string}{${infer Name}}${infer Rest}`
-    ? // eslint-disable-next-line @typescript-eslint/no-redundant-type-constituents
+    ?  
       Record<Name, string> & ExtractParameterNames<Rest>
     : Record<string, string>;
 
