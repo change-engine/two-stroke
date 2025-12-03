@@ -55,7 +55,7 @@
     "printWidth": 100
   },
   "type": "module",
-  "version": "6.3.0",
+  "version": "6.3.1",
   "devDependencies": {
     "@types/eslint": "^9.6.1",
     "eslint": "^9.39.1",
