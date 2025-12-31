@@ -67,7 +67,7 @@ importers:
         version: 4.51.0(@cloudflare/workers-types@4.20251217.0)
       zod:
         specifier: ^4.1.13
-        version: 4.2.1
+        version: 4.3.0
     devDependencies:
       '@types/eslint':
         specifier: ^9.6.1
@@ -2458,8 +2458,8 @@ packages:
   zod@3.25.76:
     resolution: {integrity: sha512-gzUt/qt81nXsFGKIFcC3YnfEAx5NkunCfnDlvuBSSFS02bcXu4Lmea0AFIUwbLWxWPx3d9p8S5QoaujKcNQxcQ==}
 
-  zod@4.2.1:
-    resolution: {integrity: sha512-0wZ1IRqGGhMP76gLqz8EyfBXKk0J2qo2+H3fi4mcUP/KtTocoX08nmIAHl1Z2kJIZbZee8KOpBCSNPRgauucjw==}
+  zod@4.3.0:
+    resolution: {integrity: sha512-dXOXgs5b9ulOPotwXMEsAUoUPL2glchysY0RTJYVqJ7bU0Y5gqE1k3v19eCWrJsczrbae/Dt9+ajrJbr8Ot4uw==}
 
 snapshots:
 
@@ -4713,4 +4713,4 @@ snapshots:
 
   zod@3.25.76: {}
 
-  zod@4.2.1: {}
+  zod@4.3.0: {}
