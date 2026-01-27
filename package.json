@@ -12,7 +12,7 @@
   "dependencies": {
     "@cloudflare/vitest-pool-workers": "^0.12.0",
     "@cloudflare/workers-types": "^4.20251202.0",
-    "@sentry/cli": "^2.58.2",
+    "@sentry/cli": "^3.1.0",
     "@types/node": "^24.10.1",
     "@typescript-eslint/eslint-plugin": "^8.48.1",
     "@typescript-eslint/parser": "^8.48.1",
