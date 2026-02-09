@@ -51,8 +51,8 @@ importers:
         specifier: ^4.20260124.0
         version: 4.20260205.0
       openapi-fetch:
-        specifier: ^0.15.0
-        version: 0.15.0
+        specifier: ^0.16.0
+        version: 0.16.0
       openapi-typescript:
         specifier: ^7.10.1
         version: 7.10.1(typescript@5.9.3)
@@ -64,7 +64,7 @@ importers:
         version: 4.1.1
       wrangler:
         specifier: '>=3'
-        version: 4.51.0(@cloudflare/workers-types@4.20260103.0)
+        version: 4.51.0(@cloudflare/workers-types@4.20260206.0)
       zod:
         specifier: ^4.3.6
         version: 4.3.6
@@ -279,9 +279,6 @@ packages:
     engines: {node: '>=16'}
     cpu: [x64]
     os: [win32]
-
-  '@cloudflare/workers-types@4.20260103.0':
-    resolution: {integrity: sha512-jANmoGpJcXARnwlkvrQOeWyjYD1quTfHcs+++Z544XRHOSfLc4XSlts7snIhbiIGgA5bo66zDhraF+9lKUr2hw==}
 
   '@cloudflare/workers-types@4.20260206.0':
     resolution: {integrity: sha512-rHbE1XM3mfwzoyOiKm1oFRTp00Cv4U5UiuMDQwmu/pc79yOA3nDiOC0lue8aOpobBrP4tPHQqsPcWG606Zrw/w==}
@@ -2044,8 +2041,8 @@ packages:
   obug@2.1.1:
     resolution: {integrity: sha512-uTqF9MuPraAQ+IsnPf366RG4cP9RtUi7MLO1N3KEc+wb0a6yKpeL0lmk2IB1jY5KHPAlTc6T/JRdC/YqxHNwkQ==}
 
-  openapi-fetch@0.15.0:
-    resolution: {integrity: sha512-OjQUdi61WO4HYhr9+byCPMj0+bgste/LtSBEcV6FzDdONTs7x0fWn8/ndoYwzqCsKWIxEZwo4FN/TG1c1rI8IQ==}
+  openapi-fetch@0.16.0:
+    resolution: {integrity: sha512-EVLlvcUOugBYMXhuITAm2Ihv9EmQ7b9gJYn7hg2wvcf/GxbanhQ9olDz9I3DcS0Jr4Jv/53I2oVuIYQsFHa9mA==}
 
   openapi-typescript-helpers@0.0.15:
     resolution: {integrity: sha512-opyTPaunsklCBpTK8JGef6mfPhLSnyy5a0IN9vKtx3+4aExf+KxEqYwIy3hqkedXIB97u357uLMJsOnm3GVjsw==}
@@ -2669,9 +2666,6 @@ snapshots:
     optional: true
 
   '@cloudflare/workerd-windows-64@1.20260205.0':
-    optional: true
-
-  '@cloudflare/workers-types@4.20260103.0':
     optional: true
 
   '@cloudflare/workers-types@4.20260206.0': {}
@@ -4211,7 +4205,7 @@ snapshots:
 
   obug@2.1.1: {}
 
-  openapi-fetch@0.15.0:
+  openapi-fetch@0.16.0:
     dependencies:
       openapi-typescript-helpers: 0.0.15
 
@@ -4600,7 +4594,7 @@ snapshots:
       '@cloudflare/workerd-linux-arm64': 1.20260205.0
       '@cloudflare/workerd-windows-64': 1.20260205.0
 
-  wrangler@4.51.0(@cloudflare/workers-types@4.20260103.0):
+  wrangler@4.51.0(@cloudflare/workers-types@4.20260206.0):
     dependencies:
       '@cloudflare/kv-asset-handler': 0.4.1
       '@cloudflare/unenv-preset': 2.7.11(unenv@2.0.0-rc.24)(workerd@1.20251125.0)
@@ -4611,7 +4605,7 @@ snapshots:
       unenv: 2.0.0-rc.24
       workerd: 1.20251125.0
     optionalDependencies:
-      '@cloudflare/workers-types': 4.20260103.0
+      '@cloudflare/workers-types': 4.20260206.0
       fsevents: 2.3.3
     transitivePeerDependencies:
       - bufferutil
