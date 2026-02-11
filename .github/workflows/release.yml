@@ -6,6 +6,7 @@ on:
       - "v*"
 
 permissions:
+  id-token: write
   contents: read
 
 defaults:
@@ -21,5 +22,3 @@ jobs:
       - uses: ./.github/actions/install
 
       - run: pnpm publish --no-git-checks
-        env:
-          "npm_config_//registry.npmjs.org/:_authToken": ${{ secrets.NPM_AUTH_TOKEN }}
