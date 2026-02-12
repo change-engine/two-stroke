@@ -24,7 +24,7 @@
     "jwk-subtle": "^1.1.5",
     "mime": "^4.1.0",
     "miniflare": "^4.20260210.0",
-    "openapi-fetch": "^0.16.0",
+    "openapi-fetch": "^0.17.0",
     "openapi-typescript": "^7.12.0",
     "pbkdf-subtle": "^1.1.5",
     "toucan-js": "^4.1.1",
