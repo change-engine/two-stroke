@@ -8,7 +8,7 @@ import prettier from "prettier";
 import ts from "typescript";
 import { Miniflare } from "miniflare";
 
-if (fs.existsSync("wrangler.toml")) {
+if (fs.existsSync("wrangler.jsonc")) {
   cmd("wrangler deploy --env=  --dry-run --outdir=dist");
   const miniflare = new Miniflare({
     modules: true,
@@ -41,7 +41,7 @@ if (fs.existsSync("wrangler.toml")) {
 }
 cmd("vitest", [
   ...(!process.argv.slice(2).includes("-w") &&
-  !process.argv.slice(2).includes("--watch")
+    !process.argv.slice(2).includes("--watch")
     ? ["--run"]
     : []),
   ...process.argv.slice(2),

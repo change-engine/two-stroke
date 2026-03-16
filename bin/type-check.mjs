@@ -1,7 +1,10 @@
 #!/usr/bin/env node
 "use strict";
+import fs from "fs";
 import { cmd } from "../src/cmd.mjs";
 
-cmd("wrangler types")
+if (fs.existsSync("wrangler.jsonc")) {
+    cmd("wrangler types")
+}
 cmd("wrangler deploy --env=  --dry-run --outdir=dist");
 cmd("tsc --noEmit");
