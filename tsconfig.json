@@ -3,7 +3,9 @@
     "erasableSyntaxOnly": true,
     "esModuleInterop": true,
     "isolatedModules": true,
-    "lib": ["ESNext"],
+    "lib": [
+      "ESNext"
+    ],
     "module": "ESNext",
     "moduleResolution": "bundler",
     "noUncheckedIndexedAccess": true,
@@ -12,11 +14,13 @@
     "strict": true,
     "target": "ESNext",
     "types": [
-      "@cloudflare/workers-types",
+      "./worker-configuration.d.ts",
       "vitest/globals",
       "@cloudflare/vitest-pool-workers"
     ],
     "verbatimModuleSyntax": true
   },
-  "exclude": ["../../dist"]
+  "exclude": [
+    "../../dist"
+  ]
 }

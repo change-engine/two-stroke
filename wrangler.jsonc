@@ -1,0 +1,4 @@
+{
+  "compatibility_date": "2025-09-15",
+  "compatibility_flags": ["nodejs_compat", "disable_nodejs_fs_module"],
+}
