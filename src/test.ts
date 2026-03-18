@@ -1,24 +1,20 @@
+import { env, exports } from "cloudflare:workers";
 import { type JWTPayload, SignJWT, exportJWK, generateKeyPair } from "jose";
-import { fetchMock, SELF, env, type Buffer } from "cloudflare:test";
 import createClient from "openapi-fetch";
+import { http, HttpResponse } from 'msw'
+import { setupServer } from 'msw/node'
 
 // eslint-disable-next-line @typescript-eslint/no-empty-object-type, @typescript-eslint/require-await
 export const setupTests = async <Paths extends {}>() => {
-  beforeAll(() => {
-    fetchMock.activate();
-    fetchMock.disableNetConnect();
-  });
-
   const url = new URL("https://example.com/");
 
   const client = createClient<Paths>({
     baseUrl: url.toString(),
-    fetch: (...r) => SELF.fetch(...r),
+    fetch: (...r) => exports.default.fetch(...r),
   });
 
   return {
     url,
-    fetchMock,
     client,
     async waitForQueue(trigger: () => Promise<void>) {
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -49,40 +45,16 @@ export const setupTests = async <Paths extends {}>() => {
       jwk.kid = "test";
       jwk.alg = "RS256";
       beforeAll(() => {
-        fetchMock
-          .get(env[issuer] as string)
-          .intercept({
-            method: "GET",
-            path: "/.well-known/openid-configuration",
-          })
-          .reply(
-            200,
-            {
-              // eslint-disable-next-line @typescript-eslint/restrict-template-expressions
+        setupServer(...[
+          http.get(`${env[issuer]}/.well-known/openid-configuration`, () =>
+            HttpResponse.json({
               jwks_uri: `${env[issuer]}/.well-known/jwks`,
-            },
-            {
-              headers: {
-                "Content-Type": "application/json",
-              },
-            },
-          )
-          .persist();
-        fetchMock
-          .get(env[issuer] as string)
-          .intercept({ method: "GET", path: "/.well-known/jwks" })
-          .reply(
-            200,
-            {
+            })),
+          http.get(`${env[issuer]}/.well-known/jwks`, () =>
+            HttpResponse.json({
               keys: [jwk],
-            },
-            {
-              headers: {
-                "Content-Type": "application/json",
-              },
-            },
-          )
-          .persist();
+            }))
+        ]).listen()
       });
       return await new SignJWT(claims)
         .setProtectedHeader({ typ: "JWT", alg: "RS256", kid: jwk.kid })
@@ -110,7 +82,7 @@ export function recordRequest(
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   cb: (data: any) => void,
   statusCode: number,
-  data: string | object | Buffer | undefined,
+  data: string | object | undefined,
   responseOptions?: {
     headers: Record<string, string | string[] | undefined>;
   },
@@ -125,7 +97,7 @@ export function recordFormRequest(
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   cb: (data: any) => void,
   statusCode: number,
-  data: string | object | Buffer | undefined,
+  data: string | object | undefined,
   responseOptions?: {
     headers: Record<string, string | string[] | undefined>;
   },
@@ -144,7 +116,7 @@ export function recordFirehoseRequest(
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   cb: (data: any) => void,
   statusCode: number,
-  data: string | object | Buffer | undefined,
+  data: string | object | undefined,
   responseOptions?: {
     headers: Record<string, string | string[] | undefined>;
   },

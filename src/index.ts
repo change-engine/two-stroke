@@ -132,10 +132,10 @@ export function twoStroke<T extends Env>(
               const body = route.input
                 ? route.input.safeParse(rawBody)
                 : {
-                    success: true,
-                    data: undefined,
-                    error: undefined,
-                  };
+                  success: true,
+                  data: undefined,
+                  error: undefined,
+                };
               if (body.success)
                 response = await route.handler({
                   req,
@@ -211,7 +211,7 @@ export function twoStroke<T extends Env>(
             return new Response(
               // eslint-disable-next-line @typescript-eslint/no-unsafe-argument
               responseWithHeaders.headers.get("Content-Type") ===
-              "application/json"
+                "application/json"
                 ? JSON.stringify(response.body)
                 : response.body,
               responseWithHeaders,
@@ -254,7 +254,7 @@ export function twoStroke<T extends Env>(
       }
     },
     async scheduled(
-      event: ScheduledEvent,
+      event: ScheduledController,
       env: T & {
         readonly SENTRY_DSN: string;
         readonly SENTRY_ENVIRONMENT: string;
@@ -317,36 +317,36 @@ export function twoStroke<T extends Env>(
     noAuth,
     pbkdf:
       (k: keyof T, customHeaderName: string = "Authorization") =>
-      async ({ req, env }: { req: Request; env: T }) => {
-        const [scheme, token] = (
-          req.headers.get(customHeaderName) ?? " "
-        ).split(" ");
-        if (
-          (scheme === "token" || scheme === "Bearer") &&
-          (await pbkdfVerify(env[k] as string, token ?? ""))
-        )
-          return;
-        throw Error("Invalid");
-      },
+        async ({ req, env }: { req: Request; env: T }) => {
+          const [scheme, token] = (
+            req.headers.get(customHeaderName) ?? " "
+          ).split(" ");
+          if (
+            (scheme === "token" || scheme === "Bearer") &&
+            (await pbkdfVerify(env[k] as string, token ?? ""))
+          )
+            return;
+          throw Error("Invalid");
+        },
     jwt:
       <J>(k: keyof T, ak: keyof T) =>
-      async ({ req, env }: { req: Request; env: T }) => {
-        const [scheme, token] = (req.headers.get("Authorization") ?? " ").split(
-          " ",
-        );
-        if (scheme === "Bearer") {
-          const claims = await jwkVerify<J>(
-            token ?? "",
-            env[k] as string,
-            env[ak] as string,
+        async ({ req, env }: { req: Request; env: T }) => {
+          const [scheme, token] = (req.headers.get("Authorization") ?? " ").split(
+            " ",
           );
-          if (!claims) {
-            throw Error("Invalid");
+          if (scheme === "Bearer") {
+            const claims = await jwkVerify<J>(
+              token ?? "",
+              env[k] as string,
+              env[ak] as string,
+            );
+            if (!claims) {
+              throw Error("Invalid");
+            }
+            return claims;
           }
-          return claims;
-        }
-        throw Error("Invalid");
-      },
+          throw Error("Invalid");
+        },
     queueHandler<I extends ZodType>(
       input: I,
       handler: (c: {
