@@ -10,21 +10,21 @@
     "type-check": "./bin/type-check.mjs"
   },
   "dependencies": {
-    "@cloudflare/vitest-pool-workers": "^0.13.2",
-    "@sentry/cli": "^3.3.3",
+    "@cloudflare/vitest-pool-workers": "^0.13.5",
+    "@sentry/cli": "^3.3.4",
     "@types/node": "^25.5.0",
-    "@typescript-eslint/eslint-plugin": "^8.57.1",
-    "@typescript-eslint/parser": "^8.57.1",
-    "@vitest/runner": "^4.1.0",
-    "@vitest/snapshot": "^4.1.0",
+    "@typescript-eslint/eslint-plugin": "^8.57.2",
+    "@typescript-eslint/parser": "^8.57.2",
+    "@vitest/runner": "^4.1.2",
+    "@vitest/snapshot": "^4.1.2",
     "eslint-config-prettier": "^10.1.8",
-    "eslint-config-two-stroke": "^1.5.1",
+    "eslint-config-two-stroke": "^1.5.2",
     "eslint-config-typescript": "^3.0.0",
-    "jose": "^6.2.1",
+    "jose": "^6.2.2",
     "jwk-subtle": "^1.1.5",
     "mime": "^4.1.0",
-    "miniflare": "^4.20260317.0",
-    "msw": "^2.12.13",
+    "miniflare": "^4.20260317.3",
+    "msw": "^2.12.14",
     "openapi-fetch": "^0.17.0",
     "openapi-typescript": "^7.13.0",
     "pbkdf-subtle": "^1.1.5",
@@ -63,9 +63,9 @@
   "version": "7.0.0",
   "devDependencies": {
     "@types/eslint": "^9.6.1",
-    "eslint": "^10.0.3",
+    "eslint": "^10.1.0",
     "prettier": "^3.8.1",
-    "typescript": "^5.9.3",
-    "vitest": "^4.1.0"
+    "typescript": "^6.0.2",
+    "vitest": "^4.1.2"
   }
 }

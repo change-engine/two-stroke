@@ -4,6 +4,9 @@ import createClient from "openapi-fetch";
 import { http, HttpResponse } from 'msw'
 import { setupServer } from 'msw/node'
 
+const msw = setupServer();
+msw.listen();
+
 // eslint-disable-next-line @typescript-eslint/no-empty-object-type, @typescript-eslint/require-await
 export const setupTests = async <Paths extends {}>() => {
   const url = new URL("https://example.com/");
@@ -16,6 +19,7 @@ export const setupTests = async <Paths extends {}>() => {
   return {
     url,
     client,
+    msw,
     async waitForQueue(trigger: () => Promise<void>) {
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
       const log: any[] = [];
@@ -45,7 +49,7 @@ export const setupTests = async <Paths extends {}>() => {
       jwk.kid = "test";
       jwk.alg = "RS256";
       beforeAll(() => {
-        setupServer(...[
+        msw.use(...[
           http.get(`${env[issuer]}/.well-known/openid-configuration`, () =>
             HttpResponse.json({
               jwks_uri: `${env[issuer]}/.well-known/jwks`,
@@ -54,7 +58,7 @@ export const setupTests = async <Paths extends {}>() => {
             HttpResponse.json({
               keys: [jwk],
             }))
-        ]).listen()
+        ])
       });
       return await new SignJWT(claims)
         .setProtectedHeader({ typ: "JWT", alg: "RS256", kid: jwk.kid })
