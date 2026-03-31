@@ -1,0 +1,7 @@
+minimumReleaseAge: 4320
+minimumReleaseAgeExclude:
+  - "two-stroke"
+  - "eslint-config-two-stroke"
+trustPolicy: no-downgrade
+ignoreScripts: true
+blockExoticSubdeps: true
