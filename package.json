@@ -60,7 +60,7 @@
     "url": "https://github.com/change-engine/two-stroke"
   },
   "type": "module",
-  "version": "7.1.0",
+  "version": "7.2.0",
   "devDependencies": {
     "@types/eslint": "^9.6.1",
     "eslint": "^10.1.0",
