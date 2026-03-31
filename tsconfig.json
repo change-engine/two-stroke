@@ -15,7 +15,8 @@
     "target": "ESNext",
     "types": [
       "./worker-configuration.d.ts",
-      "vitest/globals"
+      "vitest/globals",
+      "@cloudflare/vitest-pool-workers/types"
     ],
     "verbatimModuleSyntax": true
   },
