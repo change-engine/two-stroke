@@ -6,7 +6,7 @@ import { cmd } from "../src/cmd.mjs";
 import mime from "mime";
 
 const entryOrRest = process.argv[2];
-const entry = process.argv[3];
+const entry = process.argv.slice(3);
 
 const ents = await fs.promises.readdir("dist", {
   withFileTypes: true,
@@ -16,13 +16,13 @@ const files = await Promise.all(
   ents
     .filter((ent) => ent.isFile())
     .filter((ent) =>
-      entryOrRest == "entry" ? ent.name === entry : ent.name !== entry,
+      entryOrRest == "entry" ? entry.includes(ent.name) : !entry.includes(ent.name),
     )
     .map((ent) => {
       const type = mime.getType(`${ent.parentPath}/${ent.name}`);
       const key = `${ent.parentPath.substring(4)}/${ent.name}`;
       return (async () => ({
-        key: ent.name === entry ? `${process.env.DOMAIN}${key}` : key,
+        key: entry.includes(ent.name) ? `${process.env.DOMAIN}${key}` : key,
         value: (
           await fs.promises.readFile(`${ent.parentPath}/${ent.name}`)
         ).toString("base64"),
@@ -35,14 +35,14 @@ const files = await Promise.all(
                 ? "text/javascript;charset=utf-8"
                 : type,
           "Cache-Control":
-            ent.name === entry ? "nocache" : "max-age=31536000, immutable",
+            entry.includes(ent.name) ? "nocache" : "max-age=31536000, immutable",
         },
       }))();
     }),
 );
 
-fs.writeFileSync(`dist/bulk_${process.argv[2]}.json`, JSON.stringify(files));
+fs.writeFileSync(`dist/bulk_${entryOrRest}.json`, JSON.stringify(files));
 
 cmd(
-  `wrangler kv bulk put dist/bulk_${process.argv[2]}.json --remote --namespace-id ${process.env.NAMESPACE}`,
+  `wrangler kv bulk put dist/bulk_${entryOrRest}.json --remote --namespace-id ${process.env.NAMESPACE}`,
 );
