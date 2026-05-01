@@ -40,7 +40,7 @@ importers:
         version: 3.0.0(@typescript-eslint/eslint-plugin@8.59.0(@typescript-eslint/parser@8.59.0(eslint@10.2.1)(typescript@6.0.3))(eslint@10.2.1)(typescript@6.0.3))(@typescript-eslint/parser@8.59.0(eslint@10.2.1)(typescript@6.0.3))(eslint@10.2.1)(typescript@6.0.3)
       jose:
         specifier: ^6.2.2
-        version: 6.2.2
+        version: 6.2.3
       jwk-subtle:
         specifier: ^1.1.5
         version: 1.1.5
@@ -1366,8 +1366,8 @@ packages:
   isexe@2.0.0:
     resolution: {integrity: sha512-RHxMLp9lnKHGHRng9QFhRCMbYAcVpn69smSGcq3f36xjgVVWThj4qqLbTLlq7Ssj8B+fIQ1EuCEGI2lKsyQeIw==}
 
-  jose@6.2.2:
-    resolution: {integrity: sha512-d7kPDd34KO/YnzaDOlikGpOurfF0ByC2sEV4cANCtdqLlTfBlw2p14O/5d/zv40gJPbIQxfES3nSx1/oYNyuZQ==}
+  jose@6.2.3:
+    resolution: {integrity: sha512-YYVDInQKFJfR/xa3ojUTl8c2KoTwiL1R5Wg9YCydwH0x0B9grbzlg5HC7mMjCtUJjbQ/YnGEZIhI5tCgfTb4Hw==}
 
   js-levenshtein@1.1.6:
     resolution: {integrity: sha512-X2BB11YZtrRqY4EnQcLX5Rh373zbK4alC1FW7D7MBhL2gtcC17cTnr6DmfHZeS0s2rTHjUTMMHfG7gO8SSdw+g==}
@@ -3127,7 +3127,7 @@ snapshots:
 
   isexe@2.0.0: {}
 
-  jose@6.2.2: {}
+  jose@6.2.3: {}
 
   js-levenshtein@1.1.6: {}
 
