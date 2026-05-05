@@ -8,8 +8,7 @@ import { type Env, type Handler, type Route } from "./types";
 // eslint-disable-next-line @typescript-eslint/require-await
 const noAuth = async () => null;
 
-const escapeRegex = (str: string) =>
-  str.replace(/([.*+?^=!:$()|[\]\\])/g, "\\$&");
+const escapeRegex = (str: string) => str.replace(/([.*+?^=!:$()|[\]\\])/g, "\\$&");
 
 export function twoStroke<T extends Env>(
   title: string,
@@ -35,11 +34,7 @@ export function twoStroke<T extends Env>(
   const crons: {
     [cron: string]: (c: { env: T; sentry: Toucan }) => Promise<void>;
   } = {};
-  let _email: (c: {
-    message: ForwardableEmailMessage;
-    env: T;
-    sentry: Toucan;
-  }) => Promise<void>;
+  let _email: (c: { message: ForwardableEmailMessage; env: T; sentry: Toucan }) => Promise<void>;
   return {
     async fetch(
       req: Request,
@@ -85,9 +80,10 @@ export function twoStroke<T extends Env>(
         for (const route of routes) {
           if (req.method === route.method && route.matcher.test(pathname)) {
             const params = Object.fromEntries(
-              Object.entries(pathname.match(route.matcher)?.groups ?? {}).map(
-                ([k, v]) => [k, decodeURIComponent(v)],
-              ),
+              Object.entries(pathname.match(route.matcher)?.groups ?? {}).map(([k, v]) => [
+                k,
+                decodeURIComponent(v),
+              ]),
             );
             let claims;
             try {
@@ -108,8 +104,7 @@ export function twoStroke<T extends Env>(
               let rawBody;
               try {
                 rawBody = route.input
-                  ? req.headers.get("Content-Type") ===
-                    "application/x-www-form-urlencoded"
+                  ? req.headers.get("Content-Type") === "application/x-www-form-urlencoded"
                     ? Object.fromEntries(new URLSearchParams(await req.text()))
                     : await req.json()
                   : undefined;
@@ -132,10 +127,10 @@ export function twoStroke<T extends Env>(
               const body = route.input
                 ? route.input.safeParse(rawBody)
                 : {
-                  success: true,
-                  data: undefined,
-                  error: undefined,
-                };
+                    success: true,
+                    data: undefined,
+                    error: undefined,
+                  };
               if (body.success)
                 response = await route.handler({
                   req,
@@ -199,19 +194,16 @@ export function twoStroke<T extends Env>(
             Object.entries({
               ...defaultHeaders,
               "Content-Type": "application/json",
-              "Strict-Transport-Security":
-                "max-age=15552000; includeSubDomains",
+              "Strict-Transport-Security": "max-age=15552000; includeSubDomains",
               "X-Content-Type-Options": "nosniff",
               "Content-Security-Policy": "default-src 'self'",
             }).forEach(([k, v]) => {
-              if (!responseWithHeaders.headers.has(k))
-                responseWithHeaders.headers.set(k, v);
+              if (!responseWithHeaders.headers.has(k)) responseWithHeaders.headers.set(k, v);
             });
 
             return new Response(
               // eslint-disable-next-line @typescript-eslint/no-unsafe-argument
-              responseWithHeaders.headers.get("Content-Type") ===
-                "application/json"
+              responseWithHeaders.headers.get("Content-Type") === "application/json"
                 ? JSON.stringify(response.body)
                 : response.body,
               responseWithHeaders,
@@ -300,53 +292,38 @@ export function twoStroke<T extends Env>(
       }
     },
     emailHandler(
-      handler: (c: {
-        env: T;
-        message: ForwardableEmailMessage;
-        sentry: Toucan;
-      }) => Promise<void>,
+      handler: (c: { env: T; message: ForwardableEmailMessage; sentry: Toucan }) => Promise<void>,
     ) {
       _email = handler;
     },
-    schedule(
-      cron: string,
-      handler: (c: { env: T; sentry: Toucan }) => Promise<void>,
-    ) {
+    schedule(cron: string, handler: (c: { env: T; sentry: Toucan }) => Promise<void>) {
       crons[cron] = handler;
     },
     noAuth,
     pbkdf:
       (k: keyof T, customHeaderName: string = "Authorization") =>
-        async ({ req, env }: { req: Request; env: T }) => {
-          const [scheme, token] = (
-            req.headers.get(customHeaderName) ?? " "
-          ).split(" ");
-          if (
-            (scheme === "token" || scheme === "Bearer") &&
-            (await pbkdfVerify(env[k] as string, token ?? ""))
-          )
-            return;
-          throw Error("Invalid");
-        },
+      async ({ req, env }: { req: Request; env: T }) => {
+        const [scheme, token] = (req.headers.get(customHeaderName) ?? " ").split(" ");
+        if (
+          (scheme === "token" || scheme === "Bearer") &&
+          (await pbkdfVerify(env[k] as string, token ?? ""))
+        )
+          return;
+        throw Error("Invalid");
+      },
     jwt:
       <J>(k: keyof T, ak: keyof T) =>
-        async ({ req, env }: { req: Request; env: T }) => {
-          const [scheme, token] = (req.headers.get("Authorization") ?? " ").split(
-            " ",
-          );
-          if (scheme === "Bearer") {
-            const claims = await jwkVerify<J>(
-              token ?? "",
-              env[k] as string,
-              env[ak] as string,
-            );
-            if (!claims) {
-              throw Error("Invalid");
-            }
-            return claims;
+      async ({ req, env }: { req: Request; env: T }) => {
+        const [scheme, token] = (req.headers.get("Authorization") ?? " ").split(" ");
+        if (scheme === "Bearer") {
+          const claims = await jwkVerify<J>(token ?? "", env[k] as string, env[ak] as string);
+          if (!claims) {
+            throw Error("Invalid");
           }
-          throw Error("Invalid");
-        },
+          return claims;
+        }
+        throw Error("Invalid");
+      },
     queueHandler<I extends ZodType>(
       input: I,
       handler: (c: {
@@ -387,9 +364,7 @@ export function twoStroke<T extends Env>(
         auth,
         method: "PUT",
         path,
-        matcher: new RegExp(
-          `^${escapeRegex(path).replaceAll(/\/{([^}]*)}/g, "/(?<$1>[^\\/]*)")}$`,
-        ),
+        matcher: new RegExp(`^${escapeRegex(path).replaceAll(/\/{([^}]*)}/g, "/(?<$1>[^\\/]*)")}$`),
         input,
         output,
         handler,
@@ -415,9 +390,7 @@ export function twoStroke<T extends Env>(
         auth,
         method: "POST",
         path,
-        matcher: new RegExp(
-          `^${escapeRegex(path).replaceAll(/\/{([^}]*)}/g, "/(?<$1>[^\\/]*)")}$`,
-        ),
+        matcher: new RegExp(`^${escapeRegex(path).replaceAll(/\/{([^}]*)}/g, "/(?<$1>[^\\/]*)")}$`),
         input,
         output,
         handler,
@@ -442,9 +415,7 @@ export function twoStroke<T extends Env>(
         auth,
         method: "GET",
         path,
-        matcher: new RegExp(
-          `^${escapeRegex(path).replaceAll(/\/{([^}]*)}/g, "/(?<$1>[^\\/]*)")}$`,
-        ),
+        matcher: new RegExp(`^${escapeRegex(path).replaceAll(/\/{([^}]*)}/g, "/(?<$1>[^\\/]*)")}$`),
         output,
         handler,
         params,
@@ -467,9 +438,7 @@ export function twoStroke<T extends Env>(
         auth,
         method: "DELETE",
         path,
-        matcher: new RegExp(
-          `^${escapeRegex(path).replaceAll(/\/{([^}]*)}/g, "/(?<$1>[^\\/]*)")}$`,
-        ),
+        matcher: new RegExp(`^${escapeRegex(path).replaceAll(/\/{([^}]*)}/g, "/(?<$1>[^\\/]*)")}$`),
         output,
         handler,
         params,
@@ -483,11 +452,7 @@ type AddToQueueConfig = QueueSendOptions & {
   backoffFactor?: number;
 };
 
-export async function addToQueue<T>(
-  queue: Queue<T>,
-  message: T,
-  config: AddToQueueConfig = {},
-) {
+export async function addToQueue<T>(queue: Queue<T>, message: T, config: AddToQueueConfig = {}) {
   const { retries, backoffFactor, ...options } = config;
 
   for (let i = 0; i < (retries ?? 5); i++) {

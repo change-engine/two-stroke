@@ -3,9 +3,7 @@
     "erasableSyntaxOnly": true,
     "esModuleInterop": true,
     "isolatedModules": true,
-    "lib": [
-      "ESNext"
-    ],
+    "lib": ["ESNext"],
     "module": "ESNext",
     "moduleResolution": "bundler",
     "noUncheckedIndexedAccess": true,
@@ -20,7 +18,5 @@
     ],
     "verbatimModuleSyntax": true
   },
-  "exclude": [
-    "../../dist"
-  ]
+  "exclude": ["../../dist"]
 }

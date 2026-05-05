@@ -41,8 +41,7 @@ export type Route<T extends Env, A> =
 
 export type ExtractParameterNames<S extends string> =
   S extends `${string}{${infer Name}}${infer Rest}`
-    ?  
-      Record<Name, string> & ExtractParameterNames<Rest>
+    ? Record<Name, string> & ExtractParameterNames<Rest>
     : Record<string, string>;
 
 export type Handler<

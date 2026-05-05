@@ -23,9 +23,7 @@ const files = await Promise.all(
       const key = `${ent.parentPath.substring(4)}/${ent.name}`;
       return (async () => ({
         key: entry.includes(ent.name) ? `${process.env.DOMAIN}${key}` : key,
-        value: (
-          await fs.promises.readFile(`${ent.parentPath}/${ent.name}`)
-        ).toString("base64"),
+        value: (await fs.promises.readFile(`${ent.parentPath}/${ent.name}`)).toString("base64"),
         base64: true,
         metadata: {
           "Content-Type":
@@ -34,8 +32,7 @@ const files = await Promise.all(
               : type === "text/javascript"
                 ? "text/javascript;charset=utf-8"
                 : type,
-          "Cache-Control":
-            entry.includes(ent.name) ? "nocache" : "max-age=31536000, immutable",
+          "Cache-Control": entry.includes(ent.name) ? "nocache" : "max-age=31536000, immutable",
         },
       }))();
     }),

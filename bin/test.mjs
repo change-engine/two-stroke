@@ -25,11 +25,7 @@ if (fs.existsSync("wrangler.jsonc")) {
   if (request.status === 200) {
     const types = await openapiTS(await consumers.json(request.body));
     const printer = ts.createPrinter({});
-    const resultFile = ts.createSourceFile(
-      "test/api.d.ts",
-      "",
-      ts.ScriptTarget.Latest,
-    );
+    const resultFile = ts.createSourceFile("test/api.d.ts", "", ts.ScriptTarget.Latest);
     const result = types
       .map((t) => printer.printNode(ts.EmitHint.Unspecified, t, resultFile))
       .join("\n\n");
@@ -40,8 +36,7 @@ if (fs.existsSync("wrangler.jsonc")) {
   }
 }
 cmd("vitest", [
-  ...(!process.argv.slice(2).includes("-w") &&
-    !process.argv.slice(2).includes("--watch")
+  ...(!process.argv.slice(2).includes("-w") && !process.argv.slice(2).includes("--watch")
     ? ["--run"]
     : []),
   ...process.argv.slice(2),

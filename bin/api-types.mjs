@@ -7,9 +7,7 @@ import ts from "typescript";
 
 const services = process.argv[2].split(",");
 
-const UUID = ts.factory.createTypeReferenceNode(
-  ts.factory.createIdentifier("UUID"),
-);
+const UUID = ts.factory.createTypeReferenceNode(ts.factory.createIdentifier("UUID"));
 const NULL = ts.factory.createLiteralTypeNode(ts.factory.createNull());
 
 await Promise.all(
@@ -17,9 +15,7 @@ await Promise.all(
     const output = await openapiTS(`${service}/doc`, {
       transform(schemaObject) {
         if ("format" in schemaObject && schemaObject.format === "uuid") {
-          return schemaObject.nullable
-            ? ts.factory.createUnionTypeNode([UUID, NULL])
-            : UUID;
+          return schemaObject.nullable ? ts.factory.createUnionTypeNode([UUID, NULL]) : UUID;
         }
       },
     });
@@ -29,11 +25,7 @@ await Promise.all(
       "",
       ts.ScriptTarget.Latest,
     );
-    const result = printer.printNode(
-      ts.EmitHint.Unspecified,
-      output[0],
-      resultFile,
-    );
+    const result = printer.printNode(ts.EmitHint.Unspecified, output[0], resultFile);
     fs.writeFileSync(
       `src/__definitions__/${service.replace("https://", "")}-definitions.ts`,
       await prettier.format(

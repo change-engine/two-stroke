@@ -1,8 +1,8 @@
 import { env, exports } from "cloudflare:workers";
 import { type JWTPayload, SignJWT, exportJWK, generateKeyPair } from "jose";
 import createClient from "openapi-fetch";
-import { http, HttpResponse } from 'msw'
-import { setupServer } from 'msw/node'
+import { http, HttpResponse } from "msw";
+import { setupServer } from "msw/node";
 
 const msw = setupServer();
 msw.listen();
@@ -32,11 +32,7 @@ export const setupTests = async <Paths extends {}>() => {
       await waitUntil(() => expect(log).contains("Queue batch finished"));
       console.log = orig;
     },
-    async fakeJWK(
-      issuer: keyof typeof env,
-      audience: keyof typeof env,
-      claims: JWTPayload,
-    ) {
+    async fakeJWK(issuer: keyof typeof env, audience: keyof typeof env, claims: JWTPayload) {
       const { publicKey, privateKey } = await generateKeyPair("RS256");
       // Hack around Cloudflare not setting
       // eslint-disable-next-line @typescript-eslint/ban-ts-comment
@@ -49,16 +45,20 @@ export const setupTests = async <Paths extends {}>() => {
       jwk.kid = "test";
       jwk.alg = "RS256";
       beforeAll(() => {
-        msw.use(...[
-          http.get(`${env[issuer]}/.well-known/openid-configuration`, () =>
-            HttpResponse.json({
-              jwks_uri: `${env[issuer]}/.well-known/jwks`,
-            })),
-          http.get(`${env[issuer]}/.well-known/jwks`, () =>
-            HttpResponse.json({
-              keys: [jwk],
-            }))
-        ])
+        msw.use(
+          ...[
+            http.get(`${env[issuer]}/.well-known/openid-configuration`, () =>
+              HttpResponse.json({
+                jwks_uri: `${env[issuer]}/.well-known/jwks`,
+              }),
+            ),
+            http.get(`${env[issuer]}/.well-known/jwks`, () =>
+              HttpResponse.json({
+                keys: [jwk],
+              }),
+            ),
+          ],
+        );
       });
       return await new SignJWT(claims)
         .setProtectedHeader({ typ: "JWT", alg: "RS256", kid: jwk.kid })
@@ -107,11 +107,7 @@ export function recordFormRequest(
   },
 ) {
   return ({ body }: { body?: BodyInit }) => {
-    cb(
-      Object.fromEntries(
-        new URLSearchParams((body?.valueOf() as string) ?? "").entries(),
-      ),
-    );
+    cb(Object.fromEntries(new URLSearchParams((body?.valueOf() as string) ?? "").entries()));
     return { statusCode, data, responseOptions: responseOptions ?? {} };
   };
 }
