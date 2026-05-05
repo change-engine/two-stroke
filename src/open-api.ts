@@ -1,8 +1,8 @@
 import { z, ZodType } from "zod/v4";
-import { type Env, type Route } from "./types";
+import { type Route } from "./types";
 
 export const openAPI =
-  <T extends Env, A>(title: string, release: string, noAuth: () => A, routes: Route<T, A>[]) =>
+  <T, A>(title: string, release: string, noAuth: () => A, routes: Route<T, A>[]) =>
   // eslint-disable-next-line @typescript-eslint/require-await
   async () => ({
     body: {

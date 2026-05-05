@@ -3,14 +3,14 @@ import { verify as pbkdfVerify } from "pbkdf-subtle";
 import { Toucan } from "toucan-js";
 import { type ZodSafeParseResult, z, ZodObject, ZodType } from "zod/v4";
 import { openAPI } from "./open-api";
-import { type Env, type Handler, type Route } from "./types";
+import { type Handler, type Route } from "./types";
 
 // eslint-disable-next-line @typescript-eslint/require-await
 const noAuth = async () => null;
 
 const escapeRegex = (str: string) => str.replace(/([.*+?^=!:$()|[\]\\])/g, "\\$&");
 
-export function twoStroke<T extends Env>(
+export function twoStroke<T>(
   title: string,
   release: string,
   origin?: (o: string | null) => string,

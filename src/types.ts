@@ -1,20 +1,7 @@
 import { Toucan } from "toucan-js";
 import { ZodType, ZodObject, z } from "zod/v4";
-export type Env = {
-  [k: string]:
-    | string
-    | Queue
-    | KVNamespace
-    | R2Bucket
-    | D1Database
-    | Fetcher
-    | Hyperdrive
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    | DurableObjectNamespace<any>
-    | Vectorize
-    | ImagesBinding;
-};
-export type Route<T extends Env, A> =
+
+export type Route<T, A> =
   | {
       auth: (c: { req: Request; env: T }) => Promise<A>;
       method: "GET" | "DELETE";
@@ -45,7 +32,7 @@ export type ExtractParameterNames<S extends string> =
     : Record<string, string>;
 
 export type Handler<
-  T extends Env,
+  T,
   I extends ZodType | undefined,
   O extends ZodType,
   A,
