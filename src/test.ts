@@ -64,8 +64,8 @@ export const setupTests = async <Paths extends {}>() => {
         .setProtectedHeader({ typ: "JWT", alg: "RS256", kid: jwk.kid })
         .setIssuedAt()
         .setNotBefore("5 minutes ago")
-        .setIssuer(env[issuer] as string)
-        .setAudience([env[audience] as string])
+        .setIssuer(env[issuer])
+        .setAudience([env[audience]])
         .setExpirationTime("1h")
         .sign(privateKey);
     },
