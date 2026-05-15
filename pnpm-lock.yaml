@@ -10,7 +10,7 @@ importers:
     dependencies:
       '@cloudflare/vitest-pool-workers':
         specifier: ^0.16.3
-        version: 0.16.3(@vitest/runner@4.1.5)(@vitest/snapshot@4.1.5)(vitest@4.1.5(@types/node@25.6.2)(msw@2.14.6(@types/node@25.6.2)(typescript@6.0.3))(vite@8.0.0(@emnapi/core@1.9.1)(@emnapi/runtime@1.10.0)(@types/node@25.6.2)(esbuild@0.27.3)))
+        version: 0.16.3(@vitest/runner@4.1.6)(@vitest/snapshot@4.1.5)(vitest@4.1.5(@types/node@25.6.2)(msw@2.14.6(@types/node@25.6.2)(typescript@6.0.3))(vite@8.0.0(@emnapi/core@1.9.1)(@emnapi/runtime@1.10.0)(@types/node@25.6.2)(esbuild@0.27.3)))
       '@sentry/cli':
         specifier: ^3.3.4
         version: 3.4.1
@@ -25,7 +25,7 @@ importers:
         version: 8.59.2(eslint@10.3.0)(typescript@6.0.3)
       '@vitest/runner':
         specifier: ^4.1.2
-        version: 4.1.5
+        version: 4.1.6
       '@vitest/snapshot':
         specifier: ^4.1.2
         version: 4.1.5
@@ -913,8 +913,14 @@ packages:
   '@vitest/pretty-format@4.1.5':
     resolution: {integrity: sha512-7I3q6l5qr03dVfMX2wCo9FxwSJbPdwKjy2uu/YPpU3wfHvIL4QHwVRp57OfGrDFeUJ8/8QdfBKIV12FTtLn00g==}
 
+  '@vitest/pretty-format@4.1.6':
+    resolution: {integrity: sha512-h5SxD/IzNhZYnrSZRsUZQIC+vD0GY8cUvq0iwsmkFKixRCKLLWqCXa/FIQ4S1R+sI+PGoojkHsdNrbZiM9Qpgw==}
+
   '@vitest/runner@4.1.5':
     resolution: {integrity: sha512-2D+o7Pr82IEO46YPpoA/YU0neeyr6FTerQb5Ro7BUnBuv6NQtT/kmVnczngiMEBhzgqz2UZYl5gArejsyERDSQ==}
+
+  '@vitest/runner@4.1.6':
+    resolution: {integrity: sha512-nOPCmn2+yD0ZNmKdsXGv/UxMMWbMuKeD6GyYncNwdkYDxpQvrPSKYj2rWuDjC2Y4b6w6hjip5dBKFzEUuZe3vA==}
 
   '@vitest/snapshot@4.1.5':
     resolution: {integrity: sha512-zypXEt4KH/XgKGPUz4eC2AvErYx0My5hfL8oDb1HzGFpEk1P62bxSohdyOmvz+d9UJwanI68MKwr2EquOaOgMQ==}
@@ -924,6 +930,9 @@ packages:
 
   '@vitest/utils@4.1.5':
     resolution: {integrity: sha512-76wdkrmfXfqGjueGgnb45ITPyUi1ycZ4IHgC2bhPDUfWHklY/q3MdLOAB+TF1e6xfl8NxNY0ZYaPCFNWSsw3Ug==}
+
+  '@vitest/utils@4.1.6':
+    resolution: {integrity: sha512-FxIY+U81R3LGKCxaHHFRQ5+g6/iRgGLmeHWdp2Amj4ljQRrEIWHmZyDfDYBRZlpyqA7qKxtS9DD1dhk8RnRIVQ==}
 
   acorn-jsx@5.3.2:
     resolution: {integrity: sha512-rq9s+JNhf0IChjtDXxllJ7g41oZk5SlXtp0LHwyA5cejwn7vKmKp4pPri6YEePv2PU65sAsegbXtIinmDFDXgQ==}
@@ -1896,9 +1905,9 @@ snapshots:
     optionalDependencies:
       workerd: 1.20260507.1
 
-  '@cloudflare/vitest-pool-workers@0.16.3(@vitest/runner@4.1.5)(@vitest/snapshot@4.1.5)(vitest@4.1.5(@types/node@25.6.2)(msw@2.14.6(@types/node@25.6.2)(typescript@6.0.3))(vite@8.0.0(@emnapi/core@1.9.1)(@emnapi/runtime@1.10.0)(@types/node@25.6.2)(esbuild@0.27.3)))':
+  '@cloudflare/vitest-pool-workers@0.16.3(@vitest/runner@4.1.6)(@vitest/snapshot@4.1.5)(vitest@4.1.5(@types/node@25.6.2)(msw@2.14.6(@types/node@25.6.2)(typescript@6.0.3))(vite@8.0.0(@emnapi/core@1.9.1)(@emnapi/runtime@1.10.0)(@types/node@25.6.2)(esbuild@0.27.3)))':
     dependencies:
-      '@vitest/runner': 4.1.5
+      '@vitest/runner': 4.1.6
       '@vitest/snapshot': 4.1.5
       cjs-module-lexer: 1.4.3
       esbuild: 0.27.3
@@ -2535,9 +2544,18 @@ snapshots:
     dependencies:
       tinyrainbow: 3.1.0
 
+  '@vitest/pretty-format@4.1.6':
+    dependencies:
+      tinyrainbow: 3.1.0
+
   '@vitest/runner@4.1.5':
     dependencies:
       '@vitest/utils': 4.1.5
+      pathe: 2.0.3
+
+  '@vitest/runner@4.1.6':
+    dependencies:
+      '@vitest/utils': 4.1.6
       pathe: 2.0.3
 
   '@vitest/snapshot@4.1.5':
@@ -2552,6 +2570,12 @@ snapshots:
   '@vitest/utils@4.1.5':
     dependencies:
       '@vitest/pretty-format': 4.1.5
+      convert-source-map: 2.0.0
+      tinyrainbow: 3.1.0
+
+  '@vitest/utils@4.1.6':
+    dependencies:
+      '@vitest/pretty-format': 4.1.6
       convert-source-map: 2.0.0
       tinyrainbow: 3.1.0
 
