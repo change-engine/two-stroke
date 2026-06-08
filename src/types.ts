@@ -50,21 +50,21 @@ export type Handler<
   | {
       body: z.infer<O>;
       status?: 200;
-      headers?: Record<string, string>;
+      headers?: HeadersInit;
     }
   | {
       body: z.infer<O>;
       status: 301;
-      headers?: Record<string, string>;
+      headers?: HeadersInit;
     }
   | {
       body: z.infer<O>;
       status: 302;
-      headers?: Record<string, string>;
+      headers?: HeadersInit;
     }
   | {
       body?: { error: string };
       status: number;
-      headers?: Record<string, string>;
+      headers?: HeadersInit;
     }
 >;
