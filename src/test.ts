@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unnecessary-type-assertion */
 import { env, exports } from "cloudflare:workers";
 import { type JWTPayload, SignJWT, exportJWK, generateKeyPair } from "jose";
 import createClient from "openapi-fetch";
