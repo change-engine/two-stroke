@@ -66,7 +66,7 @@ export const setupTests = async <Paths extends {}>() => {
         .setIssuedAt()
         .setNotBefore("5 minutes ago")
         .setIssuer(env[issuer] as string)
-        .setAudience([env[audience]] as string)
+        .setAudience([env[audience] as string])
         .setExpirationTime("1h")
         .sign(privateKey);
     },
