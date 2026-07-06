@@ -6,22 +6,19 @@ import consumers from "stream/consumers";
 import openapiTS from "openapi-typescript";
 import prettier from "prettier";
 import ts from "typescript";
-import { Miniflare } from "miniflare";
+import { unstable_startWorker } from "wrangler";
 
 if (fs.existsSync("wrangler.jsonc")) {
   cmd("wrangler deploy --env=  --dry-run --outdir=dist");
-  const miniflare = new Miniflare({
-    modules: true,
-    scriptPath: "dist/index.js",
-    compatibilityDate: "2024-09-23",
-    compatibilityFlags: ["nodejs_compat"],
+  const worker = await unstable_startWorker({
+    config: "wrangler.jsonc",
   });
-  const request = await fetch(
-    `${await miniflare.ready}doc`,
+  const request = await worker.fetch(
+    "http://example.com/doc",
     { SENTRY_DSN: null, SENTRY_ENVIRONMENT: null },
     null,
   );
-  await miniflare.dispose();
+  await worker.dispose();
   if (request.status === 200) {
     const types = await openapiTS(await consumers.json(request.body));
     const printer = ts.createPrinter({});
