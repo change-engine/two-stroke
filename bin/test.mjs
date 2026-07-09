@@ -10,7 +10,7 @@ import { Miniflare } from "miniflare";
 
 if (fs.existsSync("wrangler.jsonc")) {
   cmd("wrangler deploy --env=  --dry-run --outdir=dist");
-  const config = JSON.parse(fs.readFile("wrangler.jsonc", "utf8"));
+  const config = JSON.parse(fs.readFileSync("wrangler.jsonc", "utf8"));
   const miniflare = new Miniflare({
     modules: true,
     scriptPath: "dist/index.js",
