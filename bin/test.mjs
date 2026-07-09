@@ -10,11 +10,12 @@ import { Miniflare } from "miniflare";
 
 if (fs.existsSync("wrangler.jsonc")) {
   cmd("wrangler deploy --env=  --dry-run --outdir=dist");
+  const config = JSON.parse(await fs.readFile("wrangler.jsonc", "utf8"));
   const miniflare = new Miniflare({
     modules: true,
     scriptPath: "dist/index.js",
-    compatibilityDate: "2024-09-23",
-    compatibilityFlags: ["nodejs_compat"],
+    compatibilityDate: config.compatibility_date,
+    compatibilityFlags: config.compatibility_flags,
   });
   const request = await fetch(
     `${await miniflare.ready}doc`,
