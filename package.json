@@ -12,7 +12,6 @@
   "dependencies": {
     "@cloudflare/vitest-pool-workers": "^0.18.0",
     "@sentry/cli": "^3.6.0",
-    "@types/node": "^26.1.0",
     "@typescript-eslint/eslint-plugin": "^8.62.1",
     "@typescript-eslint/parser": "^8.62.1",
     "@vitest/runner": "^4.1.8",

@@ -14,9 +14,6 @@ importers:
       '@sentry/cli':
         specifier: ^3.6.0
         version: 3.6.0
-      '@types/node':
-        specifier: ^26.1.0
-        version: 26.1.0
       '@typescript-eslint/eslint-plugin':
         specifier: ^8.62.1
         version: 8.62.1(@typescript-eslint/parser@8.62.1(eslint@10.6.0)(typescript@6.0.3))(eslint@10.6.0)(typescript@6.0.3)
