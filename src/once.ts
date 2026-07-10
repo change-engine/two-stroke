@@ -14,7 +14,14 @@ export const once = async <T extends { retry_count: number }>(
     if (retry_count > numRetries) throw new Error("Too many retries");
     await queue.send(
       { ...m, retry_count },
-      { delaySeconds: Math.min(Math.pow(retry_count, backoffExponent), 900) },
+      {
+        delaySeconds: Math.min(
+          Math.round(
+            (0.5 + Math.random() / 2) * Math.pow(retry_count, backoffExponent) + Math.random() * 4,
+          ),
+          900,
+        ),
+      },
     );
   };
   if (!(await isDuplicateMessage(key, bucket)))
