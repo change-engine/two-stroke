@@ -17,4 +17,10 @@ jobs:
 
       - uses: ./.github/actions/install
 
-      - run: pnpm eslint
+      - run: pnpm oxlint
+
+      - run: pnpm oxfmt --check
+
+      - run: pnpm tsc --noEmit
+
+      - run: pnpm knip

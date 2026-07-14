@@ -1,14 +1,12 @@
-/* eslint-disable @typescript-eslint/no-unnecessary-type-assertion */
 import { env, exports } from "cloudflare:workers";
 import { type JWTPayload, SignJWT, exportJWK, generateKeyPair } from "jose";
-import createClient from "openapi-fetch";
-import { http, HttpResponse } from "msw";
+import { HttpResponse, http } from "msw";
 import { setupServer } from "msw/node";
+import createClient from "openapi-fetch";
 
 const msw = setupServer();
 msw.listen();
 
-// eslint-disable-next-line @typescript-eslint/no-empty-object-type, @typescript-eslint/require-await
 export const setupTests = async <Paths extends {}>() => {
   const url = new URL("https://example.com/");
 
@@ -21,11 +19,10 @@ export const setupTests = async <Paths extends {}>() => {
     url,
     client,
     msw,
-    async waitForQueue(trigger: () => Promise<void>) {
-      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    waitForQueue: async (trigger: () => Promise<void>) => {
       const log: any[] = [];
       const orig = console.log;
-      console.log = function (message) {
+      console.log = (message) => {
         orig(message);
         log.push(message);
       };
@@ -33,13 +30,11 @@ export const setupTests = async <Paths extends {}>() => {
       await waitUntil(() => expect(log).contains("Queue batch finished"));
       console.log = orig;
     },
-    async fakeJWK(issuer: keyof typeof env, audience: keyof typeof env, claims: JWTPayload) {
+    fakeJWK: async (issuer: keyof typeof env, audience: keyof typeof env, claims: JWTPayload) => {
       const { publicKey, privateKey } = await generateKeyPair("RS256");
       // Hack around Cloudflare not setting
-      // eslint-disable-next-line @typescript-eslint/ban-ts-comment
       // @ts-expect-error
       publicKey[Symbol.toStringTag] = "CryptoKey";
-      // eslint-disable-next-line @typescript-eslint/ban-ts-comment
       // @ts-expect-error
       privateKey[Symbol.toStringTag] = "CryptoKey";
       const jwk = await exportJWK(publicKey);
@@ -47,25 +42,25 @@ export const setupTests = async <Paths extends {}>() => {
       jwk.alg = "RS256";
       beforeAll(() => {
         msw.use(
-          ...[
-            http.get(`${env[issuer]}/.well-known/openid-configuration`, () =>
-              HttpResponse.json({
-                jwks_uri: `${env[issuer]}/.well-known/jwks`,
-              }),
-            ),
-            http.get(`${env[issuer]}/.well-known/jwks`, () =>
-              HttpResponse.json({
-                keys: [jwk],
-              }),
-            ),
-          ],
+          http.get(`${env[issuer]}/.well-known/openid-configuration`, () =>
+            HttpResponse.json({
+              jwks_uri: `${env[issuer]}/.well-known/jwks`,
+            }),
+          ),
+          http.get(`${env[issuer]}/.well-known/jwks`, () =>
+            HttpResponse.json({
+              keys: [jwk],
+            }),
+          ),
         );
       });
       return await new SignJWT(claims)
         .setProtectedHeader({ typ: "JWT", alg: "RS256", kid: jwk.kid })
         .setIssuedAt()
         .setNotBefore("5 minutes ago")
+        // oxlint-disable-next-line typescript/no-unnecessary-type-assertion
         .setIssuer(env[issuer] as string)
+        // oxlint-disable-next-line typescript/no-unnecessary-type-assertion
         .setAudience([env[audience] as string])
         .setExpirationTime("1h")
         .sign(privateKey);
@@ -81,55 +76,4 @@ async function waitUntil(condition: () => void, time = 100) {
     await new Promise((resolve) => setTimeout(resolve, time));
     await waitUntil(condition, time);
   }
-}
-
-export function recordRequest(
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  cb: (data: any) => void,
-  statusCode: number,
-  data: string | object | undefined,
-  responseOptions?: {
-    headers: Record<string, string | string[] | undefined>;
-  },
-) {
-  return ({ body }: { body?: BodyInit }) => {
-    cb(JSON.parse((body?.valueOf() as string) ?? ""));
-    return { statusCode, data, responseOptions: responseOptions ?? {} };
-  };
-}
-
-export function recordFormRequest(
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  cb: (data: any) => void,
-  statusCode: number,
-  data: string | object | undefined,
-  responseOptions?: {
-    headers: Record<string, string | string[] | undefined>;
-  },
-) {
-  return ({ body }: { body?: BodyInit }) => {
-    cb(Object.fromEntries(new URLSearchParams((body?.valueOf() as string) ?? "").entries()));
-    return { statusCode, data, responseOptions: responseOptions ?? {} };
-  };
-}
-
-export function recordFirehoseRequest(
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  cb: (data: any) => void,
-  statusCode: number,
-  data: string | object | undefined,
-  responseOptions?: {
-    headers: Record<string, string | string[] | undefined>;
-  },
-) {
-  return ({ body }: { body?: BodyInit }) => {
-    cb(JSON.parse((body?.valueOf() as string) ?? ""));
-    cb(
-      JSON.parse(
-        // eslint-disable-next-line @typescript-eslint/no-unsafe-argument, @typescript-eslint/no-unsafe-member-access
-        atob(JSON.parse((body?.valueOf() as string) ?? "")["Record"]["Data"]),
-      ),
-    );
-    return { statusCode, data, responseOptions: responseOptions ?? {} };
-  };
 }

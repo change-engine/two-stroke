@@ -1,8 +1,8 @@
 #!/usr/bin/env node
 "use strict";
 import fs from "fs";
-import { cmd } from "../src/cmd.mjs";
 import { basename } from "path";
+import { cmd } from "../src/cmd.mjs";
 
 const env = process.argv[2];
 const release = process.argv[3];

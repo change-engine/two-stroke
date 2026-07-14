@@ -2,11 +2,11 @@
 "use strict";
 
 import fs from "fs";
-import { cmd } from "../src/cmd.mjs";
 import mime from "mime";
+import { cmd } from "../src/cmd.mjs";
 
 const entryOrRest = process.argv[2];
-const entry = process.argv.slice(3);
+const entry = new Set(process.argv.slice(3));
 
 const ents = await fs.promises.readdir("dist", {
   withFileTypes: true,
@@ -15,14 +15,12 @@ const ents = await fs.promises.readdir("dist", {
 const files = await Promise.all(
   ents
     .filter((ent) => ent.isFile())
-    .filter((ent) =>
-      entryOrRest == "entry" ? entry.includes(ent.name) : !entry.includes(ent.name),
-    )
+    .filter((ent) => (entryOrRest == "entry" ? entry.has(ent.name) : !entry.has(ent.name)))
     .map((ent) => {
       const type = mime.getType(`${ent.parentPath}/${ent.name}`);
       const key = `${ent.parentPath.substring(4)}/${ent.name}`;
       return (async () => ({
-        key: entry.includes(ent.name) ? `${process.env.DOMAIN}${key}` : key,
+        key: entry.has(ent.name) ? `${process.env.DOMAIN}${key}` : key,
         value: (await fs.promises.readFile(`${ent.parentPath}/${ent.name}`)).toString("base64"),
         base64: true,
         metadata: {
@@ -32,7 +30,7 @@ const files = await Promise.all(
               : type === "text/javascript"
                 ? "text/javascript;charset=utf-8"
                 : type,
-          "Cache-Control": entry.includes(ent.name) ? "nocache" : "max-age=31536000, immutable",
+          "Cache-Control": entry.has(ent.name) ? "nocache" : "max-age=31536000, immutable",
         },
       }))();
     }),

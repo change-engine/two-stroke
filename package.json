@@ -1,4 +1,12 @@
 {
+  "name": "two-stroke",
+  "version": "8.0.0",
+  "description": "Simple Cloudflare Worker framework.",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/change-engine/two-stroke"
+  },
   "bin": {
     "api-types": "./bin/api-types.mjs",
     "bulk": "./bin/bulk.mjs",
@@ -9,60 +17,45 @@
     "test": "./bin/test.mjs",
     "type-check": "./bin/type-check.mjs"
   },
+  "type": "module",
+  "main": "src/index.ts",
   "dependencies": {
-    "@cloudflare/vitest-pool-workers": "^0.18.0",
-    "@sentry/cli": "^3.6.0",
-    "@typescript-eslint/eslint-plugin": "^8.63.0",
-    "@typescript-eslint/parser": "^8.62.1",
-    "@vitest/runner": "^4.1.8",
-    "@vitest/snapshot": "^4.1.8",
-    "eslint-config-prettier": "^10.1.8",
-    "eslint-config-two-stroke": "^1.5.7",
-    "eslint-config-typescript": "^3.0.0",
     "jose": "^6.2.3",
     "mime": "^4.1.0",
-    "miniflare": "^4.20260701.0",
-    "msw": "^2.14.6",
+    "msw": "^2.15.0",
     "openapi-fetch": "^0.17.0",
     "openapi-typescript": "^7.13.0",
     "toucan-js": "^4.1.1",
     "zod": "^4.4.3"
   },
+  "devDependencies": {
+    "@cloudflare/vitest-pool-workers": "^0.18.4",
+    "knip": "^6.26.0",
+    "oxfmt": "^0.58.0",
+    "oxlint": "^1.74.0",
+    "oxlint-tsgolint": "^0.24.0",
+    "typescript": "^6.0.3",
+    "vitest": "^4.1.10"
+  },
   "peerDependencies": {
-    "@sentry/cli": ">=2",
-    "eslint": ">=10",
-    "prettier": ">=3",
+    "miniflare": "^4.20260708.1",
+    "oxfmt": "^0.58.0",
+    "oxlint": "^1.73.0",
+    "oxlint-tsgolint": "^0.24.0",
     "typescript": ">=5",
     "vitest": ">=4",
     "wrangler": ">=3"
   },
-  "description": "Simple Cloudflare Worker framework.",
-  "engines": {
-    "node": "^24.9.0"
+  "prettier": {
+    "printWidth": 100
   },
   "eslintConfig": {
     "extends": [
       "two-stroke"
     ]
   },
-  "license": "MIT",
-  "main": "src/index.ts",
-  "name": "two-stroke",
-  "packageManager": "pnpm@10.30.2+sha512.36cdc707e7b7940a988c9c1ecf88d084f8514b5c3f085f53a2e244c2921d3b2545bc20dd4ebe1fc245feec463bb298aecea7a63ed1f7680b877dc6379d8d0cb4",
-  "prettier": {
-    "printWidth": 100
+  "engines": {
+    "node": "^24.9.0"
   },
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/change-engine/two-stroke"
-  },
-  "type": "module",
-  "version": "7.11.0",
-  "devDependencies": {
-    "@types/eslint": "^9.6.1",
-    "eslint": "^10.6.0",
-    "prettier": "^3.9.4",
-    "typescript": "^6.0.3",
-    "vitest": "^4.1.10"
-  }
+  "packageManager": "pnpm@10.30.2+sha512.36cdc707e7b7940a988c9c1ecf88d084f8514b5c3f085f53a2e244c2921d3b2545bc20dd4ebe1fc245feec463bb298aecea7a63ed1f7680b877dc6379d8d0cb4"
 }

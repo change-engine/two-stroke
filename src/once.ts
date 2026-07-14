@@ -1,4 +1,4 @@
-import type { z, ZodSafeParseResult, ZodType } from "zod/v4";
+import type { ZodSafeParseResult, ZodType, z } from "zod/v4";
 
 export const once = async <T extends { retry_count: number }>(
   key: string,
@@ -17,7 +17,7 @@ export const once = async <T extends { retry_count: number }>(
       {
         delaySeconds: Math.min(
           Math.round(
-            (0.5 + Math.random() / 2) * Math.pow(retry_count, backoffExponent) + Math.random() * 4,
+            (0.5 + Math.random() / 2) * retry_count ** backoffExponent + Math.random() * 4,
           ),
           900,
         ),
@@ -50,15 +50,9 @@ export const retryHandler =
     env: T;
   }) => {
     const isFinalAttempt = body.retry >= maxRetries;
-    await handler(
-      body,
-      env,
-      isFinalAttempt,
-      // eslint-disable-next-line @typescript-eslint/require-await
-      async (cb) => {
-        waitUntil(cb());
-      },
-    );
+    await handler(body, env, isFinalAttempt, async (cb) => {
+      waitUntil(cb());
+    });
 
     return { body: { ok: true } };
   };
@@ -82,7 +76,7 @@ export const retryQueue =
     parsedBatch: ZodSafeParseResult<z.output<M>>[];
     env: T;
   }) => {
-    const message = batch.messages[0];
+    const [message] = batch.messages;
     if (!message || batch.messages.length !== 1) {
       console.warn({ batch });
       throw new Error(
@@ -101,31 +95,33 @@ export const retryQueue =
         message.ack();
         await cb();
       });
-    } catch (err) {
+    } catch (error) {
       if (!isFinalAttempt) message.retry();
-      throw err;
+      throw error;
     }
   };
 
 const isDuplicateMessage = async (key: string, bucket: R2Bucket) => {
   // Work around for CloudFlare R2 error:
-  // put: We encountered an internal error. Please try again. (10001)
+  // Put: We encountered an internal error. Please try again. (10001)
   for (let i = 0; i < 5; i++) {
     try {
       // Will throw if that error occurs
+      // oxlint-disable-next-line no-await-in-loop
       const putResult = await bucket.put(`lock-${key}`, "", {
         onlyIf: new Headers({
           "If-Unmodified-Since": "Wed, 21 Oct 2015 07:28:00 GMT",
         }),
       });
-      // if the returned result is null then the object already existed
+      // If the returned result is null then the object already existed
       const isDupe = putResult === null;
       if (isDupe) console.log("Duplicate message", { key });
       return isDupe;
-    } catch (err) {
-      // eslint-disable-next-line @typescript-eslint/restrict-template-expressions
-      console.warn(`Error putting ${key} to R2: ${err}`);
+    } catch (error) {
+      // oxlint-disable-next-line typescript/restrict-template-expressions
+      console.warn(`Error putting ${key} to R2: ${error}`);
       console.warn(`Retrying in ${i} seconds`);
+      // oxlint-disable-next-line no-await-in-loop
       await new Promise((resolve) => setTimeout(resolve, i * 1000));
     }
   }

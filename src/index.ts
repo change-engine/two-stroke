@@ -1,27 +1,22 @@
 import { Toucan } from "toucan-js";
-import { type ZodSafeParseResult, z, ZodObject, ZodType } from "zod/v4";
+import { z } from "zod/v4";
 import { openAPI } from "./open-api";
 import { type Handler, type Route } from "./types";
-import type { JSONWebKeySet } from "jose";
-import { pbkdfVerify, jwkVerifyMulti } from "./util";
+import { jwkVerifyMulti, pbkdfVerify } from "./util";
 
-// eslint-disable-next-line @typescript-eslint/require-await
+import type { JSONWebKeySet } from "jose";
+import type { ZodObject, ZodSafeParseResult, ZodType } from "zod/v4";
+
 const noAuth = async () => null;
 
-const escapeRegex = (str: string) => str.replace(/([.*+?^=!:$()|[\]\\])/g, "\\$&");
+const escapeRegex = (str: string) => str.replace(/(?<seg>[.*+?^=!:$()|[\]\\])/g, String.raw`\$&`);
 
 export function twoStroke<T>(
   title: string,
   release: string,
   origin?: (o: string | null) => string,
 ) {
-  let _queue: (c: {
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    batch: MessageBatch<any>;
-    env: T;
-    sentry: Toucan;
-  }) => Promise<void>;
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  let _queue: (c: { batch: MessageBatch<any>; env: T; sentry: Toucan }) => Promise<void>;
   const routes: Route<T, any>[] = [];
   routes.push({
     auth: noAuth,
@@ -87,10 +82,10 @@ export function twoStroke<T>(
             );
             let claims;
             try {
-              // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
+              // oxlint-disable-next-line no-await-in-loop
               claims = await route.auth({ req, env });
-            } catch (err) {
-              console.warn(err);
+            } catch (error) {
+              console.warn(error);
               return new Response("", {
                 status: 401,
                 statusText: "Invalid Authorization",
@@ -105,19 +100,21 @@ export function twoStroke<T>(
               try {
                 rawBody = route.input
                   ? req.headers.get("Content-Type") === "application/x-www-form-urlencoded"
-                    ? Object.fromEntries(new URLSearchParams(await req.text()))
-                    : await req.json()
+                    ? // oxlint-disable-next-line no-await-in-loop
+                      Object.fromEntries(new URLSearchParams(await req.text()))
+                    : // oxlint-disable-next-line no-await-in-loop
+                      await req.json()
                   : undefined;
-              } catch (e) {
+              } catch (error) {
                 console.error({
                   message: "Request body is required'",
-                  error: e instanceof Error ? e.message : "Error",
+                  error: error instanceof Error ? error.message : "Error",
                 });
-                return new Response(
-                  JSON.stringify({
+                return Response.json(
+                  {
                     error: "Request body is required",
                     issues: [],
-                  }),
+                  },
                   {
                     status: 400,
                     headers: defaultHeaders,
@@ -132,11 +129,11 @@ export function twoStroke<T>(
                     error: undefined,
                   };
               if (body.success)
+                // oxlint-disable-next-line no-await-in-loop
                 response = await route.handler({
                   req,
                   env,
                   body: body.data,
-                  // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
                   claims,
                   params,
                   searchParams: new URL(req.url).searchParams,
@@ -149,12 +146,12 @@ export function twoStroke<T>(
                   error: body.error,
                   body: rawBody,
                 });
-                return new Response(
-                  JSON.stringify({
+                return Response.json(
+                  {
                     error: "Request body schema invalid",
                     issues: JSON.parse(body.error?.message ?? "{}") as unknown,
                     name: body.error?.name,
-                  }),
+                  },
                   {
                     status: 400,
                     headers: defaultHeaders,
@@ -162,10 +159,10 @@ export function twoStroke<T>(
                 );
               }
             } else {
+              // oxlint-disable-next-line no-await-in-loop
               response = await route.handler({
                 req,
                 env,
-                // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
                 claims,
                 body: undefined,
                 params,
@@ -180,7 +177,6 @@ export function twoStroke<T>(
                 console.error({
                   message: "Response body schema invalid",
                   error: output.error,
-                  // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
                   body: response.body,
                 });
               }
@@ -202,7 +198,6 @@ export function twoStroke<T>(
             });
 
             return new Response(
-              // eslint-disable-next-line @typescript-eslint/no-unsafe-argument
               responseWithHeaders.headers.get("Content-Type") === "application/json"
                 ? JSON.stringify(response.body)
                 : response.body,
@@ -214,9 +209,9 @@ export function twoStroke<T>(
           status: 404,
           headers: defaultHeaders,
         });
-      } catch (err) {
-        console.warn(err);
-        sentry.captureException(err);
+      } catch (error) {
+        console.warn(error);
+        sentry.captureException(error);
         return new Response("", {
           status: 500,
           statusText: "Internal Server Error",
@@ -240,9 +235,9 @@ export function twoStroke<T>(
       });
       try {
         return await _queue({ batch, env, sentry });
-      } catch (err) {
-        console.warn(err);
-        sentry.captureException(err);
+      } catch (error) {
+        console.warn(error);
+        sentry.captureException(error);
       }
     },
     async scheduled(
@@ -265,9 +260,9 @@ export function twoStroke<T>(
           throw new Error("CRON Handler not found");
         }
         await handler({ env, sentry });
-      } catch (err) {
-        console.warn(err);
-        sentry.captureException(err);
+      } catch (error) {
+        console.warn(error);
+        sentry.captureException(error);
       }
     },
     async email(
@@ -286,9 +281,9 @@ export function twoStroke<T>(
       });
       try {
         await _email({ message, env, sentry });
-      } catch (err) {
-        console.warn(err);
-        sentry.captureException(err);
+      } catch (error) {
+        console.warn(error);
+        sentry.captureException(error);
       }
     },
     emailHandler(
@@ -306,6 +301,7 @@ export function twoStroke<T>(
         const [scheme, token] = (req.headers.get(customHeaderName) ?? " ").split(" ");
         if (
           (scheme === "token" || scheme === "Bearer") &&
+          // oxlint-disable-next-line typescript/no-unsafe-type-assertion
           (await pbkdfVerify(env[k] as string, token ?? ""))
         )
           return;
@@ -316,13 +312,17 @@ export function twoStroke<T>(
       async ({ req, env }: { req: Request; env: T }) => {
         const [scheme, token] = (req.headers.get("Authorization") ?? " ").split(" ");
         if (scheme === "Bearer") {
+          // oxlint-disable-next-line typescript/no-unsafe-type-assertion
           const rawIssuer = env[k] as string;
+          // oxlint-disable-next-line typescript/no-unsafe-type-assertion
           const rawAudience = env[ak] as string;
           const issuer = rawIssuer.startsWith("{")
-            ? (JSON.parse(rawIssuer) as Record<string, JSONWebKeySet | true>)
+            ? // oxlint-disable-next-line typescript/no-unsafe-type-assertion
+              (JSON.parse(rawIssuer) as Record<string, JSONWebKeySet | true>)
             : { [rawIssuer]: true as const };
           const audience = rawAudience.startsWith("[")
-            ? (JSON.parse(rawAudience) as string[])
+            ? // oxlint-disable-next-line typescript/no-unsafe-type-assertion
+              (JSON.parse(rawAudience) as string[])
             : [rawAudience];
           const claims = await jwkVerifyMulti<J>(token ?? "", issuer, audience);
           if (!claims) {
@@ -361,26 +361,21 @@ export function twoStroke<T>(
         console.log("Queue batch finished");
       };
     },
-    put<
-      I extends ZodType | undefined,
-      O extends ZodType,
-      A,
-      P extends string,
-      // eslint-disable-next-line @typescript-eslint/no-explicit-any
-      PP extends ZodObject<any> | undefined,
-    >(
+    put<I extends ZodType | undefined, O extends ZodType, A, P extends string>(
       auth: Route<T, A>["auth"],
       path: P,
       input: I,
       output: O,
       handler: Handler<T, I, O, A, P>,
-      params?: PP,
+      params?: ZodObject<any>,
     ) {
       routes.push({
         auth,
         method: "PUT",
         path,
-        matcher: new RegExp(`^${escapeRegex(path).replaceAll(/\/{([^}]*)}/g, "/(?<$1>[^\\/]*)")}$`),
+        matcher: new RegExp(
+          `^${escapeRegex(path).replaceAll(/\/{(?<seg>[^}]*)}/g, String.raw`/(?<$seg>[^\/]*)`)}$`,
+        ),
         input,
         output,
         handler,
@@ -388,26 +383,21 @@ export function twoStroke<T>(
       });
     },
 
-    post<
-      I extends ZodType | undefined,
-      O extends ZodType,
-      A,
-      P extends string,
-      // eslint-disable-next-line @typescript-eslint/no-explicit-any
-      PP extends ZodObject<any> | undefined,
-    >(
+    post<I extends ZodType | undefined, O extends ZodType, A, P extends string>(
       auth: Route<T, A>["auth"],
       path: P,
       input: I,
       output: O,
       handler: Handler<T, I, O, A, P>,
-      params?: PP,
+      params?: ZodObject<any>,
     ) {
       routes.push({
         auth,
         method: "POST",
         path,
-        matcher: new RegExp(`^${escapeRegex(path).replaceAll(/\/{([^}]*)}/g, "/(?<$1>[^\\/]*)")}$`),
+        matcher: new RegExp(
+          `^${escapeRegex(path).replaceAll(/\/{(?<seg>[^}]*)}/g, String.raw`/(?<$seg>[^\/]*)`)}$`,
+        ),
         input,
         output,
         handler,
@@ -415,47 +405,39 @@ export function twoStroke<T>(
       });
     },
 
-    get<
-      O extends ZodType,
-      A,
-      P extends string,
-      // eslint-disable-next-line @typescript-eslint/no-explicit-any
-      PP extends ZodObject<any> | undefined,
-    >(
+    get<O extends ZodType, A, P extends string>(
       auth: Route<T, A>["auth"],
       path: P,
       output: O,
       handler: Handler<T, undefined, O, A, P>,
-      params?: PP,
+      params?: ZodObject<any>,
     ) {
       routes.push({
         auth,
         method: "GET",
         path,
-        matcher: new RegExp(`^${escapeRegex(path).replaceAll(/\/{([^}]*)}/g, "/(?<$1>[^\\/]*)")}$`),
+        matcher: new RegExp(
+          `^${escapeRegex(path).replaceAll(/\/{(?<seg>[^}]*)}/g, String.raw`/(?<$seg>[^\/]*)`)}$`,
+        ),
         output,
         handler,
         params,
       });
     },
-    delete<
-      O extends ZodType,
-      A,
-      P extends string,
-      // eslint-disable-next-line @typescript-eslint/no-explicit-any
-      PP extends ZodObject<any> | undefined,
-    >(
+    delete<O extends ZodType, A, P extends string>(
       auth: Route<T, A>["auth"],
       path: P,
       output: O,
       handler: Handler<T, undefined, O, A, P>,
-      params?: PP,
+      params?: ZodObject<any>,
     ) {
       routes.push({
         auth,
         method: "DELETE",
         path,
-        matcher: new RegExp(`^${escapeRegex(path).replaceAll(/\/{([^}]*)}/g, "/(?<$1>[^\\/]*)")}$`),
+        matcher: new RegExp(
+          `^${escapeRegex(path).replaceAll(/\/{(?<seg>[^}]*)}/g, String.raw`/(?<$seg>[^\/]*)`)}$`,
+        ),
         output,
         handler,
         params,
@@ -474,13 +456,15 @@ export async function addToQueue<T>(queue: Queue<T>, message: T, config: AddToQu
 
   for (let i = 0; i < (retries ?? 5); i++) {
     try {
+      // oxlint-disable-next-line no-await-in-loop
       await queue.send(message, options);
       return;
-    } catch (err) {
+    } catch (error) {
       const backoff = (backoffFactor ?? 2) ** i;
-      // eslint-disable-next-line @typescript-eslint/restrict-template-expressions
-      console.log(`Error adding to queue: ${err}`);
+      // oxlint-disable-next-line typescript/restrict-template-expressions
+      console.log(`Error adding to queue: ${error}`);
       console.log(`Retrying in ${backoff} seconds`);
+      // oxlint-disable-next-line no-await-in-loop
       await new Promise((resolve) => setTimeout(resolve, backoff * 1000));
     }
   }

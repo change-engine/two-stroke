@@ -16,8 +16,10 @@ export async function pbkdfVerify(key: string, password: string) {
           {
             name: "PBKDF2",
             hash: "SHA-256",
+            // oxlint-disable-next-line typescript/no-misused-spread unicorn/no-useless-spread
             salt: new Uint8Array([...atob(key).slice(3, 19)].map((ch) => ch.charCodeAt(0))),
             iterations: parseInt(
+              // oxlint-disable-next-line typescript/no-misused-spread unicorn/no-useless-spread
               [...atob(key).slice(19, 22)].map((ch) => ch.charCodeAt(0).toString(16)).join(""),
               16,
             ),

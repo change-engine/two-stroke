@@ -1,9 +1,10 @@
-import { z, ZodType } from "zod/v4";
+import { z } from "zod/v4";
 import { type Route } from "./types";
+
+import type { ZodType } from "zod/v4";
 
 export const openAPI =
   <T, A>(title: string, release: string, noAuth: () => A, routes: Route<T, A>[]) =>
-  // eslint-disable-next-line @typescript-eslint/require-await
   async () => ({
     body: {
       openapi: "3.1.0",
@@ -27,6 +28,7 @@ export const openAPI =
               r.method.toLocaleLowerCase(),
               {
                 parameters: [
+                  // oxlint-disable-next-line typescript/no-unsafe-type-assertion
                   ...Object.entries((r.params?.shape ?? {}) as Record<string, ZodType>).map(
                     ([k, v]) => ({
                       name: k,

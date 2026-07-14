@@ -1,5 +1,5 @@
-import { Toucan } from "toucan-js";
-import { ZodType, ZodObject, z } from "zod/v4";
+import type { Toucan } from "toucan-js";
+import type { ZodObject, ZodType, z } from "zod/v4";
 
 export type Route<T, A> =
   | {
@@ -8,9 +8,7 @@ export type Route<T, A> =
       path: string;
       matcher: RegExp;
       output: ZodType;
-      // eslint-disable-next-line @typescript-eslint/no-explicit-any
       handler: Handler<T, undefined, any, A, string>;
-      // eslint-disable-next-line @typescript-eslint/no-explicit-any
       params?: ZodObject<any>;
     }
   | {
@@ -20,16 +18,13 @@ export type Route<T, A> =
       matcher: RegExp;
       input: ZodType | undefined;
       output: ZodType;
-      // eslint-disable-next-line @typescript-eslint/no-explicit-any
       handler: Handler<T, any, any, A, string>;
-      // eslint-disable-next-line @typescript-eslint/no-explicit-any
       params?: ZodObject<any>;
     };
 
-export type ExtractParameterNames<S extends string> =
-  S extends `${string}{${infer Name}}${infer Rest}`
-    ? Record<Name, string> & ExtractParameterNames<Rest>
-    : Record<string, string>;
+type ExtractParameterNames<S extends string> = S extends `${string}{${infer Name}}${infer Rest}`
+  ? Record<Name, string> & ExtractParameterNames<Rest>
+  : Record<string, string>;
 
 export type Handler<
   T,

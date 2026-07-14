@@ -1,12 +1,12 @@
 #!/usr/bin/env node
 "use strict";
 import fs from "fs";
-import { cmd } from "../src/cmd.mjs";
-import consumers from "stream/consumers";
-import openapiTS from "openapi-typescript";
-import prettier from "prettier";
-import ts from "typescript";
 import { Miniflare } from "miniflare";
+import openapiTS from "openapi-typescript";
+import { format } from "oxfmt";
+import consumers from "stream/consumers";
+import ts from "typescript";
+import { cmd } from "../src/cmd.mjs";
 
 if (fs.existsSync("wrangler.jsonc")) {
   cmd("wrangler deploy --env=  --dry-run --outdir=dist");
@@ -32,7 +32,7 @@ if (fs.existsSync("wrangler.jsonc")) {
       .join("\n\n");
     fs.writeFileSync(
       "test/api.d.ts",
-      await prettier.format(result, { parser: "typescript", printWidth: 100 }),
+      (await format("test/api.d.ts", result, { parser: "typescript", printWidth: 100 })).code,
     );
   }
 }
