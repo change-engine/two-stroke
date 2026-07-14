@@ -20,13 +20,11 @@
     "eslint-config-two-stroke": "^1.5.7",
     "eslint-config-typescript": "^3.0.0",
     "jose": "^6.2.3",
-    "jwk-subtle": "^1.1.8",
     "mime": "^4.1.0",
     "miniflare": "^4.20260701.0",
     "msw": "^2.14.6",
     "openapi-fetch": "^0.17.0",
     "openapi-typescript": "^7.13.0",
-    "pbkdf-subtle": "^1.1.8",
     "toucan-js": "^4.1.1",
     "zod": "^4.4.3"
   },
