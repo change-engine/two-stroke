@@ -1,9 +1,9 @@
-import { verify as jwkVerify } from "jwk-subtle";
-import { verify as pbkdfVerify } from "pbkdf-subtle";
 import { Toucan } from "toucan-js";
 import { type ZodSafeParseResult, z, ZodObject, ZodType } from "zod/v4";
 import { openAPI } from "./open-api";
 import { type Handler, type Route } from "./types";
+import type { JSONWebKeySet } from "jose";
+import { pbkdfVerify, jwkVerifyMulti } from "./util";
 
 // eslint-disable-next-line @typescript-eslint/require-await
 const noAuth = async () => null;
@@ -301,7 +301,7 @@ export function twoStroke<T>(
     },
     noAuth,
     pbkdf:
-      (k: keyof T, customHeaderName: string = "Authorization") =>
+      (k: keyof T, customHeaderName = "Authorization") =>
       async ({ req, env }: { req: Request; env: T }) => {
         const [scheme, token] = (req.headers.get(customHeaderName) ?? " ").split(" ");
         if (
@@ -309,20 +309,28 @@ export function twoStroke<T>(
           (await pbkdfVerify(env[k] as string, token ?? ""))
         )
           return;
-        throw Error("Invalid");
+        throw new Error("Invalid");
       },
     jwt:
       <J>(k: keyof T, ak: keyof T) =>
       async ({ req, env }: { req: Request; env: T }) => {
         const [scheme, token] = (req.headers.get("Authorization") ?? " ").split(" ");
         if (scheme === "Bearer") {
-          const claims = await jwkVerify<J>(token ?? "", env[k] as string, env[ak] as string);
+          const rawIssuer = env[k] as string;
+          const rawAudience = env[ak] as string;
+          const issuer = rawIssuer.startsWith("{")
+            ? (JSON.parse(rawIssuer) as Record<string, JSONWebKeySet | true>)
+            : { [rawIssuer]: true as const };
+          const audience = rawAudience.startsWith("[")
+            ? (JSON.parse(rawAudience) as string[])
+            : [rawAudience];
+          const claims = await jwkVerifyMulti<J>(token ?? "", issuer, audience);
           if (!claims) {
-            throw Error("Invalid");
+            throw new Error("Invalid");
           }
           return claims;
         }
-        throw Error("Invalid");
+        throw new Error("Invalid");
       },
     queueHandler<I extends ZodType>(
       input: I,

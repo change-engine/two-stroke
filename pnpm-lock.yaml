@@ -38,9 +38,6 @@ importers:
       jose:
         specifier: ^6.2.3
         version: 6.2.3
-      jwk-subtle:
-        specifier: ^1.1.8
-        version: 1.1.8
       mime:
         specifier: ^4.1.0
         version: 4.1.0
@@ -56,9 +53,6 @@ importers:
       openapi-typescript:
         specifier: ^7.13.0
         version: 7.13.0(typescript@6.0.3)
-      pbkdf-subtle:
-        specifier: ^1.1.8
-        version: 1.1.8
       toucan-js:
         specifier: ^4.1.1
         version: 4.1.1
@@ -1554,10 +1548,6 @@ packages:
   json-stable-stringify-without-jsonify@1.0.1:
     resolution: {integrity: sha512-Bdboy+l7tA3OGW6FjyFHWkP5LuByj1Tk33Ljyq0axyzdk9//JSi2u3fP1QSmd1KNwq6VOKYGlAu87CisVir6Pw==}
 
-  jwk-subtle@1.1.8:
-    resolution: {integrity: sha512-Jfom7tuaFz3VC5b3LfuzG+G4aGA5BHPrPAsO/n6I1BjiYSCDDxtPXZbAiFM8ocTobHRFqj1rLW6YriV5sSvbYA==}
-    engines: {node: ^24.9.0}
-
   keyv@4.5.4:
     resolution: {integrity: sha512-oxVHkHR/EJf2CNXnWxRLW6mg7JyCCUcG0DtEGmL2ctUo1PNTin1PUil+r/+4r5MpVgC/fn1kjsx7mjSujKqIpw==}
 
@@ -1746,11 +1736,6 @@ packages:
 
   pathe@2.0.3:
     resolution: {integrity: sha512-WUjGcAqP1gQacoQe+OBJsFA7Ld4DyXuUIjZ5cc75cLHvJ7dtNsTugphxIADwspS+AraAUePCKrSVtPLFj/F88w==}
-
-  pbkdf-subtle@1.1.8:
-    resolution: {integrity: sha512-pSZ9zNwOIuS2z1M9l6ri0TLPsj9XJP+tqr0clAvKQEQp095l9BBCVr4Uu/1PKq097Bjnw3eiCrHOeJpSyVyjKw==}
-    engines: {node: ^24.9.0}
-    hasBin: true
 
   picocolors@1.1.1:
     resolution: {integrity: sha512-xceH2snhtb5M9liqDsmEw56le376mTZkEX/jEb/RxNFyegNul7eNslCXP9FDj/Lcu0X8KEyMceP2ntpaHrDEVA==}
@@ -3403,8 +3388,6 @@ snapshots:
 
   json-stable-stringify-without-jsonify@1.0.1: {}
 
-  jwk-subtle@1.1.8: {}
-
   keyv@4.5.4:
     dependencies:
       json-buffer: 3.0.1
@@ -3590,8 +3573,6 @@ snapshots:
   path-to-regexp@6.3.0: {}
 
   pathe@2.0.3: {}
-
-  pbkdf-subtle@1.1.8: {}
 
   picocolors@1.1.1: {}
 
