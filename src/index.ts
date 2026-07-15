@@ -361,12 +361,20 @@ export function twoStroke<T>(
         console.log("Queue batch finished");
       };
     },
-    put<I extends ZodType, O extends ZodType, A, P extends string>(
+    put<
+      I extends ZodType | undefined,
+      O extends ZodType,
+      A,
+      P extends string,
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      PP extends ZodObject<any> | undefined,
+    >(
       auth: Route<T, A>["auth"],
       path: P,
       input: I,
       output: O,
       handler: Handler<T, I, O, A, P>,
+      params?: PP,
     ) {
       routes.push({
         auth,
@@ -376,6 +384,7 @@ export function twoStroke<T>(
         input,
         output,
         handler,
+        params,
       });
     },
 
