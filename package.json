@@ -12,7 +12,7 @@
   "dependencies": {
     "@cloudflare/vitest-pool-workers": "^0.18.0",
     "@sentry/cli": "^3.6.0",
-    "@typescript-eslint/eslint-plugin": "^8.62.1",
+    "@typescript-eslint/eslint-plugin": "^8.63.0",
     "@typescript-eslint/parser": "^8.62.1",
     "@vitest/runner": "^4.1.8",
     "@vitest/snapshot": "^4.1.8",
@@ -63,6 +63,6 @@
     "eslint": "^10.6.0",
     "prettier": "^3.9.4",
     "typescript": "^6.0.3",
-    "vitest": "^4.1.8"
+    "vitest": "^4.1.10"
   }
 }
