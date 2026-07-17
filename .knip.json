@@ -1,4 +1,4 @@
 {
-  "entry": ["src/*.ts"],
+  "entry": ["src/*.ts", "oxlint.config.mjs", "oxfmt.config.mjs"],
   "ignoreDependencies": ["cloudflare"]
 }
