@@ -29,6 +29,7 @@
     "zod": "^4.4.3"
   },
   "devDependencies": {
+    "@cloudflare/vitest-pool-workers": "^0.18.4",
     "knip": "^6.26.0",
     "oxfmt": "^0.58.0",
     "oxlint": "^1.74.0",
