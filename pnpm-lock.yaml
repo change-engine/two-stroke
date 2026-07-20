@@ -14,6 +14,9 @@ importers:
       jose:
         specifier: ^6.2.3
         version: 6.2.3
+      knip:
+        specifier: ^6.27.0
+        version: 6.27.0
       mime:
         specifier: ^4.1.0
         version: 4.1.0
@@ -29,12 +32,24 @@ importers:
       openapi-typescript:
         specifier: ^7.13.0
         version: 7.13.0(typescript@6.0.3)
+      oxfmt:
+        specifier: ^0.59.0
+        version: 0.59.0
+      oxlint:
+        specifier: ^1.74.0
+        version: 1.74.0(oxlint-tsgolint@0.25.0)
+      oxlint-tsgolint:
+        specifier: ^0.25.0
+        version: 0.25.0
       toucan-js:
         specifier: ^4.1.1
         version: 4.1.1
       typescript:
         specifier: ^6.0.3
         version: 6.0.3
+      vitest:
+        specifier: ^4.1.10
+        version: 4.1.10(@types/node@26.1.1)(msw@2.15.0(@types/node@26.1.1)(typescript@6.0.3))(vite@8.0.0(@emnapi/core@1.11.0)(@emnapi/runtime@1.11.0)(@types/node@26.1.1)(esbuild@0.27.3)(jiti@2.7.0)(yaml@2.9.0))
       wrangler:
         specifier: '>=3'
         version: 4.111.0
@@ -45,21 +60,6 @@ importers:
       '@cloudflare/vitest-pool-workers':
         specifier: ^0.18.5
         version: 0.18.5(@vitest/runner@4.1.10)(@vitest/snapshot@4.1.10)(vitest@4.1.10(@types/node@26.1.1)(msw@2.15.0(@types/node@26.1.1)(typescript@6.0.3))(vite@8.0.0(@emnapi/core@1.11.0)(@emnapi/runtime@1.11.0)(@types/node@26.1.1)(esbuild@0.27.3)(jiti@2.7.0)(yaml@2.9.0)))
-      knip:
-        specifier: ^6.27.0
-        version: 6.27.0
-      oxfmt:
-        specifier: ^0.59.0
-        version: 0.59.0
-      oxlint:
-        specifier: ^1.74.0
-        version: 1.74.0(oxlint-tsgolint@0.25.0)
-      oxlint-tsgolint:
-        specifier: ^0.25.0
-        version: 0.25.0
-      vitest:
-        specifier: ^4.1.10
-        version: 4.1.10(@types/node@26.1.1)(msw@2.15.0(@types/node@26.1.1)(typescript@6.0.3))(vite@8.0.0(@emnapi/core@1.11.0)(@emnapi/runtime@1.11.0)(@types/node@26.1.1)(esbuild@0.27.3)(jiti@2.7.0)(yaml@2.9.0))
 
 packages:
 
