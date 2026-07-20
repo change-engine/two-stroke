@@ -5,7 +5,7 @@ import { Miniflare } from "miniflare";
 import openapiTS from "openapi-typescript";
 import { format } from "oxfmt";
 import consumers from "stream/consumers";
-import ts from "typescript";
+import ts from "@typescript/typescript6";
 import { cmd } from "../src/cmd.mjs";
 
 if (fs.existsSync("wrangler.jsonc")) {
@@ -17,11 +17,7 @@ if (fs.existsSync("wrangler.jsonc")) {
     compatibilityDate: config.compatibility_date,
     compatibilityFlags: config.compatibility_flags,
   });
-  const request = await fetch(
-    `${await miniflare.ready}doc`,
-    { SENTRY_DSN: null, SENTRY_ENVIRONMENT: null },
-    null,
-  );
+  const request = await fetch(`${await miniflare.ready}doc`);
   await miniflare.dispose();
   if (request.status === 200) {
     const types = await openapiTS(await consumers.json(request.body));

@@ -20,6 +20,7 @@
   "type": "module",
   "main": "src/index.ts",
   "dependencies": {
+    "@typescript/typescript6": "^6.0.2",
     "jose": "^6.2.3",
     "mime": "^4.1.0",
     "msw": "^2.15.0",
@@ -29,12 +30,12 @@
     "zod": "^4.4.3"
   },
   "devDependencies": {
-    "@cloudflare/vitest-pool-workers": "^0.18.4",
-    "knip": "^6.26.0",
-    "oxfmt": "^0.58.0",
+    "@cloudflare/vitest-pool-workers": "^0.18.5",
+    "knip": "^6.27.0",
+    "oxfmt": "^0.59.0",
     "oxlint": "^1.74.0",
-    "oxlint-tsgolint": "^0.24.0",
-    "typescript": "^6.0.3",
+    "oxlint-tsgolint": "^0.25.0",
+    "typescript": "^7.0.2",
     "vitest": "^4.1.10"
   },
   "peerDependencies": {
@@ -43,7 +44,7 @@
     "oxfmt": "^0.58.0",
     "oxlint": "^1.73.0",
     "oxlint-tsgolint": "^0.24.0",
-    "typescript": ">=5",
+    "typescript": ">=7",
     "vitest": ">=4",
     "wrangler": ">=3"
   },
