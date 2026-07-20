@@ -3,7 +3,7 @@
 import fs from "node:fs";
 import openapiTS from "openapi-typescript";
 import { format } from "oxfmt";
-import ts from "@typescript/typescript6";
+import ts from "typescript";
 
 const services = process.argv[2].split(",");
 
