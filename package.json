@@ -15,7 +15,12 @@
     "format": "./bin/format.mjs",
     "lint": "./bin/lint.mjs",
     "test": "./bin/test.mjs",
-    "type-check": "./bin/type-check.mjs"
+    "type-check": "./bin/type-check.mjs",
+    "wrangler": "wrangler",
+    "oxfmt": "oxfmt",
+    "oxlint": "oxlint",
+    "tsc": "tsc",
+    "vitest": "vitest"
   },
   "type": "module",
   "main": "src/index.ts",
