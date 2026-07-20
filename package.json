@@ -1,6 +1,6 @@
 {
   "name": "two-stroke",
-  "version": "8.0.8",
+  "version": "8.0.9",
   "description": "Simple Cloudflare Worker framework.",
   "license": "MIT",
   "repository": {
