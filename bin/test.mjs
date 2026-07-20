@@ -17,11 +17,7 @@ if (fs.existsSync("wrangler.jsonc")) {
     compatibilityDate: config.compatibility_date,
     compatibilityFlags: config.compatibility_flags,
   });
-  const request = await fetch(
-    `${await miniflare.ready}doc`,
-    { SENTRY_DSN: null, SENTRY_ENVIRONMENT: null },
-    null,
-  );
+  const request = await fetch(`${await miniflare.ready}doc`);
   await miniflare.dispose();
   if (request.status === 200) {
     const types = await openapiTS(await consumers.json(request.body));
