@@ -1,0 +1,228 @@
+diff --git a/package.json b/package.json
+index 4893afdec25f506f62d44f64fe0861c411cb7fae..ff6d390d9ad20f421dfda5f45c267d4fa0f2d448 100644
+--- a/package.json
++++ b/package.json
+@@ -42,7 +42,7 @@
+     "url": "https://github.com/openapi-ts/openapi-typescript/issues"
+   },
+   "peerDependencies": {
+-    "typescript": "^5.x"
++    "@typescript/typescript6": "^6.x"
+   },
+   "dependencies": {
+     "@redocly/openapi-core": "^1.34.6",
+@@ -58,7 +58,7 @@
+     "degit": "2.8.4",
+     "execa": "^9.6.1",
+     "strip-ansi": "7.1.2",
+-    "typescript": "^5.9.3",
++    "@typescript/typescript6": "^6.0.0",
+     "vite-node": "5.3.0"
+   },
+   "scripts": {
+diff --git a/src/index.ts b/src/index.ts
+index d042b81e40cc354c1f5e16072ff5d65478d41780..6ac68a46dc9fc3b5829f7dcd69ec8ed16436e5ac 100644
+--- a/src/index.ts
++++ b/src/index.ts
+@@ -1,7 +1,7 @@
+ import { performance } from "node:perf_hooks";
+ import type { Readable } from "node:stream";
+ import { createConfig } from "@redocly/openapi-core";
+-import type ts from "typescript";
++import type ts from "@typescript/typescript6";
+ import { validateAndBundle } from "./lib/redoc.js";
+ import { debug, resolveRef, scanDiscriminators } from "./lib/utils.js";
+ import transformSchema from "./transform/index.js";
+diff --git a/src/lib/ts.ts b/src/lib/ts.ts
+index d1f41eb8844dee5157a5b38130a2e2dbd1a34b1e..fd3b8213ebb97437c0a3363ced1e9b5ce9663896 100644
+--- a/src/lib/ts.ts
++++ b/src/lib/ts.ts
+@@ -1,6 +1,6 @@
+ import type { OasRef, Referenced } from "@redocly/openapi-core";
+ import { parseRef } from "@redocly/openapi-core/lib/ref-utils.js";
+-import ts, { type LiteralTypeNode, type TypeLiteralNode } from "typescript";
++import ts, { type LiteralTypeNode, type TypeLiteralNode } from "@typescript/typescript6";
+ import type { ParameterObject } from "../types.js";
+ 
+ export const JS_PROPERTY_INDEX_RE = /^[A-Za-z_$][A-Za-z_$0-9]*$/;
+diff --git a/src/lib/utils.ts b/src/lib/utils.ts
+index 49c19242224e6a8e12cdb65d7c07a7ddbf655ad8..4c2a54c5459d1c84b3009917b26d61a2faa0d006 100644
+--- a/src/lib/utils.ts
++++ b/src/lib/utils.ts
+@@ -1,7 +1,7 @@
+ import { escapePointer, parseRef } from "@redocly/openapi-core/lib/ref-utils.js";
+ import c from "ansi-colors";
+ import supportsColor from "supports-color";
+-import ts from "typescript";
++import ts from "@typescript/typescript6";
+ import type { DiscriminatorObject, OpenAPI3, OpenAPITSOptions, ReferenceObject, SchemaObject } from "../types.js";
+ import { tsLiteral, tsModifiers, tsPropertyIndex } from "./ts.js";
+ 
+diff --git a/src/transform/components-object.ts b/src/transform/components-object.ts
+index 0a5bdecacfc6dda64e525d232ae99e8212948cda..b069a38e2f89a8a59b650020cf85e5ec2cb00db4 100644
+--- a/src/transform/components-object.ts
++++ b/src/transform/components-object.ts
+@@ -1,6 +1,6 @@
+ import { performance } from "node:perf_hooks";
+ import * as changeCase from "change-case";
+-import ts from "typescript";
++import ts from "@typescript/typescript6";
+ import { addJSDocComment, NEVER, QUESTION_TOKEN, tsModifiers, tsPropertyIndex } from "../lib/ts.js";
+ import { createRef, debug, getEntries } from "../lib/utils.js";
+ import type { ComponentsObject, GlobalContext, SchemaObject, TransformNodeOptions } from "../types.js";
+diff --git a/src/transform/header-object.ts b/src/transform/header-object.ts
+index cb3654e5bdc61cd430185cd0c1234ea35bdc823a..a550d68d77603ce5f09d4db252f8fa65f30a316e 100644
+--- a/src/transform/header-object.ts
++++ b/src/transform/header-object.ts
+@@ -1,5 +1,5 @@
+ import { escapePointer } from "@redocly/openapi-core/lib/ref-utils.js";
+-import ts from "typescript";
++import ts from "@typescript/typescript6";
+ import { addJSDocComment, tsModifiers, tsPropertyIndex, UNKNOWN } from "../lib/ts.js";
+ import { getEntries } from "../lib/utils.js";
+ import type { HeaderObject, TransformNodeOptions } from "../types.js";
+diff --git a/src/transform/index.ts b/src/transform/index.ts
+index ad4af119a76b8a3c703862688ccc036f952659a2..1cb6797f236be42f16721a9cf93b316129b84b19 100644
+--- a/src/transform/index.ts
++++ b/src/transform/index.ts
+@@ -1,5 +1,5 @@
+ import { performance } from "node:perf_hooks";
+-import ts, { type InterfaceDeclaration, type TypeLiteralNode } from "typescript";
++import ts, { type InterfaceDeclaration, type TypeLiteralNode } from "@typescript/typescript6";
+ import { NEVER, STRING, stringToAST, tsModifiers, tsRecord } from "../lib/ts.js";
+ import { createRef, debug } from "../lib/utils.js";
+ import type { GlobalContext, OpenAPI3 } from "../types.js";
+diff --git a/src/transform/media-type-object.ts b/src/transform/media-type-object.ts
+index 647febbb07033ff2a88030314de769ba9208413b..f4545c556277e66a583c8604e2efcd80acac79dd 100644
+--- a/src/transform/media-type-object.ts
++++ b/src/transform/media-type-object.ts
+@@ -1,4 +1,4 @@
+-import type ts from "typescript";
++import type ts from "@typescript/typescript6";
+ import { UNKNOWN } from "../lib/ts.js";
+ import type { MediaTypeObject, TransformNodeOptions } from "../types.js";
+ import transformSchemaObject from "./schema-object.js";
+diff --git a/src/transform/operation-object.ts b/src/transform/operation-object.ts
+index a178be58cb86b7a9ac4ac71126cef61377dea8e1..8de36656e61121ccc2771357ab0322e857c669d1 100644
+--- a/src/transform/operation-object.ts
++++ b/src/transform/operation-object.ts
+@@ -1,4 +1,4 @@
+-import ts from "typescript";
++import ts from "@typescript/typescript6";
+ import { addJSDocComment, NEVER, oapiRef, QUESTION_TOKEN, tsModifiers, tsPropertyIndex } from "../lib/ts.js";
+ import { createRef } from "../lib/utils.js";
+ import type { OperationObject, RequestBodyObject, TransformNodeOptions } from "../types.js";
+diff --git a/src/transform/parameter-object.ts b/src/transform/parameter-object.ts
+index 43412e8a622ebf41da9408ea9d0671a0098da5e2..b8e0f669ed6b2f9fcec2a9798608f7bf50264c88 100644
+--- a/src/transform/parameter-object.ts
++++ b/src/transform/parameter-object.ts
+@@ -1,4 +1,4 @@
+-import type ts from "typescript";
++import type ts from "@typescript/typescript6";
+ import { STRING } from "../lib/ts.js";
+ import type { ParameterObject, TransformNodeOptions } from "../types.js";
+ import transformSchemaObject from "./schema-object.js";
+diff --git a/src/transform/parameters-array.ts b/src/transform/parameters-array.ts
+index 78146f34e9ff4332a083b0a98220a048b22f834f..2e9aea30fbab673e7afba98264b127890cd9b448 100644
+--- a/src/transform/parameters-array.ts
++++ b/src/transform/parameters-array.ts
+@@ -1,4 +1,4 @@
+-import ts from "typescript";
++import ts from "@typescript/typescript6";
+ import { addJSDocComment, NEVER, oapiRef, QUESTION_TOKEN, tsModifiers, tsPropertyIndex } from "../lib/ts.js";
+ import { createRef } from "../lib/utils.js";
+ import type { ParameterObject, ReferenceObject, TransformNodeOptions } from "../types.js";
+diff --git a/src/transform/path-item-object.ts b/src/transform/path-item-object.ts
+index 87ca02d7850851074a0f89da88930252ede62714..71f6f6ebbb1d1e65b192c65d75000fe484222de5 100644
+--- a/src/transform/path-item-object.ts
++++ b/src/transform/path-item-object.ts
+@@ -1,4 +1,4 @@
+-import ts from "typescript";
++import ts from "@typescript/typescript6";
+ import { addJSDocComment, NEVER, oapiRef, QUESTION_TOKEN, tsModifiers, tsPropertyIndex } from "../lib/ts.js";
+ import { createRef } from "../lib/utils.js";
+ import type {
+diff --git a/src/transform/paths-enum.ts b/src/transform/paths-enum.ts
+index ea2fbdb437dfa299d638352a1d47f75cbf002ac7..e9fbb120283ddffc82a5e2f3d4d3eca1182bb5db 100644
+--- a/src/transform/paths-enum.ts
++++ b/src/transform/paths-enum.ts
+@@ -1,4 +1,4 @@
+-import type ts from "typescript";
++import type ts from "@typescript/typescript6";
+ import { tsEnum } from "../lib/ts.js";
+ import { getEntries } from "../lib/utils.js";
+ import type { PathsObject } from "../types.js";
+diff --git a/src/transform/paths-object.ts b/src/transform/paths-object.ts
+index 83c36af1a3bd276dbfdad5fe5c10d4842660aff2..1f1a31b7e70bce33b0306e0cc1117f46ea4fdd92 100644
+--- a/src/transform/paths-object.ts
++++ b/src/transform/paths-object.ts
+@@ -1,5 +1,5 @@
+ import { performance } from "node:perf_hooks";
+-import ts from "typescript";
++import ts from "@typescript/typescript6";
+ import { addJSDocComment, oapiRef, stringToAST, tsModifiers, tsPropertyIndex } from "../lib/ts.js";
+ import { createRef, debug, getEntries } from "../lib/utils.js";
+ import type {
+diff --git a/src/transform/request-body-object.ts b/src/transform/request-body-object.ts
+index 3c641c4757f635dfa745c8484917afd67365748f..9bb2d37474afb11166b0ad601fe53dfacd7afefc 100644
+--- a/src/transform/request-body-object.ts
++++ b/src/transform/request-body-object.ts
+@@ -1,4 +1,4 @@
+-import ts from "typescript";
++import ts from "@typescript/typescript6";
+ import { addJSDocComment, NEVER, QUESTION_TOKEN, tsModifiers, tsPropertyIndex } from "../lib/ts.js";
+ import { createRef, getEntries } from "../lib/utils.js";
+ import type { RequestBodyObject, TransformNodeOptions } from "../types.js";
+diff --git a/src/transform/response-object.ts b/src/transform/response-object.ts
+index 83775cc9b91ce7de63320565287dc806b45f8c38..bce55c979b57a4f8f9a5463b08805636588ca1f9 100644
+--- a/src/transform/response-object.ts
++++ b/src/transform/response-object.ts
+@@ -1,4 +1,4 @@
+-import ts from "typescript";
++import ts from "@typescript/typescript6";
+ import {
+   addJSDocComment,
+   NEVER,
+diff --git a/src/transform/responses-object.ts b/src/transform/responses-object.ts
+index cc8bce39798bd3204625ef149a7dd95e4f8e8fb0..5daf95f0fd4605dbfda0e80e49ef16b0e6588b4b 100644
+--- a/src/transform/responses-object.ts
++++ b/src/transform/responses-object.ts
+@@ -1,4 +1,4 @@
+-import ts from "typescript";
++import ts from "@typescript/typescript6";
+ import { addJSDocComment, NEVER, oapiRef, tsModifiers, tsPropertyIndex } from "../lib/ts.js";
+ import { createRef, getEntries } from "../lib/utils.js";
+ import type { ResponsesObject, TransformNodeOptions } from "../types.js";
+diff --git a/src/transform/schema-object.ts b/src/transform/schema-object.ts
+index 58745d072e4c8362a5f979c9d02fa04ecd14345a..66fbf03a189142cad35bfbcea05cd2399b2850c4 100644
+--- a/src/transform/schema-object.ts
++++ b/src/transform/schema-object.ts
+@@ -1,5 +1,5 @@
+ import { parseRef } from "@redocly/openapi-core/lib/ref-utils.js";
+-import ts from "typescript";
++import ts from "@typescript/typescript6";
+ import {
+   addJSDocComment,
+   BOOLEAN,
+diff --git a/src/transform/webhooks-object.ts b/src/transform/webhooks-object.ts
+index 28c3df644bb41a7c8605e045d613b8581eb1a1ae..5dd2dc95efcecd9623642a7676574ca05ac7c9d5 100644
+--- a/src/transform/webhooks-object.ts
++++ b/src/transform/webhooks-object.ts
+@@ -1,4 +1,4 @@
+-import ts from "typescript";
++import ts from "@typescript/typescript6";
+ import { tsModifiers, tsPropertyIndex } from "../lib/ts.js";
+ import { createRef, getEntries } from "../lib/utils.js";
+ import type { GlobalContext, WebhooksObject } from "../types.js";
+diff --git a/src/types.ts b/src/types.ts
+index 8a511e1e876827f1fa76316afe2fb34fe44dc653..18b8797ab7b045e01ff6189ab2bb6207a91a12ab 100644
+--- a/src/types.ts
++++ b/src/types.ts
+@@ -1,6 +1,6 @@
+ import type { PathLike } from "node:fs";
+ import type { Config as RedoclyConfig } from "@redocly/openapi-core";
+-import type ts from "typescript";
++import type ts from "@typescript/typescript6";
+ 
+ // Many types allow for true “any” for inheritance to work
+ 

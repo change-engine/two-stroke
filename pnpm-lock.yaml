@@ -4,6 +4,11 @@ settings:
   autoInstallPeers: true
   excludeLinksFromLockfile: false
 
+patchedDependencies:
+  openapi-typescript:
+    hash: be20673be9ac2c96bd457a26e1a32b8f028abe663c3a29512c2b896aead3e498
+    path: patches/openapi-typescript.patch
+
 importers:
 
   .:
@@ -28,7 +33,7 @@ importers:
         version: 0.17.0
       openapi-typescript:
         specifier: ^7.13.0
-        version: 7.13.0(typescript@7.0.2)
+        version: 7.13.0(patch_hash=be20673be9ac2c96bd457a26e1a32b8f028abe663c3a29512c2b896aead3e498)(typescript@7.0.2)
       toucan-js:
         specifier: ^4.1.1
         version: 4.1.1
@@ -3535,7 +3540,7 @@ snapshots:
 
   openapi-typescript-helpers@0.1.0: {}
 
-  openapi-typescript@7.13.0(typescript@7.0.2):
+  openapi-typescript@7.13.0(patch_hash=be20673be9ac2c96bd457a26e1a32b8f028abe663c3a29512c2b896aead3e498)(typescript@7.0.2):
     dependencies:
       '@redocly/openapi-core': 1.34.17(supports-color@10.2.2)
       ansi-colors: 4.1.3
