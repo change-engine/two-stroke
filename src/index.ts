@@ -374,7 +374,8 @@ export function twoStroke<T>(
         method: "PUT",
         path,
         matcher: new RegExp(
-          `^${escapeRegex(path).replaceAll(/\/{(?<seg>[^}]*)}/g, String.raw`/(?<$seg>[^\/]*)`)}$`,
+          // oxlint-disable-next-line unicorn/prefer-string-raw
+          `^${escapeRegex(path).replaceAll(/\/{(?<seg>[^}]*)}/g, "/(?<$seg>[^\\/]*)")}$`,
         ),
         input,
         output,
@@ -396,7 +397,8 @@ export function twoStroke<T>(
         method: "POST",
         path,
         matcher: new RegExp(
-          `^${escapeRegex(path).replaceAll(/\/{(?<seg>[^}]*)}/g, String.raw`/(?<$seg>[^\/]*)`)}$`,
+          // oxlint-disable-next-line unicorn/prefer-string-raw
+          `^${escapeRegex(path).replaceAll(/\/{(?<seg>[^}]*)}/g, "/(?<$seg>[^\\/]*)")}$`,
         ),
         input,
         output,
@@ -417,7 +419,8 @@ export function twoStroke<T>(
         method: "GET",
         path,
         matcher: new RegExp(
-          `^${escapeRegex(path).replaceAll(/\/{(?<seg>[^}]*)}/g, String.raw`/(?<$seg>[^\/]*)`)}$`,
+          // oxlint-disable-next-line unicorn/prefer-string-raw
+          `^${escapeRegex(path).replaceAll(/\/{(?<seg>[^}]*)}/g, "/(?<$seg>[^\\/]*)")}$`,
         ),
         output,
         handler,
@@ -436,7 +439,8 @@ export function twoStroke<T>(
         method: "DELETE",
         path,
         matcher: new RegExp(
-          `^${escapeRegex(path).replaceAll(/\/{(?<seg>[^}]*)}/g, String.raw`/(?<$seg>[^\/]*)`)}$`,
+          // oxlint-disable-next-line unicorn/prefer-string-raw
+          `^${escapeRegex(path).replaceAll(/\/{(?<seg>[^}]*)}/g, "/(?<$seg>[^\\/]*)")}$`,
         ),
         output,
         handler,
