@@ -6,5 +6,5 @@ import { cmd } from "../src/cmd.mjs";
 if (fs.existsSync("wrangler.jsonc")) {
   cmd("wrangler types --env-file /dev/null --strict-vars false --check");
 }
-cmd("oxfmt --check");
 cmd("oxlint");
+cmd("oxfmt --check");
