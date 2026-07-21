@@ -374,8 +374,8 @@ export function twoStroke<T>(
         method: "PUT",
         path,
         matcher: new RegExp(
-          // oxlint-disable-next-line unicorn/prefer-string-raw
-          `^${escapeRegex(path).replaceAll(/\/{(?<seg>[^}]*)}/g, "/(?<$seg>[^\\/]*)")}$`,
+          // oxlint-disable-next-line no-template-curly-in-string
+          `^${escapeRegex(path).replaceAll(/\/{(?<seg>[^}]*)}/g, "/(?<${seg}>[^\\/]*)")}$`,
         ),
         input,
         output,
@@ -397,8 +397,8 @@ export function twoStroke<T>(
         method: "POST",
         path,
         matcher: new RegExp(
-          // oxlint-disable-next-line unicorn/prefer-string-raw
-          `^${escapeRegex(path).replaceAll(/\/{(?<seg>[^}]*)}/g, "/(?<$seg>[^\\/]*)")}$`,
+          // oxlint-disable-next-line no-template-curly-in-string
+          `^${escapeRegex(path).replaceAll(/\/{(?<seg>[^}]*)}/g, "/(?<${seg}>[^\\/]*)")}$`,
         ),
         input,
         output,
@@ -419,8 +419,8 @@ export function twoStroke<T>(
         method: "GET",
         path,
         matcher: new RegExp(
-          // oxlint-disable-next-line unicorn/prefer-string-raw
-          `^${escapeRegex(path).replaceAll(/\/{(?<seg>[^}]*)}/g, "/(?<$seg>[^\\/]*)")}$`,
+          // oxlint-disable-next-line no-template-curly-in-string
+          `^${escapeRegex(path).replaceAll(/\/{(?<seg>[^}]*)}/g, "/(?<${seg}>[^\\/]*)")}$`,
         ),
         output,
         handler,
@@ -439,8 +439,8 @@ export function twoStroke<T>(
         method: "DELETE",
         path,
         matcher: new RegExp(
-          // oxlint-disable-next-line unicorn/prefer-string-raw
-          `^${escapeRegex(path).replaceAll(/\/{(?<seg>[^}]*)}/g, "/(?<$seg>[^\\/]*)")}$`,
+          // oxlint-disable-next-line no-template-curly-in-string
+          `^${escapeRegex(path).replaceAll(/\/{(?<seg>[^}]*)}/g, "/(?<${seg}>[^\\/]*)")}$`,
         ),
         output,
         handler,
