@@ -102,9 +102,9 @@ export function twoStroke<T>(
                 rawBody = route.input
                   ? req.headers.get("Content-Type") === "application/x-www-form-urlencoded"
                     ? // oxlint-disable-next-line no-await-in-loop
-                    Object.fromEntries(new URLSearchParams(await req.text()))
+                      Object.fromEntries(new URLSearchParams(await req.text()))
                     : // oxlint-disable-next-line no-await-in-loop
-                    await req.json()
+                      await req.json()
                   : undefined;
               } catch (error) {
                 console.error({
@@ -125,10 +125,10 @@ export function twoStroke<T>(
               const body = route.input
                 ? route.input.safeParse(rawBody)
                 : {
-                  success: true,
-                  data: undefined,
-                  error: undefined,
-                };
+                    success: true,
+                    data: undefined,
+                    error: undefined,
+                  };
               if (body.success)
                 // oxlint-disable-next-line no-await-in-loop
                 response = await route.handler({
@@ -298,41 +298,41 @@ export function twoStroke<T>(
     noAuth,
     pbkdf:
       (k: keyof T, customHeaderName = "Authorization") =>
-        async ({ req, env }: { req: Request; env: T }) => {
-          const [scheme, token] = (req.headers.get(customHeaderName) ?? " ").split(" ");
-          if (
-            (scheme === "token" || scheme === "Bearer") &&
-            // oxlint-disable-next-line typescript/no-unsafe-type-assertion
-            (await pbkdfVerify(env[k] as string, token ?? ""))
-          )
-            return;
-          throw new Error("Invalid");
-        },
+      async ({ req, env }: { req: Request; env: T }) => {
+        const [scheme, token] = (req.headers.get(customHeaderName) ?? " ").split(" ");
+        if (
+          (scheme === "token" || scheme === "Bearer") &&
+          // oxlint-disable-next-line typescript/no-unsafe-type-assertion
+          (await pbkdfVerify(env[k] as string, token ?? ""))
+        )
+          return;
+        throw new Error("Invalid");
+      },
     jwt:
       <J>(k: keyof T, ak: keyof T) =>
-        async ({ req, env }: { req: Request; env: T }) => {
-          const [scheme, token] = (req.headers.get("Authorization") ?? " ").split(" ");
-          if (scheme === "Bearer") {
-            // oxlint-disable-next-line typescript/no-unsafe-type-assertion
-            const rawIssuer = env[k] as string;
-            // oxlint-disable-next-line typescript/no-unsafe-type-assertion
-            const rawAudience = env[ak] as string;
-            const issuer = rawIssuer.startsWith("{")
-              ? // oxlint-disable-next-line typescript/no-unsafe-type-assertion
+      async ({ req, env }: { req: Request; env: T }) => {
+        const [scheme, token] = (req.headers.get("Authorization") ?? " ").split(" ");
+        if (scheme === "Bearer") {
+          // oxlint-disable-next-line typescript/no-unsafe-type-assertion
+          const rawIssuer = env[k] as string;
+          // oxlint-disable-next-line typescript/no-unsafe-type-assertion
+          const rawAudience = env[ak] as string;
+          const issuer = rawIssuer.startsWith("{")
+            ? // oxlint-disable-next-line typescript/no-unsafe-type-assertion
               (JSON.parse(rawIssuer) as Record<string, JSONWebKeySet | true>)
-              : { [rawIssuer]: true as const };
-            const audience = rawAudience.startsWith("[")
-              ? // oxlint-disable-next-line typescript/no-unsafe-type-assertion
+            : { [rawIssuer]: true as const };
+          const audience = rawAudience.startsWith("[")
+            ? // oxlint-disable-next-line typescript/no-unsafe-type-assertion
               (JSON.parse(rawAudience) as string[])
-              : [rawAudience];
-            const claims = await jwkVerifyMulti<J>(token ?? "", issuer, audience);
-            if (!claims) {
-              throw new Error("Invalid");
-            }
-            return claims;
+            : [rawAudience];
+          const claims = await jwkVerifyMulti<J>(token ?? "", issuer, audience);
+          if (!claims) {
+            throw new Error("Invalid");
           }
-          throw new Error("Invalid");
-        },
+          return claims;
+        }
+        throw new Error("Invalid");
+      },
     queueHandler<I extends ZodType>(
       input: I,
       handler: (c: {
