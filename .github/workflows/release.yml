@@ -21,4 +21,4 @@ jobs:
 
       - uses: ./.github/actions/install
 
-      - run: pnpm publish --no-git-checks
+      - run: pnpm publish --no-git-checks --tag eslint
