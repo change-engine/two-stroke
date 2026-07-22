@@ -18,5 +18,5 @@
     ],
     "verbatimModuleSyntax": true
   },
-  "exclude": ["../../dist"]
+  "exclude": ["../../dist", "oxfmt.config.ts", "oxlint.config.ts"]
 }
