@@ -10,18 +10,18 @@
     "type-check": "./bin/type-check.mjs"
   },
   "dependencies": {
-    "@cloudflare/vitest-pool-workers": "^0.18.0",
-    "@sentry/cli": "^3.6.0",
-    "@typescript-eslint/eslint-plugin": "^8.64.0",
-    "@typescript-eslint/parser": "^8.62.1",
+    "@cloudflare/vitest-pool-workers": "^0.18.8",
+    "@sentry/cli": "^3.6.2",
+    "@typescript-eslint/eslint-plugin": "^8.65.0",
+    "@typescript-eslint/parser": "^8.65.0",
     "@vitest/runner": "^4.1.8",
     "@vitest/snapshot": "^4.1.8",
     "eslint-config-prettier": "^10.1.8",
-    "eslint-config-two-stroke": "^1.5.7",
+    "eslint-config-two-stroke": "^1.5.9",
     "eslint-config-typescript": "^3.0.0",
-    "jose": "^6.2.3",
+    "jose": "^6.2.4",
     "mime": "^4.1.0",
-    "miniflare": "^4.20260701.0",
+    "miniflare": "^4.20260722.0",
     "msw": "^2.14.6",
     "openapi-fetch": "^0.17.0",
     "openapi-typescript": "^7.13.0",
@@ -60,8 +60,8 @@
   "version": "7.11.3",
   "devDependencies": {
     "@types/eslint": "^9.6.1",
-    "eslint": "^10.6.0",
-    "prettier": "^3.9.4",
+    "eslint": "^10.8.0",
+    "prettier": "^3.9.6",
     "typescript": "^6.0.3",
     "vitest": "^4.1.10"
   }
