@@ -60,6 +60,7 @@ export default defineConfig({
     "vitest/require-top-level-describe": "off",
     "vitest/max-expects": "off",
     "vitest/no-hooks": "off",
+    "unicorn/number-literal-case": "off",
   },
   overrides: [
     {
