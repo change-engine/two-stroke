@@ -30,7 +30,7 @@
     "zod": "^4.4.3"
   },
   "devDependencies": {
-    "@cloudflare/vitest-pool-workers": "^0.18.8",
+    "@cloudflare/vitest-pool-workers": "^0.19.1",
     "knip": "^6.29.0",
     "oxfmt": "^0.61.0",
     "oxlint": "^1.76.0",
