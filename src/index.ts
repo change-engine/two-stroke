@@ -40,7 +40,7 @@ export function twoStroke<T>(
       context: ExecutionContext,
     ): Promise<Response> {
       const defaultHeaders = {
-        Very: "Origin",
+        Vary: "Origin",
         "Access-Control-Allow-Origin": origin
           ? (env.SENTRY_ENVIRONMENT === "staging" || env.SENTRY_ENVIRONMENT === "dev") &&
             req.headers.get("Origin")?.split(":")[1]?.endsWith("localhost")

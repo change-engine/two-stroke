@@ -20,7 +20,7 @@
   "type": "module",
   "main": "src/index.ts",
   "dependencies": {
-    "jose": "^6.2.4",
+    "jose": "^6.2.6",
     "mime": "^4.1.0",
     "msw": "^2.15.0",
     "openapi-fetch": "^0.17.0",
@@ -31,7 +31,7 @@
   },
   "devDependencies": {
     "@cloudflare/vitest-pool-workers": "^0.20.1",
-    "knip": "^6.29.0",
+    "knip": "^6.31.0",
     "oxfmt": "^0.61.0",
     "oxlint": "^1.76.0",
     "oxlint-tsgolint": "^7.0.2001",
