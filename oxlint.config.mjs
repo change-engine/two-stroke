@@ -61,6 +61,7 @@ export default defineConfig({
     "vitest/max-expects": "off",
     "vitest/no-hooks": "off",
     "unicorn/number-literal-case": "off",
+    "eslint/one-var": "off",
   },
   overrides: [
     {
