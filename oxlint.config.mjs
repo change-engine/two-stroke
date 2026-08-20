@@ -54,6 +54,7 @@ export default defineConfig({
     "no-continue": "off",
     "init-declarations": "off",
     "vitest/prefer-to-be-truthy": "off",
+    "vitest/prefer-to-be-falsy": "off",
     "vitest/prefer-expect-assertions": "off",
     "vitest/prefer-importing-vitest-globals": "off",
     "vitest/no-importing-vitest-globals": "error",
