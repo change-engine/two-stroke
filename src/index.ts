@@ -72,9 +72,12 @@ export function twoStroke<T>(
           });
         }
         const { pathname } = new URL(req.url);
+        // HEAD is served by the GET route, with the body discarded.
+        const isHead = req.method === "HEAD";
+        const method = isHead ? "GET" : req.method;
         let response;
         for (const route of routes) {
-          if (req.method === route.method && route.matcher.test(pathname)) {
+          if (method === route.method && route.matcher.test(pathname)) {
             const params = Object.fromEntries(
               Object.entries(pathname.match(route.matcher)?.groups ?? {}).map(([k, v]) => [
                 k,
@@ -199,9 +202,11 @@ export function twoStroke<T>(
             });
 
             return new Response(
-              responseWithHeaders.headers.get("Content-Type") === "application/json"
-                ? JSON.stringify(response.body)
-                : response.body,
+              isHead
+                ? null
+                : responseWithHeaders.headers.get("Content-Type") === "application/json"
+                  ? JSON.stringify(response.body)
+                  : response.body,
               responseWithHeaders,
             );
           }
