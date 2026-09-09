@@ -28,7 +28,7 @@ await Promise.all(
         return null;
       },
     });
-    const path = `src/__definitions__/${service.replace("https://", "")}-definitions.ts`;
+    const path = `src/__definitions__/${service.replace("https://", "").replace("http://", "")}-definitions.ts`;
     const printer = ts.createPrinter({});
     const resultFile = ts.createSourceFile(path, "", ts.ScriptTarget.Latest);
     const result = output
