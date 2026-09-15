@@ -147,7 +147,7 @@ export function twoStroke<T>(
               else {
                 console.error({
                   message: "Request body schema invalid",
-                  error: body.error,
+                  error: body.error ? z.prettifyError(body.error).split("\n") : undefined,
                   body: rawBody,
                 });
                 return Response.json(
@@ -180,7 +180,7 @@ export function twoStroke<T>(
               if (!output.success) {
                 console.error({
                   message: "Response body schema invalid",
-                  error: output.error,
+                  error: z.prettifyError(output.error).split("\n"),
                   body: response.body,
                 });
               }
@@ -359,7 +359,7 @@ export function twoStroke<T>(
         const parsedBatch = batch.messages.map((message) => {
           const passed = input.safeParse(message.body);
           if (!passed.success) {
-            console.error(passed.error, message);
+            console.error(z.prettifyError(passed.error).split("\n"), message);
           }
           return passed;
         });
