@@ -27,15 +27,15 @@
     "openapi-typescript": "^7.13.0",
     "toucan-js": "^4.1.1",
     "typescript": "^6.0.3",
-    "zod": "^4.4.3"
+    "zod": "^4.6.4"
   },
   "devDependencies": {
     "@cloudflare/vitest-pool-workers": "^0.22.0",
-    "knip": "^6.31.0",
+    "knip": "^6.35.1",
     "oxfmt": "^0.67.0",
-    "oxlint": "^1.76.0",
+    "oxlint": "^1.82.0",
     "oxlint-tsgolint": "^7.0.2001",
-    "vitest": "^5.0.0"
+    "vitest": "^4.1.11"
   },
   "peerDependencies": {
     "@sentry/cli": ">=3.6.0",
