@@ -12,6 +12,12 @@ export default defineConfig({
     style: "warn",
   },
   rules: {
+    /*
+     * Serial by intent, in every case seen across the fleet: retry backoff, cursor
+     * paging, D1 batch chunking, rate-limited API walks, try-each-key-until-one-works.
+     * two-stroke's own request loop is three of them. Worth seeing, not worth gating on.
+     */
+    "no-await-in-loop": "warn",
     "no-map-spread": "off",
     "no-named-export": "off",
     "no-magic-numbers": "off",
@@ -65,12 +71,25 @@ export default defineConfig({
     "unicorn/number-literal-case": "off",
     "eslint/one-var": "off",
     "vitest/prefer-called-once": "off",
+    // `toEqual` ignores keys written as `undefined`; `toStrictEqual` does not. Fixtures
+    // Spell those out on purpose, so the fix changes what a test asserts.
+    "vitest/prefer-strict-equal": "off",
+    // `vi.mock(import("x"))` does not type-check against vi.mock's overloads.
+    "vitest/prefer-import-in-mock": "off",
+    // A mock standing in for a whole module would restate that module's signatures.
+    "vitest/require-mock-type-parameters": "off",
+    // Custom assertion helpers are invisible to it, so it cannot tell an unasserted
+    // Test from an asserted one.
+    "vitest/expect-expect": "warn",
   },
   overrides: [
     {
-      files: ["*.test.ts", "*.spec.ts"],
+      files: ["*.test.ts", "*.test.tsx", "*.spec.ts", "*.spec.tsx"],
       rules: {
         "@typescript-eslint/no-explicit-any": "off",
+        // Tests stash a method to restore it after stubbing. It is never called, so
+        // `this` never matters.
+        "unbound-method": "off",
       },
     },
     {
