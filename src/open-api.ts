@@ -36,7 +36,6 @@ const jsonSchema = (
     $schema: _$schema,
     $defs,
     ...json
-    // oxlint-disable-next-line typescript/no-unsafe-type-assertion
   } = z.toJSONSchema(schema, { io }) as Record<string, unknown> & {
     $defs?: Record<string, unknown>;
   };

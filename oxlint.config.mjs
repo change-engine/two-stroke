@@ -18,6 +18,8 @@ export default defineConfig({
      * two-stroke's own request loop is three of them. Worth seeing, not worth gating on.
      */
     "no-await-in-loop": "warn",
+    // Judge a wrapped comment by its first line, so the second can carry on the sentence.
+    "capitalized-comments": ["warn", "always", { ignoreConsecutiveComments: true }],
     "no-map-spread": "off",
     "no-named-export": "off",
     "no-magic-numbers": "off",
@@ -72,15 +74,20 @@ export default defineConfig({
     "eslint/one-var": "off",
     "vitest/prefer-called-once": "off",
     // `toEqual` ignores keys written as `undefined`; `toStrictEqual` does not. Fixtures
-    // Spell those out on purpose, so the fix changes what a test asserts.
+    // spell those out on purpose, so the fix changes what a test asserts.
     "vitest/prefer-strict-equal": "off",
     // `vi.mock(import("x"))` does not type-check against vi.mock's overloads.
     "vitest/prefer-import-in-mock": "off",
     // A mock standing in for a whole module would restate that module's signatures.
     "vitest/require-mock-type-parameters": "off",
-    // Custom assertion helpers are invisible to it, so it cannot tell an unasserted
-    // Test from an asserted one.
-    "vitest/expect-expect": "warn",
+    // Assertion helpers are `assert` or named `expect…` (`expectRedirect`), so it
+    // can see them; anything left over really asserts nothing.
+    "vitest/expect-expect": ["warn", { assertFunctionNames: ["expect", "expect*", "assert"] }],
+    // Route tests are titled by the request they make: "GET /thing", not "gET /thing".
+    "vitest/prefer-lowercase-title": [
+      "warn",
+      { allowedPrefixes: ["GET", "POST", "PUT", "DELETE", "PATCH", "JWT"] },
+    ],
   },
   overrides: [
     {
@@ -90,6 +97,9 @@ export default defineConfig({
         // Tests stash a method to restore it after stubbing. It is never called, so
         // `this` never matters.
         "unbound-method": "off",
+        // A helper belongs next to the only test that uses it; hoisting it to module
+        // scope saves nothing in a test run and puts it out of sight.
+        "unicorn/consistent-function-scoping": "off",
       },
     },
     {

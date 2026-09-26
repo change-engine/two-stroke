@@ -77,3 +77,21 @@ async function waitUntil(condition: () => void, time = 100) {
     await waitUntil(condition, time);
   }
 }
+
+type DeepPartial<T> =
+  T extends Promise<infer U>
+    ? Promise<DeepPartial<U>>
+    : T extends (...args: infer A) => infer R
+      ? (...args: A) => DeepPartial<R>
+      : T extends object
+        ? { [K in keyof T]?: DeepPartial<T[K]> }
+        : T;
+
+/**
+ * A test double that implements only what the test touches. Every member it does give
+ * is checked against `T`, which `fake as unknown as T` would not do; the members left
+ * out are the test's promise not to call them.
+ */
+export const partial = <T>(fake: DeepPartial<T>): T =>
+  // oxlint-disable-next-line typescript/no-unsafe-type-assertion -- the one sanctioned cast, see above
+  fake as T;
