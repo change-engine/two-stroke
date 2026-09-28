@@ -55,10 +55,27 @@ export default defineConfig({
     "init-declarations": "off",
     "unicorn/number-literal-case": "off",
     "eslint/one-var": "off",
+    // A ternary only reads better when both branches fit on one line.
+    "unicorn/prefer-ternary": ["error", "only-single-line"],
+    "unicorn/prefer-spread": "off", // Upstream bug
+    // Positional capture groups are used throughout; naming them all would
+    // reindex every `match[n]` consumer for no functional gain.
+    "eslint/prefer-named-capture-group": "off",
+    // Stylesheets can only be pulled in for their side effects.
+    "import/no-unassigned-import": ["error", { allow: ["**/*.css", "**/*.scss"] }],
   },
   overrides: [
     {
-      files: ["*.test.ts", "*.test.tsx", "*.spec.ts", "*.spec.tsx"],
+      // Mocks and page factories are test code too, and use vitest.
+      files: [
+        "*.test.ts",
+        "*.test.tsx",
+        "*.spec.ts",
+        "*.spec.tsx",
+        "e2e/**",
+        "**/__mocks__/**",
+        "**/__factories__/**",
+      ],
       plugins: ["vitest"],
       rules: {
         "vitest/require-hook": "off",
@@ -78,20 +95,27 @@ export default defineConfig({
         "vitest/prefer-import-in-mock": "off",
         // A mock standing in for a whole module would restate that module's signatures.
         "vitest/require-mock-type-parameters": "off",
-        // Assertion helpers are `assert` or named `expect…` (`expectRedirect`), so it
-        // can see them; anything left over really asserts nothing.
-        "vitest/expect-expect": ["error", { assertFunctionNames: ["expect", "expect*", "assert"] }],
-        // Route tests are titled by the request they make: "GET /thing", not "gET /thing".
-        "vitest/prefer-lowercase-title": [
+        // Assertion helpers are named `expect…` or `assert…` (`expectRedirect`), or are
+        // page-object methods that wrap expect(), so it can see them; anything left over
+        // really asserts nothing.
+        "vitest/expect-expect": [
           "error",
-          { allowedPrefixes: ["GET", "POST", "PUT", "DELETE", "PATCH", "JWT"] },
+          { assertFunctionNames: ["expect*", "assert*", "page.expect*", "page.*Present"] },
         ],
+        "vitest/prefer-lowercase-title": "off",
         // Tests stash a method to restore it after stubbing. It is never called, so
         // `this` never matters.
         "unbound-method": "off",
         // A helper belongs next to the only test that uses it; hoisting it to module
         // scope saves nothing in a test run and puts it out of sight.
         "unicorn/consistent-function-scoping": "off",
+        "vitest/no-conditional-expect": "off",
+        "vitest/prefer-called-with": "off",
+        "prefer-arrow-callback": "off",
+        "vitest/consistent-vitest-vi": "off", // Upstream bug
+        "vitest/consistent-test-filename": "off",
+        // UI steps, polling and findBy queries are sequential by design.
+        "eslint/no-await-in-loop": "off",
       },
     },
     {
