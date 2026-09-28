@@ -24,3 +24,5 @@ jobs:
       - run: pnpm tsc --noEmit
 
       - run: pnpm knip
+
+      - run: pnpm test

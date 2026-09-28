@@ -8,17 +8,17 @@ Two-stroke is a lightweight TypeScript framework for building type-safe APIs on 
 
 ## Commands
 
-All commands are exposed as bin scripts (no `npm run` prefix needed when installed):
+All commands are exposed as bin scripts (no `npm run` prefix needed when installed). In this repo, `package.json` `scripts` point at the same `bin/` files, so `pnpm lint`, `pnpm test` etc. behave identically here:
 
 - **`pnpm lint`** — ESLint + Prettier check (fails on violations)
 - **`pnpm format`** — ESLint fix + Prettier write
-- **`pnpm test`** — Builds with `wrangler deploy --dry-run`, then runs Vitest with Cloudflare Workers pool (Miniflare)
+- **`pnpm test`** — Builds with `wrangler deploy --dry-run`, then runs Vitest with Cloudflare Workers pool (Miniflare). Here it tests the fixture app in `src/fake.ts` via `test/index.test.ts`
 - **`pnpm type-check`** — `wrangler deploy --dry-run` + `tsc --noEmit`
 - **`pnpm dev`** — Local dev server via `wrangler dev`
 - **`pnpm deploy <env> <version>`** — Deploy with Sentry release tracking
 - **`pnpm api-types <url>`** — Generate TypeScript types from an OpenAPI endpoint
 
-There is no way to run a single test file directly — use Vitest's built-in filtering (e.g., `vitest run src/foo.test.ts`).
+Arguments pass through to Vitest, e.g. `pnpm test test/index.test.ts` or `pnpm test --watch`.
 
 ## Architecture
 

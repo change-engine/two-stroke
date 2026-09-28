@@ -4,16 +4,20 @@ import fs from "fs";
 import { Miniflare } from "miniflare";
 import openapiTS from "openapi-typescript";
 import { format } from "oxfmt";
+import path from "path";
 import consumers from "stream/consumers";
 import ts from "typescript";
 import { cmd } from "../src/cmd.mjs";
 
 if (fs.existsSync("wrangler.jsonc")) {
   cmd("wrangler deploy --env=  --dry-run --outdir=dist");
-  const config = JSON.parse(fs.readFileSync("wrangler.jsonc", "utf8"));
+  const { config } = ts.parseConfigFileTextToJson(
+    "wrangler.jsonc",
+    fs.readFileSync("wrangler.jsonc", "utf8"),
+  );
   const miniflare = new Miniflare({
     modules: true,
-    scriptPath: "dist/index.js",
+    scriptPath: `dist/${path.basename(config.main, path.extname(config.main))}.js`,
     compatibilityDate: config.compatibility_date,
     compatibilityFlags: config.compatibility_flags,
   });
