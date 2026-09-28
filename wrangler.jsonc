@@ -1,9 +1,14 @@
 {
-  "compatibility_date": "2025-09-15",
-  "compatibility_flags": ["nodejs_compat", "disable_nodejs_fs_module"],
+  "name": "two-stroke",
+  "compatibility_date": "2026-08-06",
+  "compatibility_flags": ["nodejs_compat"],
   "main": "src/fake.ts",
   "vars": {
-    "TOKEN_ISSUER": "fake",
+    "TOKEN_ISSUER": "https://issuer.example.com",
     "TOKEN_AUDIENCE": "fake",
-  },
+    // PBKDF2 hash of "secret"
+    "API_KEY": "AAAA5lB5MJ+hxn6eMHDqzhvo7AAD6NOVOrGlR0YA1JY/hUZN4qvwjdPRwfn5MSvD6Z3m+kN2",
+    "SENTRY_DSN": "https://public@sentry.example.com/1",
+    "SENTRY_ENVIRONMENT": "test"
+  }
 }

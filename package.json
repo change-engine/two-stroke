@@ -19,6 +19,13 @@
   },
   "type": "module",
   "main": "src/index.ts",
+  "scripts": {
+    "dev": "node bin/dev.mjs",
+    "format": "node bin/format.mjs",
+    "lint": "node bin/lint.mjs",
+    "test": "node bin/test.mjs",
+    "type-check": "node bin/type-check.mjs"
+  },
   "dependencies": {
     "jose": "^6.2.12",
     "mime": "^4.1.0",
@@ -31,10 +38,11 @@
   },
   "devDependencies": {
     "@cloudflare/vitest-pool-workers": "^0.22.0",
-    "knip": "^6.37.0",
+    "@types/node": "^26.6.2",
+    "knip": "^6.38.0",
     "oxfmt": "^0.70.0",
     "oxlint": "^1.83.0",
-    "oxlint-tsgolint": "^7.0.2002",
+    "oxlint-tsgolint": "^7.0.2003",
     "vitest": "^4.1.11"
   },
   "peerDependencies": {
