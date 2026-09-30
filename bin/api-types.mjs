@@ -1,9 +1,9 @@
 #!/usr/bin/env node
 
+import ts from "@typescript/typescript6";
 import fs from "node:fs";
-import openapiTS from "openapi-typescript";
 import { format } from "oxfmt";
-import ts from "typescript";
+import openapiTS from "../src/openapi-typescript.mjs";
 
 const services = process.argv[2].split(",");
 
