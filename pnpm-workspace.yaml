@@ -4,5 +4,7 @@ minimumReleaseAgeExclude:
   - "pbkdf-subtle"
   - "eslint-config-two-stroke"
 trustPolicy: no-downgrade
+trustPolicyExclude:
+  - "why-is-node-running@3.2.2"
 ignoreScripts: true
 blockExoticSubdeps: true

@@ -1,13 +1,13 @@
 #!/usr/bin/env node
 "use strict";
+import ts from "@typescript/typescript6";
 import fs from "fs";
 import { Miniflare } from "miniflare";
-import openapiTS from "openapi-typescript";
 import { format } from "oxfmt";
 import path from "path";
 import consumers from "stream/consumers";
-import ts from "typescript";
 import { cmd } from "../src/cmd.mjs";
+import openapiTS from "../src/openapi-typescript.mjs";
 
 if (fs.existsSync("wrangler.jsonc")) {
   cmd("wrangler deploy --env=  --dry-run --outdir=dist");
@@ -15,11 +15,34 @@ if (fs.existsSync("wrangler.jsonc")) {
     "wrangler.jsonc",
     fs.readFileSync("wrangler.jsonc", "utf8"),
   );
+  const mainModule = `${path.basename(config.main, path.extname(config.main))}.js`;
+  const moduleTypes = { ".js": "esm", ".mjs": "esm", ".cjs": "cjs", ".wasm": "wasm" };
+  const modules = Object.fromEntries(
+    fs
+      .readdirSync("dist")
+      .filter((file) => moduleTypes[path.extname(file)])
+      .map((file) => [
+        file,
+        {
+          type: moduleTypes[path.extname(file)],
+          contents:
+            path.extname(file) === ".wasm"
+              ? new Uint8Array(fs.readFileSync(`dist/${file}`))
+              : fs.readFileSync(`dist/${file}`, "utf8"),
+        },
+      ]),
+  );
   const miniflare = new Miniflare({
-    modules: true,
-    scriptPath: `dist/${path.basename(config.main, path.extname(config.main))}.js`,
-    compatibilityDate: config.compatibility_date,
-    compatibilityFlags: config.compatibility_flags,
+    workers: [
+      {
+        config: {
+          name: config.name,
+          compatibilityDate: config.compatibility_date,
+          compatibilityFlags: config.compatibility_flags,
+          manifest: { mainModule, modules },
+        },
+      },
+    ],
   });
   const request = await fetch(`${await miniflare.ready}doc`);
   await miniflare.dispose();
