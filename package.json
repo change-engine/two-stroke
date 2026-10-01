@@ -55,14 +55,6 @@
     "vitest": "^4",
     "wrangler": ">=3"
   },
-  "prettier": {
-    "printWidth": 100
-  },
-  "eslintConfig": {
-    "extends": [
-      "two-stroke"
-    ]
-  },
   "engines": {
     "node": "^24.9.0"
   },

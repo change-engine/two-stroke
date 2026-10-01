@@ -393,11 +393,11 @@ Builds the worker with `wrangler deploy --dry-run`, generates TypeScript types f
 
 ### `lint`
 
-Runs `eslint --cache --max-warnings=0` followed by `prettier --cache --check .`. Fails on any violation.
+Runs [oxlint](https://oxc.rs/docs/guide/usage/linter) (type-aware, with unused disable directives reported as errors) followed by `oxfmt --check`. Fails on any violation. If the project has a `wrangler.jsonc`, it first checks that `worker-configuration.d.ts` is up to date with `wrangler types --check`.
 
 ### `format`
 
-Runs `eslint --cache --fix` followed by `prettier --cache --write .`.
+Runs [oxfmt](https://oxc.rs/docs/guide/usage/formatter) to format files, followed by `oxlint --fix`.
 
 ### `type-check`
 

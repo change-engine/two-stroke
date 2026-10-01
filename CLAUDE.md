@@ -10,8 +10,8 @@ Two-stroke is a lightweight TypeScript framework for building type-safe APIs on 
 
 All commands are exposed as bin scripts (no `npm run` prefix needed when installed). In this repo, `package.json` `scripts` point at the same `bin/` files, so `pnpm lint`, `pnpm test` etc. behave identically here:
 
-- **`pnpm lint`** — ESLint + Prettier check (fails on violations)
-- **`pnpm format`** — ESLint fix + Prettier write
+- **`pnpm lint`** — oxlint (type-aware) + oxfmt check (fails on violations)
+- **`pnpm format`** — oxfmt write + oxlint fix
 - **`pnpm test`** — Builds with `wrangler deploy --dry-run`, then runs Vitest with Cloudflare Workers pool (Miniflare). Here it tests the fixture app in `src/fake.ts` via `test/index.test.ts`
 - **`pnpm type-check`** — `wrangler deploy --dry-run` + `tsc --noEmit`
 - **`pnpm dev`** — Local dev server via `wrangler dev`
@@ -45,6 +45,6 @@ Arguments pass through to Vitest, e.g. `pnpm test test/index.test.ts` or `pnpm t
 - **ESM only** — `"type": "module"` with `verbatimModuleSyntax` in tsconfig
 - **Strict TypeScript** — `strict: true`, `noUncheckedIndexedAccess: true`, `isolatedModules: true`
 - **Node 24.9+** required, pnpm 10.30+ via Corepack
-- **Prettier** — 100 char print width
-- **ESLint config** — extends `eslint-config-two-stroke`
+- **oxfmt** — formatter (100 char print width, sorted imports), configured in `oxfmt.config.mjs`
+- **oxlint** — type-aware linter via `oxlint-tsgolint`, configured in `oxlint.config.mjs`. Not ESLint or Prettier; don't add their configs or disable comments
 - **Testing** — Vitest with `@cloudflare/vitest-pool-workers` pool; globals enabled (no imports needed for `describe`, `it`, `expect`)
