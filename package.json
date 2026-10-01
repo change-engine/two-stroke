@@ -41,8 +41,8 @@
     "@cloudflare/vitest-pool-workers": "^0.22.0",
     "@types/node": "^26.6.3",
     "knip": "^6.38.0",
-    "oxfmt": "^0.70.0",
-    "oxlint": "^1.85.0",
+    "oxfmt": "^0.71.0",
+    "oxlint": "^1.86.0",
     "oxlint-tsgolint": "^7.0.2003",
     "vitest": "^4.1.11"
   },
