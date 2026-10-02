@@ -8,8 +8,9 @@ export type Route<T, A> =
       path: string;
       matcher: RegExp;
       output: ZodType;
+      // oxlint-disable-next-line typescript/no-explicit-any -- routes with different output types share one list
       handler: Handler<T, undefined, any, A, string>;
-      params?: ZodObject<any>;
+      params?: ZodObject;
     }
   | {
       auth: (c: { req: Request; env: T }) => Promise<A>;
@@ -18,8 +19,9 @@ export type Route<T, A> =
       matcher: RegExp;
       input: ZodType | undefined;
       output: ZodType;
+      // oxlint-disable-next-line typescript/no-explicit-any -- routes with different body and output types share one list
       handler: Handler<T, any, any, A, string>;
-      params?: ZodObject<any>;
+      params?: ZodObject;
     };
 
 type ExtractParameterNames<S extends string> = S extends `${string}{${infer Name}}${infer Rest}`

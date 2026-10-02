@@ -20,7 +20,7 @@ export const setupTests = async <Paths extends {}>() => {
     client,
     msw,
     waitForQueue: async (trigger: () => Promise<void>) => {
-      const log: any[] = [];
+      const log: unknown[] = [];
       const orig = console.log;
       console.log = (message) => {
         orig(message);

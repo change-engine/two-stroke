@@ -16,7 +16,9 @@ export function twoStroke<T>(
   release: string,
   origin?: (o: string | null) => string,
 ) {
+  // oxlint-disable-next-line typescript/no-explicit-any -- the queue handler is registered later with its own message type
   let _queue: (c: { batch: MessageBatch<any>; env: T; sentry: Toucan }) => Promise<void>;
+  // oxlint-disable-next-line typescript/no-explicit-any -- routes with different claims types share one list
   const routes: Route<T, any>[] = [];
   routes.push({
     auth: noAuth,
@@ -373,7 +375,7 @@ export function twoStroke<T>(
       input: I,
       output: O,
       handler: Handler<T, I, O, A, P>,
-      params?: ZodObject<any>,
+      params?: ZodObject,
     ) {
       routes.push({
         auth,
@@ -395,7 +397,7 @@ export function twoStroke<T>(
       input: I,
       output: O,
       handler: Handler<T, I, O, A, P>,
-      params?: ZodObject<any>,
+      params?: ZodObject,
     ) {
       routes.push({
         auth,
@@ -416,7 +418,7 @@ export function twoStroke<T>(
       path: P,
       output: O,
       handler: Handler<T, undefined, O, A, P>,
-      params?: ZodObject<any>,
+      params?: ZodObject,
     ) {
       routes.push({
         auth,
@@ -435,7 +437,7 @@ export function twoStroke<T>(
       path: P,
       output: O,
       handler: Handler<T, undefined, O, A, P>,
-      params?: ZodObject<any>,
+      params?: ZodObject,
     ) {
       routes.push({
         auth,

@@ -73,7 +73,6 @@ export const openAPI =
             r.method.toLocaleLowerCase(),
             {
               parameters: [
-                // oxlint-disable-next-line typescript/no-unsafe-type-assertion
                 ...Object.entries((r.params?.shape ?? {}) as Record<string, ZodType>).map(
                   ([k, v]) => ({
                     name: k,

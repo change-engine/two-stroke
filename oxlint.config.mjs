@@ -65,6 +65,18 @@ export default defineConfig({
     "eslint/prefer-named-capture-group": "off",
     // Stylesheets can only be pulled in for their side effects.
     "import/no-unassigned-import": ["error", { allow: ["**/*.css", "**/*.scss"] }],
+    // Bug-catching rules oxc files under pedantic or restriction, which are not enabled wholesale.
+    "typescript/no-misused-promises": "error",
+    "typescript/switch-exhaustiveness-check": "error",
+    "typescript/only-throw-error": "error",
+    "eslint/array-callback-return": "error",
+    "typescript/no-deprecated": "error",
+    "eslint/eqeqeq": "error",
+    "typescript/no-explicit-any": "error",
+    "typescript/no-dynamic-delete": "error",
+    "import/no-cycle": "error",
+    "eslint/no-empty": "error",
+    "typescript/use-unknown-in-catch-callback-variable": "error",
   },
   overrides: [
     {

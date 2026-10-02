@@ -15,7 +15,7 @@ const ents = await fs.promises.readdir("dist", {
 const files = await Promise.all(
   ents
     .filter((ent) => ent.isFile())
-    .filter((ent) => (entryOrRest == "entry" ? entry.has(ent.name) : !entry.has(ent.name)))
+    .filter((ent) => (entryOrRest === "entry" ? entry.has(ent.name) : !entry.has(ent.name)))
     .map((ent) => {
       const type = mime.getType(`${ent.parentPath}/${ent.name}`);
       const key = `${ent.parentPath.substring(4)}/${ent.name}`;

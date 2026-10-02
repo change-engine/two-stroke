@@ -2,10 +2,9 @@ import {
   createExecutionContext,
   createMessageBatch,
   createScheduledController,
-  env,
   waitOnExecutionContext,
 } from "cloudflare:test";
-import { exports } from "cloudflare:workers";
+import { env, exports } from "cloudflare:workers";
 import { HttpResponse, http } from "msw";
 import app, { cronRuns, queueResults } from "../src/fake";
 import { setupTests } from "../src/test";
