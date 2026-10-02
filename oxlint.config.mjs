@@ -68,7 +68,11 @@ export default defineConfig({
     // Bug-catching rules oxc files under pedantic or restriction, which are not enabled wholesale.
     "typescript/no-misused-promises": "error",
     "typescript/switch-exhaustiveness-check": "error",
-    "typescript/only-throw-error": "error",
+    // React Router loaders throw a Response (or `redirect()`) and Suspense throws a Promise.
+    "typescript/only-throw-error": [
+      "error",
+      { allow: [{ from: "lib", name: ["Response", "Promise"] }] },
+    ],
     "eslint/array-callback-return": "error",
     "typescript/no-deprecated": "error",
     "eslint/eqeqeq": "error",
