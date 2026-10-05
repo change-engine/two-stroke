@@ -48,6 +48,7 @@
     "vitest": "^4.1.11"
   },
   "peerDependencies": {
+    "@cloudflare/vitest-pool-workers": ">=0.22.0",
     "@sentry/cli": ">=3.6.0",
     "miniflare": "^5.20260925.0-alpha",
     "oxfmt": ">=0.58.0",

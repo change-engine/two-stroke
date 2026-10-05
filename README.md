@@ -322,6 +322,26 @@ A `GET /doc` endpoint is automatically registered and serves an OpenAPI 3.1.0 sp
 
 Two-stroke exports testing utilities from `two-stroke/test` designed for use with Vitest and `@cloudflare/vitest-pool-workers`.
 
+### Vitest config
+
+`two-stroke/vitest.config.mjs` is a stock config: the Workers pool reading `wrangler.jsonc`, globals, a 30s test timeout, and Vitest's default excludes plus `.claude/worktrees/**`. Use it as-is:
+
+```typescript
+// vitest.config.ts
+export { default } from "two-stroke/vitest.config.mjs";
+```
+
+or extend it with `mergeConfig`, which appends arrays such as `exclude` rather than replacing them:
+
+```typescript
+import base from "two-stroke/vitest.config.mjs";
+import { defineConfig, mergeConfig } from "vitest/config";
+
+export default mergeConfig(base, defineConfig({ test: { testTimeout: 60_000 } }));
+```
+
+Because the settings live in the config file, editor integrations such as the VS Code Vitest extension pick them up too, not only the `test` command.
+
 ### `setupTests<Paths>()`
 
 Initializes the test environment. Call once per test file. Returns:
