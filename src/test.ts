@@ -1,11 +1,11 @@
+import { setupNetwork } from "@msw/cloudflare";
 import { env, exports } from "cloudflare:workers";
 import { type JWTPayload, SignJWT, exportJWK, generateKeyPair } from "jose";
 import { HttpResponse, http } from "msw";
-import { setupServer } from "msw/node";
 import createClient from "openapi-fetch";
 
-const msw = setupServer();
-msw.listen();
+const msw = setupNetwork();
+msw.enable();
 
 export const setupTests = async <Paths extends {}>() => {
   const url = new URL("https://example.com/");
