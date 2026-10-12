@@ -365,6 +365,7 @@ Initializes the test environment. Call once per test file. Returns:
 
 ```typescript
 import { setupTests } from "two-stroke/test";
+
 import type { paths } from "./api";
 
 const { client, fetchMock, fakeJWK, waitForQueue } = await setupTests<paths>();
