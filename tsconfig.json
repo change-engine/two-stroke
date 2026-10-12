@@ -11,11 +11,7 @@
     "skipLibCheck": true,
     "strict": true,
     "target": "ESNext",
-    "types": [
-      "./worker-configuration.d.ts",
-      "vitest/globals",
-      "@cloudflare/vitest-pool-workers/types"
-    ],
+    "types": ["./worker-configuration.d.ts", "vitest/globals", "@cloudflare/vitest-plugin/types"],
     "verbatimModuleSyntax": true
   },
   "exclude": ["../../dist", "oxfmt.config.ts", "oxlint.config.ts"]

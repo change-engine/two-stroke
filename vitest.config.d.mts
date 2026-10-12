@@ -1,4 +1,4 @@
-import type { cloudflareTest } from "@cloudflare/vitest-pool-workers";
+import type { cloudflareTest } from "@cloudflare/vitest-plugin";
 import type { UserConfig } from "vitest/config";
 
 export interface VitestConfigOptions {

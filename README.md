@@ -320,7 +320,7 @@ A `GET /doc` endpoint is automatically registered and serves an OpenAPI 3.1.0 sp
 
 ## Testing Utilities
 
-Two-stroke exports testing utilities from `two-stroke/test` designed for use with Vitest and `@cloudflare/vitest-pool-workers`.
+Two-stroke exports testing utilities from `two-stroke/test` designed for use with Vitest and `@cloudflare/vitest-plugin`.
 
 ### Vitest config
 
