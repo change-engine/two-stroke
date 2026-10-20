@@ -419,17 +419,17 @@ import { federationEntry } from "two-stroke/federation.mjs";
 
 const shared = { react: { singleton: true }, "react-dom": { singleton: true } };
 
-federation({ name: "cb", filename: federationEntry("cb", Object.keys(shared)), shared });
+federation({ name: "remote", filename: federationEntry("remote", Object.keys(shared)), shared });
 ```
 
 ```typescript
 // Host vite.config.ts
 remotes: {
-  cb: { type: "module", name: "cb", entry: `/${federationEntry("cb", ["react", "react-dom"])}` },
+  remote: { type: "module", name: "remote", entry: `/${federationEntry("remote", ["react", "react-dom"])}` },
 },
 ```
 
-Deploy with `bulk entry $(basename dist/cb_entry-*.js)`.
+Deploy with `bulk entry $(basename dist/remote_entry-*.js)`.
 
 ## CLI Commands
 

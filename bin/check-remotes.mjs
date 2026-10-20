@@ -17,7 +17,8 @@ for (const remote of Object.values(federation?._options.remotes ?? {})) {
   const url = new URL(remote.entry, `https://${process.env.DOMAIN}`);
   // oxlint-disable-next-line no-await-in-loop -- a handful of remotes, and the output stays in order
   const res = await fetch(url);
-  // Unknown paths fall back to index.html with a 200, so check it is the entry script.
+  // A single-page app fallback can answer a missing path with index.html and a 200, so check it is
+  // the entry script.
   if (res.ok && res.headers.get("Content-Type")?.startsWith("text/javascript")) {
     console.log(`✓ ${url}`);
   } else {
