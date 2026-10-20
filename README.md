@@ -409,6 +409,28 @@ Same as `recordRequest` but also decodes and parses a base64-encoded `Record.Dat
 
 ---
 
+## Module Federation
+
+`federationEntry(name, shared)` from `two-stroke/federation.mjs` names a remote's entry `<name>_entry-<hash>.js`, hashing the installed major version of each shared library. A major upgrade gives a new name, so the host keeps loading the old entry until it is released with the same majors. Remote and host must pass the same list.
+
+```typescript
+// Remote vite.config.ts
+import { federationEntry } from "two-stroke/federation.mjs";
+
+const shared = { react: { singleton: true }, "react-dom": { singleton: true } };
+
+federation({ name: "cb", filename: federationEntry("cb", Object.keys(shared)), shared });
+```
+
+```typescript
+// Host vite.config.ts
+remotes: {
+  cb: { type: "module", name: "cb", entry: `/${federationEntry("cb", ["react", "react-dom"])}` },
+},
+```
+
+Deploy with `bulk entry $(basename dist/cb_entry-*.js)`.
+
 ## CLI Commands
 
 Two-stroke provides executable bin scripts. In consuming projects, these are available directly as commands (e.g. `npx dev`, `npx test`). For framework development, run them with `pnpm`:
@@ -455,6 +477,10 @@ Uploads files from `dist/` to a Cloudflare KV namespace. Used for serving static
 - `bulk rest index.html` — uploads everything except the entry file (with immutable cache control)
 
 Requires `NAMESPACE` and `DOMAIN` environment variables.
+
+### `check-remotes`
+
+Run in a module federation host before deploying it. Loads `vite.config.ts` as `vite build` would and fetches each federation remote's entry from `https://$DOMAIN`. Fails unless every entry is served as JavaScript, so a host built against new shared majors can't go out before its remotes have.
 
 ## License
 

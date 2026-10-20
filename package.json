@@ -10,6 +10,7 @@
   "bin": {
     "api-types": "./bin/api-types.mjs",
     "bulk": "./bin/bulk.mjs",
+    "check-remotes": "./bin/check-remotes.mjs",
     "deploy": "./bin/deploy.mjs",
     "dev": "./bin/dev.mjs",
     "format": "./bin/format.mjs",

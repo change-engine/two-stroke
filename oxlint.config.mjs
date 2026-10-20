@@ -137,7 +137,7 @@ export default defineConfig({
       },
     },
     {
-      files: ["bin/*.mjs", "src/cmd.mjs", "src/openapi-typescript.mjs"],
+      files: ["bin/*.mjs", "federation.mjs", "src/cmd.mjs", "src/openapi-typescript.mjs"],
       rules: {
         "import/no-nodejs-modules": "off",
         "prefer-destructuring": "off",
