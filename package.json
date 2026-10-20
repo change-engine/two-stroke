@@ -31,22 +31,22 @@
     "@msw/cloudflare": "^0.2.0",
     "@typescript/typescript6": "^6.0.2",
     "jose": "^6.2.12",
-    "mime": "^4.1.0",
-    "msw": "^3.0.2",
+    "mime": "^4.1.1",
+    "msw": "^3.0.3",
     "openapi-fetch": "^0.17.0",
     "openapi-typescript": "^7.13.0",
     "toucan-js": "^4.1.1",
     "typescript": "^7.0.2",
-    "zod": "^4.6.5"
+    "zod": "^4.6.7"
   },
   "devDependencies": {
-    "@cloudflare/vitest-plugin": "^1.4.0",
-    "@types/node": "^26.6.4",
+    "@cloudflare/vitest-plugin": "^1.4.4",
+    "@types/node": "^26.6.5",
     "knip": "^6.41.0",
     "oxfmt": "^0.73.0",
-    "oxlint": "^1.87.0",
-    "oxlint-tsgolint": "^7.0.2003",
-    "vitest": "^5.0.3"
+    "oxlint": "^1.88.0",
+    "oxlint-tsgolint": "^7.0.2004",
+    "vitest": "^5.0.5"
   },
   "peerDependencies": {
     "@cloudflare/vitest-plugin": ">=1.4.0",
