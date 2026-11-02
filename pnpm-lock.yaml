@@ -22,7 +22,7 @@ importers:
         version: 6.2.13
       mime:
         specifier: ^4.1.1
-        version: 4.1.1
+        version: 4.1.2
       miniflare:
         specifier: ^5.20260925.0-alpha
         version: 5.20260925.0-alpha(@types/node@26.6.5)
@@ -1882,8 +1882,8 @@ packages:
   magic-string@1.4.3:
     resolution: {integrity: sha512-z12OxmaPGE0F4xlpGdjuAUckipLpQlTAuAmyGhNoD7ODpYUzvDfvtxUbjM/jwznyP178oju/KDdyi220wNJ0RQ==}
 
-  mime@4.1.1:
-    resolution: {integrity: sha512-YAApRsTpM2+gnUFHhRNGfkX8NK0V5xj1nyQLufGlwEI+eX4xRsTcel2IXDuMEGSGjBvzykNW4VuoEACgwYe7BQ==}
+  mime@4.1.2:
+    resolution: {integrity: sha512-ikRzZ2RwbUVDyL9SsU0f2Phcmav4yq5r8faH5ZZKHtOZrMBLnrQOrj0uvqZ5R1uQnj+RO7Wcklw/lAf81mP9LQ==}
     engines: {node: '>=16'}
     hasBin: true
 
@@ -3569,7 +3569,7 @@ snapshots:
     dependencies:
       '@jridgewell/sourcemap-codec': 1.6.0
 
-  mime@4.1.1: {}
+  mime@4.1.2: {}
 
   miniflare@5.20260925.0-alpha(@types/node@26.6.5):
     dependencies:
