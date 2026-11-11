@@ -1,4 +1,4 @@
 {
   "entry": ["src/*.ts", "federation.mjs", "oxlint.config.mjs", "oxfmt.config.mjs"],
-  "ignoreDependencies": ["cloudflare"]
+  "ignoreDependencies": ["cloudflare", "miniflare"]
 }

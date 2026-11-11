@@ -2,7 +2,6 @@
 "use strict";
 import ts from "@typescript/typescript6";
 import fs from "fs";
-import { Miniflare } from "miniflare";
 import { format } from "oxfmt";
 import path from "path";
 import consumers from "stream/consumers";
@@ -32,6 +31,8 @@ if (fs.existsSync("wrangler.jsonc")) {
         },
       ]),
   );
+  // An optional peer: only a worker has it
+  const { Miniflare } = await import("miniflare");
   const miniflare = new Miniflare({
     workers: [
       {
