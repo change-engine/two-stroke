@@ -19,7 +19,7 @@ importers:
         version: 6.0.2
       jose:
         specifier: ^6.2.15
-        version: 6.2.16
+        version: 6.2.17
       mime:
         specifier: ^4.1.2
         version: 4.1.2
@@ -1746,8 +1746,8 @@ packages:
     resolution: {integrity: sha512-AC/7JofJvZGrrneWNaEnJeOLUx+JlGt7tNa0wZiRPT4MY1wmfKjt2+6O2p2uz2+skll8OZZmJMNqeke7kKbNgQ==}
     hasBin: true
 
-  jose@6.2.16:
-    resolution: {integrity: sha512-4LSJpbuBuPdGrONCdZUy0xnxtLf8eEz+EY0SMXdHQEBU7bgUHDVblU/JAjryv3wID9/LK7/YuwFwq+AQNfMscQ==}
+  jose@6.2.17:
+    resolution: {integrity: sha512-wOuK9V1yujQFH5S0ZWmLcDZN7+IKh9bUCC2ZPCf2HDlol3WWHy+PPyNjEI75FXRLMp3vDKQcupP59xhVU95hcg==}
 
   js-levenshtein@1.1.6:
     resolution: {integrity: sha512-X2BB11YZtrRqY4EnQcLX5Rh373zbK4alC1FW7D7MBhL2gtcC17cTnr6DmfHZeS0s2rTHjUTMMHfG7gO8SSdw+g==}
@@ -3409,7 +3409,7 @@ snapshots:
 
   jiti@2.7.0: {}
 
-  jose@6.2.16: {}
+  jose@6.2.17: {}
 
   js-levenshtein@1.1.6: {}
 
