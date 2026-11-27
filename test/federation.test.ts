@@ -34,10 +34,17 @@ describe("muiMaterialShare", () => {
         "/app/node_modules/.pnpm/@mui+material@9/node_modules/@mui/material/index.mjs",
       ),
     ).toBeNull();
+    expect(
+      plugin.resolveId(
+        "@mui/material/Tabs",
+        String.raw`C:\app\node_modules\@mui\material\Tabs\Tabs.mjs`,
+      ),
+    ).toBeNull();
     expect(plugin.load("/app/src/theme.ts")).toBeNull();
   });
 
-  it("fails when the root's layout changes", () => {
-    expect(() => muiMaterialShare('export * from "./index.js";')).toThrow(/can't read/);
+  it("fails the build, not the config, when the root's layout changes", () => {
+    const changed = muiMaterialShare('export * from "./index.js";');
+    expect(() => changed.buildStart()).toThrow(/can't read/);
   });
 });
