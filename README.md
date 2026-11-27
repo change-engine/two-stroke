@@ -431,6 +431,14 @@ remotes: {
 
 Deploy with `bulk entry $(basename dist/remote_entry-*.js)`.
 
+A shared library is shared by its bare name only, and the runtime loads the highest version any app offers. A deep import such as `@mui/material/Tabs`, which @mui/lab and MUI X use, bundles a second copy, and components whose halves come from different copies lose their React context. `muiMaterialShare()` rewrites each deep import that `@mui/material`'s root re-exports into the bare name, so the app runs one copy. Add it to every app that shares `@mui/material`:
+
+```typescript
+import { federationEntry, muiMaterialShare } from "two-stroke/federation.mjs";
+
+plugins: [muiMaterialShare(), federation({ /* … */ })],
+```
+
 ## CLI Commands
 
 Two-stroke provides executable bin scripts. In consuming projects, these are available directly as commands (e.g. `npx dev`, `npx test`). For framework development, run them with `pnpm`:
